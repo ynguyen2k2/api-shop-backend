@@ -9,6 +9,7 @@ import { AllConfig } from '~/config/config'
 import { HeaderResolver, I18nModule } from 'nestjs-i18n'
 import { AllConfigType } from '~/config/config.type'
 import path from 'path'
+import { CategoriesModule } from './categories/categories.module'
 
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
@@ -18,8 +19,10 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   },
 })
 // </database-block>
+
 @Module({
   imports: [
+    CategoriesModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: AllConfig,

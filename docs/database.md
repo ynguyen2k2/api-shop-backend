@@ -58,3 +58,9 @@ npm run schema:drop
 ```
 
 ---
+
+## Generate new module
+
+```bash
+pnpm run generate:resource:relational -- --name Category
+```
