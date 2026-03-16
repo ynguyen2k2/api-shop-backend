@@ -2,7 +2,6 @@ import {
   // common
   Module,
 } from '@nestjs/common'
-import fileConfig from '~/files/config/file-config'
 import { FilesService } from '~/files/file.service'
 import { RelationalFilePersistenceModule } from '~/files/infrastructure/persistence/relational/relational-persistence.module'
 import { FilesLocalModule } from '~/files/infrastructure/upload/local/files.module'

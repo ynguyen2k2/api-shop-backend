@@ -29,8 +29,8 @@ import { infinityPagination } from '../utils/infinity-pagination'
 import { FindAllCategoriesDto } from './dto/find-all-categories.dto'
 
 @ApiTags('Categories')
-// @ApiBearerAuth()
-// @UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @Controller({
   path: 'categories',
   version: '1',
@@ -109,4 +109,3 @@ export class CategoriesController {
     return this.categoriesService.remove(id)
   }
 }
-

@@ -27,8 +27,7 @@ import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
 import { RoleEnum } from '~/roles/roles-enum'
 import { StatusEnum } from '~/statuses/status-enum'
 import { MailService } from '~/mail/mail.service'
-import { myLogger, MyLogger } from '~/logger/mylogger.service'
-
+import { MyLogger } from '~/logger/mylogger.service'
 @Injectable()
 export class AuthService {
   constructor(

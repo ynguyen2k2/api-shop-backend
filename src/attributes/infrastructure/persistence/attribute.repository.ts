@@ -5,7 +5,7 @@ import { Attribute } from '~/attributes/domain/attribute'
 
 export abstract class AttributeRepository {
   abstract create(
-    data: Omit<Attribute, 'id' | 'createdAt' | 'updatedAt'>,
+    data: Omit<Attribute, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
   ): Promise<Attribute>
 
   abstract findAllWithPagination({

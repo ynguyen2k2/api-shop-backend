@@ -20,10 +20,12 @@ export class Attribute {
   @ApiProperty({ type: String })
   type: string
 
-  @ApiProperty({ type: String })
-  value: string
   @ApiProperty({ type: Date })
   createdAt: Date
-  @ApiProperty({ type: Date, default: null })
+
+  @ApiProperty({ type: Date })
   updatedAt: Date
+
+  @ApiProperty({ type: Date })
+  deletedAt: Date
 }

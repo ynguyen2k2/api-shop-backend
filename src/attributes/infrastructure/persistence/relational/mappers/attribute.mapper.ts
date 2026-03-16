@@ -8,10 +8,9 @@ export class AttributeMapper {
     domainEntity.name = raw.name
     domainEntity.slug = raw.slug
     domainEntity.type = raw.type
-    domainEntity.value = raw.value
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
-
+    domainEntity.deletedAt = raw.deletedAt
     return domainEntity
   }
 
@@ -23,10 +22,9 @@ export class AttributeMapper {
     persistenceEntity.name = domainEntity.name
     persistenceEntity.slug = domainEntity.slug
     persistenceEntity.type = domainEntity.type
-    persistenceEntity.value = domainEntity.value
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
-
+    persistenceEntity.deletedAt = domainEntity.deletedAt
     return persistenceEntity
   }
 }

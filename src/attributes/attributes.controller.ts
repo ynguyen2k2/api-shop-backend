@@ -8,29 +8,29 @@ import {
   Delete,
   UseGuards,
   Query,
-} from '@nestjs/common';
-import { AttributesService } from './attributes.service';
-import { CreateAttributeDto } from './dto/create-attribute.dto';
-import { UpdateAttributeDto } from './dto/update-attribute.dto';
+} from '@nestjs/common'
+import { AttributesService } from './attributes.service'
+import { CreateAttributeDto } from './dto/create-attribute.dto'
+import { UpdateAttributeDto } from './dto/update-attribute.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiParam,
   ApiTags,
-} from '@nestjs/swagger';
-import { Attribute } from './domain/attribute';
-import { AuthGuard } from '@nestjs/passport';
+} from '@nestjs/swagger'
+import { Attribute } from './domain/attribute'
+import { AuthGuard } from '@nestjs/passport'
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
-} from '../utils/dto/infinity-pagination-response.dto';
-import { infinityPagination } from '../utils/infinity-pagination';
-import { FindAllAttributesDto } from './dto/find-all-attributes.dto';
+} from '../utils/dto/infinity-pagination-response.dto'
+import { infinityPagination } from '../utils/infinity-pagination'
+import { FindAllAttributesDto } from './dto/find-all-attributes.dto'
 
 @ApiTags('Attributes')
-@ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
+// @ApiBearerAuth()
+// @UseGuards(AuthGuard('jwt'))
 @Controller({
   path: 'attributes',
   version: '1',
@@ -43,7 +43,7 @@ export class AttributesController {
     type: Attribute,
   })
   create(@Body() createAttributeDto: CreateAttributeDto) {
-    return this.attributesService.create(createAttributeDto);
+    return this.attributesService.create(createAttributeDto)
   }
 
   @Get()
@@ -53,10 +53,10 @@ export class AttributesController {
   async findAll(
     @Query() query: FindAllAttributesDto,
   ): Promise<InfinityPaginationResponseDto<Attribute>> {
-    const page = query?.page ?? 1;
-    let limit = query?.limit ?? 10;
+    const page = query?.page ?? 1
+    let limit = query?.limit ?? 10
     if (limit > 50) {
-      limit = 50;
+      limit = 50
     }
 
     return infinityPagination(
@@ -67,7 +67,7 @@ export class AttributesController {
         },
       }),
       { page, limit },
-    );
+    )
   }
 
   @Get(':id')
@@ -80,7 +80,7 @@ export class AttributesController {
     type: Attribute,
   })
   findById(@Param('id') id: string) {
-    return this.attributesService.findById(id);
+    return this.attributesService.findById(id)
   }
 
   @Patch(':id')
@@ -96,7 +96,7 @@ export class AttributesController {
     @Param('id') id: string,
     @Body() updateAttributeDto: UpdateAttributeDto,
   ) {
-    return this.attributesService.update(id, updateAttributeDto);
+    return this.attributesService.update(id, updateAttributeDto)
   }
 
   @Delete(':id')
@@ -106,6 +106,6 @@ export class AttributesController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.attributesService.remove(id);
+    return this.attributesService.remove(id)
   }
 }

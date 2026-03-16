@@ -6,7 +6,7 @@ import { DeepPartial } from '~/utils/type/deep-partial.type'
 export class CategoryMapper {
   static toDomain(raw: CategoryEntity): Category {
     const domainEntity = new Category()
-    let parentCategory: NullableType<DeepPartial<Category>> = new Category()
+    const parentCategory: NullableType<DeepPartial<Category>> = new Category()
     let childrenCategories: NullableType<DeepPartial<Category[]>> = []
 
     if (raw.parent) {
@@ -36,8 +36,11 @@ export class CategoryMapper {
     domainEntity.image = raw.image
     domainEntity.isActive = raw.isActive
     // Assign the safely mapped parent and explicitly mapped children arrays
-    domainEntity.parent = parentCategory.id ? (parentCategory as Category) : null
-    domainEntity.children = childrenCategories.length > 0 ? (childrenCategories as Category[]) : null
+    domainEntity.parent = parentCategory.id
+      ? (parentCategory as Category)
+      : null
+    domainEntity.children =
+      childrenCategories.length > 0 ? (childrenCategories as Category[]) : null
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
 
@@ -85,4 +88,3 @@ export class CategoryMapper {
     return persistenceEntity
   }
 }
-

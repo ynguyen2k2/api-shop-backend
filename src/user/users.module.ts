@@ -3,7 +3,7 @@ import { UsersController } from './users.controller'
 import { UsersService } from './users.service'
 import { RelationalUserPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
 import { FilesModule } from '~/files/file.module'
-import { MyLogger } from '~/logger/mylogger.service'
+// import { MyLogger } from '~/logger/mylogger.service'
 import { MyLoggerModule } from '~/logger/mylogger.module'
 
 // <database-block>

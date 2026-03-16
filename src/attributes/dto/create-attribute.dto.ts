@@ -16,9 +16,4 @@ export class CreateAttributeDto {
   @IsString()
   @IsNotEmpty()
   type: string
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  value: string
 }

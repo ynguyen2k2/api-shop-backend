@@ -7,7 +7,6 @@ import { UpdateCategoryDto } from './dto/update-category.dto'
 import { CategoryRepository } from './infrastructure/persistence/category.repository'
 import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { Category } from './domain/category'
-import { CategoryDto } from '~/categories/dto/category.dto'
 import { NullableType } from '~/utils/type/nullable.type'
 
 @Injectable()
@@ -109,4 +108,3 @@ export class CategoriesService {
     return this.categoryRepository.remove(id)
   }
 }
-

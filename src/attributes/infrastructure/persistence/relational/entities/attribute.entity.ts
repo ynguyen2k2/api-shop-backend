@@ -1,10 +1,13 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { AttributeValueEntity } from '~/attribute-values/infrastructure/persistence/relational/entities/attribute-value.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
@@ -19,16 +22,21 @@ export class AttributeEntity extends EntityRelationalHelper {
 
   @Column()
   slug: string
-
-  @Column()
+  @Column({ type: String, nullable: true })
   type: string
 
-  @Column()
-  value: string
+  @OneToMany(
+    () => AttributeValueEntity,
+    (attributeValue) => attributeValue.attribute,
+  )
+  attributeValues: AttributeValueEntity[]
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date
+
+  @DeleteDateColumn({ type: 'timestamp' })
+  deletedAt: Date
 }

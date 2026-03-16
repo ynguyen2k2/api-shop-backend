@@ -16,10 +16,7 @@ export class ProductsService {
     private readonly productRepository: ProductRepository,
   ) {}
 
-  async create(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createProductDto: CreateProductDto,
-  ) {
+  async create(createProductDto: CreateProductDto) {
     const slugProduct = slugify(createProductDto.name)
 
     return this.productRepository.create({

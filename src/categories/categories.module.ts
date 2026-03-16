@@ -1,10 +1,10 @@
 import {
   // do not remove this comment
   Module,
-} from '@nestjs/common';
-import { CategoriesService } from './categories.service';
-import { CategoriesController } from './categories.controller';
-import { RelationalCategoryPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module';
+} from '@nestjs/common'
+import { CategoriesService } from './categories.service'
+import { CategoriesController } from './categories.controller'
+import { RelationalCategoryPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
 
 @Module({
   imports: [

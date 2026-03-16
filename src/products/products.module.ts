@@ -1,10 +1,10 @@
 import {
   // do not remove this comment
   Module,
-} from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { ProductsController } from './products.controller';
-import { RelationalProductPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module';
+} from '@nestjs/common'
+import { ProductsService } from './products.service'
+import { ProductsController } from './products.controller'
+import { RelationalProductPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
 
 @Module({
   imports: [

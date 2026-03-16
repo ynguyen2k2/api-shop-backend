@@ -11,7 +11,9 @@ import { AllConfigType } from '~/config/config.type'
 import path from 'path'
 import { CategoriesModule } from './categories/categories.module'
 
-import { skusModule } from './skus/skus.module';
+import { skusModule } from './skus/skus.module'
+
+import { AttributeValuesModule } from './attribute-values/attribute-values.module'
 
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
@@ -27,6 +29,7 @@ import { AttributesModule } from './attributes/attributes.module'
 
 @Module({
   imports: [
+    AttributeValuesModule,
     skusModule,
     AttributesModule,
     ProductsModule,

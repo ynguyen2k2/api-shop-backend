@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty } from 'class-validator'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
 

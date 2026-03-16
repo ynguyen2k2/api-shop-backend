@@ -16,16 +16,12 @@ export class AttributesService {
     private readonly attributeRepository: AttributeRepository,
   ) {}
 
-  async create(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createAttributeDto: CreateAttributeDto,
-  ) {
+  async create(createAttributeDto: CreateAttributeDto) {
     const slug = slugify(createAttributeDto.name)
     return this.attributeRepository.create({
       name: createAttributeDto.name,
       slug: slug,
       type: createAttributeDto.type,
-      value: createAttributeDto.value,
     })
   }
 

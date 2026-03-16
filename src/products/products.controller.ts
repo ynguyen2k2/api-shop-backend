@@ -8,25 +8,25 @@ import {
   Delete,
   UseGuards,
   Query,
-} from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+} from '@nestjs/common'
+import { ProductsService } from './products.service'
+import { CreateProductDto } from './dto/create-product.dto'
+import { UpdateProductDto } from './dto/update-product.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiParam,
   ApiTags,
-} from '@nestjs/swagger';
-import { Product } from './domain/product';
-import { AuthGuard } from '@nestjs/passport';
+} from '@nestjs/swagger'
+import { Product } from './domain/product'
+import { AuthGuard } from '@nestjs/passport'
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
-} from '../utils/dto/infinity-pagination-response.dto';
-import { infinityPagination } from '../utils/infinity-pagination';
-import { FindAllProductsDto } from './dto/find-all-products.dto';
+} from '../utils/dto/infinity-pagination-response.dto'
+import { infinityPagination } from '../utils/infinity-pagination'
+import { FindAllProductsDto } from './dto/find-all-products.dto'
 
 @ApiTags('Products')
 @ApiBearerAuth()
@@ -43,7 +43,7 @@ export class ProductsController {
     type: Product,
   })
   create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+    return this.productsService.create(createProductDto)
   }
 
   @Get()
@@ -53,10 +53,10 @@ export class ProductsController {
   async findAll(
     @Query() query: FindAllProductsDto,
   ): Promise<InfinityPaginationResponseDto<Product>> {
-    const page = query?.page ?? 1;
-    let limit = query?.limit ?? 10;
+    const page = query?.page ?? 1
+    let limit = query?.limit ?? 10
     if (limit > 50) {
-      limit = 50;
+      limit = 50
     }
 
     return infinityPagination(
@@ -67,7 +67,7 @@ export class ProductsController {
         },
       }),
       { page, limit },
-    );
+    )
   }
 
   @Get(':id')
@@ -80,7 +80,7 @@ export class ProductsController {
     type: Product,
   })
   findById(@Param('id') id: string) {
-    return this.productsService.findById(id);
+    return this.productsService.findById(id)
   }
 
   @Patch(':id')
@@ -92,11 +92,8 @@ export class ProductsController {
   @ApiOkResponse({
     type: Product,
   })
-  update(
-    @Param('id') id: string,
-    @Body() updateProductDto: UpdateProductDto,
-  ) {
-    return this.productsService.update(id, updateProductDto);
+  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+    return this.productsService.update(id, updateProductDto)
   }
 
   @Delete(':id')
@@ -106,6 +103,6 @@ export class ProductsController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+    return this.productsService.remove(id)
   }
 }

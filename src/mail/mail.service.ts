@@ -6,7 +6,6 @@ import { MailerService } from '../mailer/mailer.service'
 import path from 'path'
 import { AllConfigType } from '../config/config.type'
 import { MaybeType } from '~/utils/type/maybe.type'
-import { myLogger } from '~/logger/mylogger.service'
 
 @Injectable()
 export class MailService {

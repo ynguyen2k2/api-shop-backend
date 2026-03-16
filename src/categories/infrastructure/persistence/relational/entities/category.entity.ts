@@ -48,4 +48,3 @@ export class CategoryEntity extends EntityRelationalHelper {
   @UpdateDateColumn()
   updatedAt: Date
 }
-

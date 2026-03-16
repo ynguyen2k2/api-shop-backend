@@ -3,19 +3,19 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import { EntityRelationalHelper } from '~/utils/relational-entity-helper';
+} from 'typeorm'
+import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
   name: 'sku',
 })
 export class skuEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string | number
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date
 }

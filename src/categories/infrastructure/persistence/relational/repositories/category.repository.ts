@@ -80,4 +80,3 @@ export class CategoryRelationalRepository implements CategoryRepository {
     await this.categoryRepository.delete(id)
   }
 }
-

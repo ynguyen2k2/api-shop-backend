@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { CategoryDto } from '~/categories/dto/category.dto'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
 
@@ -39,4 +38,3 @@ export class Category {
   @ApiProperty()
   updatedAt: Date
 }
-

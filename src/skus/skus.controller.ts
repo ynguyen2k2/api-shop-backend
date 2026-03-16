@@ -8,25 +8,25 @@ import {
   Delete,
   UseGuards,
   Query,
-} from '@nestjs/common';
-import { skusService } from './skus.service';
-import { CreateskuDto } from './dto/create-sku.dto';
-import { UpdateskuDto } from './dto/update-sku.dto';
+} from '@nestjs/common'
+import { skusService } from './skus.service'
+import { CreateskuDto } from './dto/create-sku.dto'
+import { UpdateskuDto } from './dto/update-sku.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiParam,
   ApiTags,
-} from '@nestjs/swagger';
-import { sku } from './domain/sku';
-import { AuthGuard } from '@nestjs/passport';
+} from '@nestjs/swagger'
+import { sku } from './domain/sku'
+import { AuthGuard } from '@nestjs/passport'
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
-} from '../utils/dto/infinity-pagination-response.dto';
-import { infinityPagination } from '../utils/infinity-pagination';
-import { FindAllskusDto } from './dto/find-all-skus.dto';
+} from '../utils/dto/infinity-pagination-response.dto'
+import { infinityPagination } from '../utils/infinity-pagination'
+import { FindAllskusDto } from './dto/find-all-skus.dto'
 
 @ApiTags('Skus')
 @ApiBearerAuth()
@@ -43,7 +43,7 @@ export class skusController {
     type: sku,
   })
   create(@Body() createskuDto: CreateskuDto) {
-    return this.skusService.create(createskuDto);
+    return this.skusService.create(createskuDto)
   }
 
   @Get()
@@ -53,10 +53,10 @@ export class skusController {
   async findAll(
     @Query() query: FindAllskusDto,
   ): Promise<InfinityPaginationResponseDto<sku>> {
-    const page = query?.page ?? 1;
-    let limit = query?.limit ?? 10;
+    const page = query?.page ?? 1
+    let limit = query?.limit ?? 10
     if (limit > 50) {
-      limit = 50;
+      limit = 50
     }
 
     return infinityPagination(
@@ -67,7 +67,7 @@ export class skusController {
         },
       }),
       { page, limit },
-    );
+    )
   }
 
   @Get(':id')
@@ -80,7 +80,7 @@ export class skusController {
     type: sku,
   })
   findById(@Param('id') id: string) {
-    return this.skusService.findById(id);
+    return this.skusService.findById(id)
   }
 
   @Patch(':id')
@@ -92,11 +92,8 @@ export class skusController {
   @ApiOkResponse({
     type: sku,
   })
-  update(
-    @Param('id') id: string,
-    @Body() updateskuDto: UpdateskuDto,
-  ) {
-    return this.skusService.update(id, updateskuDto);
+  update(@Param('id') id: string, @Body() updateskuDto: UpdateskuDto) {
+    return this.skusService.update(id, updateskuDto)
   }
 
   @Delete(':id')
@@ -106,6 +103,6 @@ export class skusController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.skusService.remove(id);
+    return this.skusService.remove(id)
   }
 }
