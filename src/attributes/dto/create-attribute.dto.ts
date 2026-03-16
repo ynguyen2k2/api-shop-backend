@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsArray, IsNotEmpty, IsString } from 'class-validator'
 
 export class CreateAttributeDto {
   @ApiProperty()
@@ -16,4 +16,9 @@ export class CreateAttributeDto {
   @IsString()
   @IsNotEmpty()
   type: string
+
+  @ApiProperty()
+  @IsArray()
+  @IsNotEmpty()
+  values: string[]
 }

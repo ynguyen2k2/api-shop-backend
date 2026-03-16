@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { AttributeValueEntity } from '~/attributes/infrastructure/persistence/relational/entities/attribute-value.entity'
+import { AttributeValueEntity } from './attribute-value.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({

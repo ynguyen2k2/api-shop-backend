@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
+import { AttributeValue } from './attribute-value'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String
@@ -19,6 +20,9 @@ export class Attribute {
 
   @ApiProperty({ type: String })
   type: string
+
+  @ApiProperty({ type: [AttributeValue] })
+  values: AttributeValue[]
 
   @ApiProperty({ type: Date })
   createdAt: Date

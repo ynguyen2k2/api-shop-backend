@@ -5,7 +5,7 @@ import {
 import { CreateAttributeDto } from './dto/create-attribute.dto'
 import { UpdateAttributeDto } from './dto/update-attribute.dto'
 import { AttributeRepository } from './infrastructure/persistence/attribute.repository'
-import { IPaginationOptions } from '../utils/type/pagination-options'
+import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { Attribute } from './domain/attribute'
 import slugify from '~/utils/slugify'
 
@@ -18,10 +18,14 @@ export class AttributesService {
 
   async create(createAttributeDto: CreateAttributeDto) {
     const slug = slugify(createAttributeDto.name)
+    const attributeValues = createAttributeDto.values.map((value) => ({
+      value,
+    }))
     return this.attributeRepository.create({
       name: createAttributeDto.name,
       slug: slug,
       type: createAttributeDto.type,
+      values: attributeValues,
     })
   }
 

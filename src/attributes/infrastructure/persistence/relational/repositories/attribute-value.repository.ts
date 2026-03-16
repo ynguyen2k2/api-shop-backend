@@ -4,7 +4,7 @@ import { Repository, In } from 'typeorm'
 import { AttributeValueEntity } from '../entities/attribute-value.entity'
 import { NullableType } from '~/utils/type/nullable.type'
 import { AttributeValue } from '~/attributes/domain/attribute-value'
-import { AttributeValueRepository } from '~/attribute-values/infrastructure/persistence/attribute-value.repository'
+import { AttributeValueRepository } from '~/attributes/infrastructure/persistence/attribute-value.repository'
 import { AttributeValueMapper } from '../mappers/attribute-value.mapper'
 import { IPaginationOptions } from '~/utils/type/pagination-options'
 
