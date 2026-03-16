@@ -14,7 +14,7 @@ import { EntityRelationalHelper } from '~/utils/relational-entity-helper';
 })
 export class <%= name %>Entity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string|number;
 
   @CreateDateColumn()
   createdAt: Date;
