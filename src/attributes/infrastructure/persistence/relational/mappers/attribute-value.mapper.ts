@@ -1,4 +1,4 @@
-import { AttributeValue } from '~/attribute-values/domain/attribute-value'
+import { AttributeValue } from '~/attributes/domain/attribute-value'
 import { AttributeValueEntity } from '../entities/attribute-value.entity'
 import { AttributeValueRepository } from '~/attribute-values/infrastructure/persistence/attribute-value.repository'
 import { AttributeEntity } from '~/attributes/infrastructure/persistence/relational/entities/attribute.entity'
