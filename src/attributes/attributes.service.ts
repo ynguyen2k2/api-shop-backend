@@ -18,6 +18,7 @@ export class AttributesService {
 
   async create(createAttributeDto: CreateAttributeDto) {
     const slug = slugify(createAttributeDto.name)
+
     return this.attributeRepository.create({
       name: createAttributeDto.name,
       slug: slug,
