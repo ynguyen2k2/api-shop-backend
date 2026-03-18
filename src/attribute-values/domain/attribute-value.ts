@@ -15,9 +15,6 @@ export class AttributeValue {
   @ApiProperty()
   value: string
 
-  @ApiProperty({ type: () => Attribute })
-  attribute: Attribute
-
   @ApiProperty({ type: Date })
   createdAt: Date
 

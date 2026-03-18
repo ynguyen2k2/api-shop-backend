@@ -8,21 +8,30 @@ import { AttributeRepository } from './infrastructure/persistence/attribute.repo
 import { IPaginationOptions } from '../utils/type/pagination-options'
 import { Attribute } from './domain/attribute'
 import slugify from '~/utils/slugify'
+import { AttributeValuesService } from '~/attribute-values/attribute-values.service'
+import { AttributeValue } from '~/attribute-values/domain/attribute-value'
 
 @Injectable()
 export class AttributesService {
   constructor(
     // Dependencies here
+    private readonly attributeValueService: AttributeValuesService,
     private readonly attributeRepository: AttributeRepository,
   ) {}
 
   async create(createAttributeDto: CreateAttributeDto) {
     const slug = slugify(createAttributeDto.name)
+    const values = createAttributeDto.values?.map((value) => {
+      const attributeValue = new AttributeValue()
+      attributeValue.value = value
+      return attributeValue
+    })
 
     return this.attributeRepository.create({
       name: createAttributeDto.name,
       slug: slug,
       type: createAttributeDto.type,
+      values,
     })
   }
 
@@ -54,10 +63,20 @@ export class AttributesService {
   ) {
     // Do not remove comment below.
     // <updating-property />
+    const slug = updateAttributeDto.name
+      ? slugify(updateAttributeDto.name)
+      : undefined
+
+    const values = updateAttributeDto.values?.map((value) => {
+      const attributeValue = new AttributeValue()
+      attributeValue.value = value
+      return attributeValue
+    })
 
     return this.attributeRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
+      name: updateAttributeDto.name,
+      slug,
+      type: updateAttributeDto.type,
     })
   }
 

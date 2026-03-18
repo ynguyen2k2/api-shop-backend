@@ -39,6 +39,7 @@ export class AttributeRelationalRepository implements AttributeRepository {
   async findById(id: Attribute['id']): Promise<NullableType<Attribute>> {
     const entity = await this.attributeRepository.findOne({
       where: { id },
+      relations: ['attributeValues'],
     })
 
     return entity ? AttributeMapper.toDomain(entity) : null

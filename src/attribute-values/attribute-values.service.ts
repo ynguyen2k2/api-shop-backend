@@ -29,7 +29,6 @@ export class AttributeValuesService {
     }
     return this.attributeValueRepository.create({
       value: createAttributeValueDto.value,
-      attribute: attribute,
     })
   }
 

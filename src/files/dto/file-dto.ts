@@ -7,5 +7,6 @@ export class FileDto {
   @IsNotEmpty()
   id: string
 
+  @ApiProperty()
   path: string
 }

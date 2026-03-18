@@ -28,6 +28,7 @@ export class AttributeEntity extends EntityRelationalHelper {
   @OneToMany(
     () => AttributeValueEntity,
     (attributeValue) => attributeValue.attribute,
+    { cascade: true, onDelete: 'CASCADE' },
   )
   attributeValues: AttributeValueEntity[]
 
