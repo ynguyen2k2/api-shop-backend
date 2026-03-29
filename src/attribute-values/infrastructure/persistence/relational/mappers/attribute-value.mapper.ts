@@ -8,6 +8,7 @@ export class AttributeValueMapper {
     const domainEntity = new AttributeValue()
     domainEntity.id = raw.id
     domainEntity.value = raw.value
+    domainEntity.attribute = raw.attribute
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
 
@@ -20,6 +21,11 @@ export class AttributeValueMapper {
       persistenceEntity.id = domainEntity.id
     }
     persistenceEntity.value = domainEntity.value
+    if (domainEntity.attribute) {
+      const attributeEntity = new AttributeEntity()
+      attributeEntity.id = domainEntity.attribute.id
+      persistenceEntity.attribute = attributeEntity
+    }
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
 

@@ -59,10 +59,21 @@ export class AttributeRelationalRepository implements AttributeRepository {
   ): Promise<Attribute> {
     const entity = await this.attributeRepository.findOne({
       where: { id },
+      relations: ['attributeValues'],
     })
 
     if (!entity) {
       throw new Error('Record not found')
+    }
+
+    // Remove old attribute values if new ones are provided
+    if (payload.values && entity.attributeValues?.length) {
+      await this.attributeRepository
+        .createQueryBuilder()
+        .delete()
+        .from('attribute-value')
+        .where('attribute_id = :id', { id })
+        .execute()
     }
 
     const updatedEntity = await this.attributeRepository.save(

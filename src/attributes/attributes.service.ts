@@ -77,6 +77,7 @@ export class AttributesService {
       name: updateAttributeDto.name,
       slug,
       type: updateAttributeDto.type,
+      values,
     })
   }
 
