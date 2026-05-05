@@ -58,7 +58,7 @@ export class AttributesService {
 
   async update(
     id: Attribute['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     updateAttributeDto: UpdateAttributeDto,
   ) {
     // Do not remove comment below.

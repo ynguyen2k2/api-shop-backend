@@ -15,6 +15,8 @@ import { skusModule } from './skus/skus.module'
 
 import { AttributeValuesModule } from './attribute-values/attribute-values.module'
 
+import { productImagesModule } from './product-images/product-images.module'
+
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
@@ -29,11 +31,12 @@ import { AttributesModule } from './attributes/attributes.module'
 
 @Module({
   imports: [
-    AttributeValuesModule,
-    skusModule,
     AttributesModule,
-    ProductsModule,
+    AttributeValuesModule,
     CategoriesModule,
+    ProductsModule,
+    productImagesModule,
+    skusModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: AllConfig,

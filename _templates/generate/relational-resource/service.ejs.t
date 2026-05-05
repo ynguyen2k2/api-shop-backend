@@ -12,7 +12,7 @@ import { IPaginationOptions } from '~/utils/type/pagination-options';
 import { <%= name %> } from './domain/<%= h.inflection.transform(name, ['underscore', 'dasherize']) %>';
 
 @Injectable()
-export class <%= h.inflection.transform(name, ['pluralize']) %>Service {
+export class <%= h.inflection.transform(name, ['pluralize', 'classify']) %>Service {
   constructor(
     // Dependencies here
     private readonly <%= h.inflection.camelize(name, true) %>Repository: <%= name %>Repository,

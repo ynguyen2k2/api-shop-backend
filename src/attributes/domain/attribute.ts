@@ -41,4 +41,3 @@ export class Attribute {
   @ApiProperty({ type: Date })
   deletedAt: Date
 }
-

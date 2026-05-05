@@ -12,7 +12,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
-import { <%= h.inflection.transform(name, ['pluralize']) %>Service } from './<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.service';
+import { <%= h.inflection.transform(name, ['pluralize', 'classify']) %>Service } from './<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.service';
 import { Create<%= name %>Dto } from './dto/create-<%= h.inflection.transform(name, ['underscore', 'dasherize']) %>.dto';
 import { Update<%= name %>Dto } from './dto/update-<%= h.inflection.transform(name, ['underscore', 'dasherize']) %>.dto';
 import {
@@ -29,7 +29,7 @@ import {
   InfinityPaginationResponseDto,
 } from '../utils/dto/infinity-pagination-response.dto';
 import { infinityPagination } from '../utils/infinity-pagination';
-import { FindAll<%= h.inflection.transform(name, ['pluralize']) %>Dto } from './dto/find-all-<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.dto';
+import { FindAll<%= h.inflection.transform(name, ['pluralize', 'classify']) %>Dto } from './dto/find-all-<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.dto';
 
 @ApiTags('<%= h.inflection.transform(name, ['pluralize', 'humanize']) %>')
 @ApiBearerAuth()
@@ -38,8 +38,8 @@ import { FindAll<%= h.inflection.transform(name, ['pluralize']) %>Dto } from './
   path: '<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>',
   version: '1',
 })
-export class <%= h.inflection.transform(name, ['pluralize']) %>Controller {
-  constructor(private readonly <%= h.inflection.camelize(h.inflection.pluralize(name), true) %>Service: <%= h.inflection.transform(name, ['pluralize']) %>Service) {}
+export class <%= h.inflection.transform(name, ['pluralize', 'classify']) %>Controller {
+  constructor(private readonly <%= h.inflection.camelize(h.inflection.pluralize(name), true) %>Service: <%= h.inflection.transform(name, ['pluralize', 'classify']) %>Service) {}
 
   @Post()
   @ApiCreatedResponse({
@@ -54,7 +54,7 @@ export class <%= h.inflection.transform(name, ['pluralize']) %>Controller {
     type: InfinityPaginationResponse(<%= name %>),
   })
   async findAll(
-    @Query() query: FindAll<%= h.inflection.transform(name, ['pluralize']) %>Dto,
+    @Query() query: FindAll<%= h.inflection.transform(name, ['pluralize', 'classify']) %>Dto,
   ): Promise<InfinityPaginationResponseDto<<%= name %>>> {
     const page = query?.page ?? 1;
     let limit = query?.limit ?? 10;
