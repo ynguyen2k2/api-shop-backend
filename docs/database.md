@@ -10,7 +10,7 @@
    // /src/posts/infrastructure/persistence/relational/entities/post.entity.ts
 
    import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-   import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper'
+   import { EntityRelationalHelper } from '~/../utils/relational-entity-helper'
 
    @Entity()
    export class Post extends EntityRelationalHelper {
@@ -30,7 +30,7 @@
 2. Next generate migration file
 
 ```bash
-npm run migration:generate -- src/database/migrations/CreatePostTable
+pnpm run migration:generate -- src/database/migrations/CreatePostTable
 ```
 
 3. Apply this migration to database via [npm run migration:run](#run-migration).
@@ -42,19 +42,19 @@ npm run migration:generate -- src/database/migrations/CreatePostTable
 ### Run migration
 
 ```bash
-npm run migration:run
+pnpm run migration:run
 ```
 
 ### Revert migration
 
 ```bash
-npm run migration:revert
+pnpm run migration:revert
 ```
 
 ### Drop all tables in database
 
 ```bash
-npm run schema:drop
+pnpm run schema:drop
 ```
 
 ---
