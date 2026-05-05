@@ -7,7 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   JoinColumn,
+  ManyToMany,
 } from 'typeorm'
+import { AttributeEntity } from '~/attributes/infrastructure/persistence/relational/entities/attribute.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
@@ -42,6 +44,7 @@ export class CategoryEntity extends EntityRelationalHelper {
   @OneToMany(() => CategoryEntity, (category) => category.parent)
   children: CategoryEntity[] | null
 
+  @ManyToMany(() => AttributeEntity, (attribute) => attribute.category)
   @CreateDateColumn()
   createdAt: Date
 

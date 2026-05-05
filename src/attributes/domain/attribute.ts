@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { AttributeValue } from '~/attribute-values/domain/attribute-value'
+import { Category } from '~/categories/domain/category'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
 
@@ -25,6 +26,11 @@ export class Attribute {
     type: AttributeValue,
   })
   values?: AttributeValue[]
+
+  @ApiProperty({
+    type: Category,
+  })
+  category?: Category
 
   @ApiProperty({ type: Date })
   createdAt: Date

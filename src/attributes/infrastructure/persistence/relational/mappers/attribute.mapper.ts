@@ -28,6 +28,10 @@ export class AttributeMapper {
     persistenceEntity.name = domainEntity.name
     persistenceEntity.slug = domainEntity.slug
     persistenceEntity.type = domainEntity.type
+    if (domainEntity.category) {
+      persistenceEntity.category.id = domainEntity.category.id
+      persistenceEntity.category.name = domainEntity.category.name
+    }
     if (domainEntity.values) {
       persistenceEntity.attributeValues = domainEntity.values.map((value) =>
         AttributeValueMapper.toPersistence(value),

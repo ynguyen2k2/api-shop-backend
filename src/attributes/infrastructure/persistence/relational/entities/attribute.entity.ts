@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { AttributeValueEntity } from '~/attribute-values/infrastructure/persistence/relational/entities/attribute-value.entity'
+import { CategoryEntity } from '~/categories/infrastructure/persistence/relational/entities/category.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
@@ -32,6 +34,8 @@ export class AttributeEntity extends EntityRelationalHelper {
   )
   attributeValues: AttributeValueEntity[]
 
+  @ManyToMany(() => CategoryEntity, (category) => category.attribute)
+  category: CategoryEntity
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
