@@ -1,3 +1,3 @@
-export class CreateproductImageDto {
+export class CreateimageProductDto {
   // Don't forget to use the class-validator decorators in the DTO properties.
 }

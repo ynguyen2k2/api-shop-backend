@@ -5,7 +5,7 @@ import { DatabaseConfig } from '~/database/config/database-config.type'
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String
   : Number
-export class productImage {
+export class imageProduct {
   @ApiProperty({
     type: idType,
   })

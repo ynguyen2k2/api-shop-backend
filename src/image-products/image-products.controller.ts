@@ -9,9 +9,9 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { productImagesService } from './product-images.service'
-import { CreateproductImageDto } from './dto/create-product-image.dto'
-import { UpdateproductImageDto } from './dto/update-product-image.dto'
+import { ImageProductService } from './image-products.service'
+import { CreateimageProductDto } from './dto/create-image-product.dto'
+import { UpdateimageProductDto } from './dto/update-image-product.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -19,40 +19,40 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
-import { productImage } from './domain/product-image'
+import { imageProduct } from './domain/image-product'
 import { AuthGuard } from '@nestjs/passport'
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
 } from '../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../utils/infinity-pagination'
-import { FindAllproductImagesDto } from './dto/find-all-product-images.dto'
+import { FindAllImageProductDto } from './dto/find-all-image-products.dto'
 
-@ApiTags('Productimages')
+@ApiTags('Imageproducts')
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @Controller({
-  path: 'product-images',
+  path: 'image-products',
   version: '1',
 })
-export class productImagesController {
-  constructor(private readonly productImagesService: productImagesService) {}
+export class ImageProductController {
+  constructor(private readonly imageProductsService: ImageProductService) {}
 
   @Post()
   @ApiCreatedResponse({
-    type: productImage,
+    type: imageProduct,
   })
-  create(@Body() createproductImageDto: CreateproductImageDto) {
-    return this.productImagesService.create(createproductImageDto)
+  create(@Body() createimageProductDto: CreateimageProductDto) {
+    return this.imageProductsService.create(createimageProductDto)
   }
 
   @Get()
   @ApiOkResponse({
-    type: InfinityPaginationResponse(productImage),
+    type: InfinityPaginationResponse(imageProduct),
   })
   async findAll(
-    @Query() query: FindAllproductImagesDto,
-  ): Promise<InfinityPaginationResponseDto<productImage>> {
+    @Query() query: FindAllImageProductDto,
+  ): Promise<InfinityPaginationResponseDto<imageProduct>> {
     const page = query?.page ?? 1
     let limit = query?.limit ?? 10
     if (limit > 50) {
@@ -60,7 +60,7 @@ export class productImagesController {
     }
 
     return infinityPagination(
-      await this.productImagesService.findAllWithPagination({
+      await this.imageProductsService.findAllWithPagination({
         paginationOptions: {
           page,
           limit,
@@ -77,10 +77,10 @@ export class productImagesController {
     required: true,
   })
   @ApiOkResponse({
-    type: productImage,
+    type: imageProduct,
   })
   findById(@Param('id') id: string) {
-    return this.productImagesService.findById(id)
+    return this.imageProductsService.findById(id)
   }
 
   @Patch(':id')
@@ -90,13 +90,13 @@ export class productImagesController {
     required: true,
   })
   @ApiOkResponse({
-    type: productImage,
+    type: imageProduct,
   })
   update(
     @Param('id') id: string,
-    @Body() updateproductImageDto: UpdateproductImageDto,
+    @Body() updateimageProductDto: UpdateimageProductDto,
   ) {
-    return this.productImagesService.update(id, updateproductImageDto)
+    return this.imageProductsService.update(id, updateimageProductDto)
   }
 
   @Delete(':id')
@@ -106,6 +106,6 @@ export class productImagesController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.productImagesService.remove(id)
+    return this.imageProductsService.remove(id)
   }
 }

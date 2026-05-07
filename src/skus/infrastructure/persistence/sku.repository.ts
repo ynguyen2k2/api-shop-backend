@@ -5,7 +5,7 @@ import { sku } from '~/skus/domain/sku'
 
 export abstract class skuRepository {
   abstract create(
-    data: Omit<sku, 'id' | 'createdAt' | 'updatedAt'>,
+    data: Omit<sku, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
   ): Promise<sku>
 
   abstract findAllWithPagination({

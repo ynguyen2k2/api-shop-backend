@@ -10,12 +10,13 @@ import { HeaderResolver, I18nModule } from 'nestjs-i18n'
 import { AllConfigType } from '~/config/config.type'
 import path from 'path'
 import { CategoriesModule } from './categories/categories.module'
-
-import { skusModule } from './skus/skus.module'
-
 import { AttributeValuesModule } from './attribute-values/attribute-values.module'
 
-import { productImagesModule } from './product-images/product-images.module'
+import { SkuModule } from './skus/skus.module'
+
+import { ImageproductModule } from './imageproducts/imageproducts.module'
+
+import { ImageProductModule } from './image-products/image-products.module'
 
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
@@ -31,12 +32,13 @@ import { AttributesModule } from './attributes/attributes.module'
 
 @Module({
   imports: [
+    ImageProductModule,
+    ImageproductModule,
+    SkuModule,
     AttributesModule,
     AttributeValuesModule,
     CategoriesModule,
     ProductsModule,
-    productImagesModule,
-    skusModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: AllConfig,
