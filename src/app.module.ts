@@ -14,8 +14,6 @@ import { AttributeValuesModule } from './attribute-values/attribute-values.modul
 
 import { SkuModule } from './skus/skus.module'
 
-import { ImageproductModule } from './imageproducts/imageproducts.module'
-
 import { ImageProductModule } from './image-products/image-products.module'
 
 // <database-block>
@@ -33,7 +31,6 @@ import { AttributesModule } from './attributes/attributes.module'
 @Module({
   imports: [
     ImageProductModule,
-    ImageproductModule,
     SkuModule,
     AttributesModule,
     AttributeValuesModule,
