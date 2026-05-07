@@ -2,8 +2,8 @@ import {
   // do not remove this comment
   Module,
 } from '@nestjs/common'
-import { skusService } from './skus.service'
-import { skusController } from './skus.controller'
+import { SkuService } from './skus.service'
+import { SkuController } from './skus.controller'
 import { RelationalskuPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
 
 @Module({
@@ -11,8 +11,8 @@ import { RelationalskuPersistenceModule } from './infrastructure/persistence/rel
     // do not remove this comment
     RelationalskuPersistenceModule,
   ],
-  controllers: [skusController],
-  providers: [skusService],
-  exports: [skusService, RelationalskuPersistenceModule],
+  controllers: [SkuController],
+  providers: [SkuService],
+  exports: [SkuService, RelationalskuPersistenceModule],
 })
-export class skusModule {}
+export class SkuModule {}

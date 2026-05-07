@@ -9,7 +9,7 @@ import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { sku } from './domain/sku'
 
 @Injectable()
-export class skusService {
+export class SkuService {
   constructor(
     // Dependencies here
     private readonly skuRepository: skuRepository,

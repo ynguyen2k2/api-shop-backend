@@ -13,9 +13,12 @@ export class skuEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string | number
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date
+
+  @DeleteDateColumn({ type: 'timestamp' })
+  deletedAt: Date
 }

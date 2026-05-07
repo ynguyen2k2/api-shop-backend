@@ -9,7 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { skusService } from './skus.service'
+import { SkuService } from './skus.service'
 import { CreateskuDto } from './dto/create-sku.dto'
 import { UpdateskuDto } from './dto/update-sku.dto'
 import {
@@ -26,7 +26,7 @@ import {
   InfinityPaginationResponseDto,
 } from '../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../utils/infinity-pagination'
-import { FindAllskusDto } from './dto/find-all-skus.dto'
+import { FindAllSkuDto } from './dto/find-all-skus.dto'
 
 @ApiTags('Skus')
 @ApiBearerAuth()
@@ -35,8 +35,8 @@ import { FindAllskusDto } from './dto/find-all-skus.dto'
   path: 'skus',
   version: '1',
 })
-export class skusController {
-  constructor(private readonly skusService: skusService) {}
+export class SkuController {
+  constructor(private readonly skusService: SkuService) {}
 
   @Post()
   @ApiCreatedResponse({
@@ -51,7 +51,7 @@ export class skusController {
     type: InfinityPaginationResponse(sku),
   })
   async findAll(
-    @Query() query: FindAllskusDto,
+    @Query() query: FindAllSkuDto,
   ): Promise<InfinityPaginationResponseDto<sku>> {
     const page = query?.page ?? 1
     let limit = query?.limit ?? 10

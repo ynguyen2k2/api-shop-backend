@@ -16,4 +16,7 @@ export class sku {
 
   @ApiProperty()
   updatedAt: Date
+
+  @ApiProperty()
+  deletedAt: Date
 }
