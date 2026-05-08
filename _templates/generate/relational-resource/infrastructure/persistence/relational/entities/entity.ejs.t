@@ -22,6 +22,6 @@ export class <%= name %>Entity extends EntityRelationalHelper {
   @UpdateDateColumn({ type: 'timestamp'})
   updatedAt: Date;
 
-  @DeleteDateColumn({ type: 'timestamp'})
-  deletedAt: Date;
+  @Collumn(type:boolean,{default:false})
+  isActive: boolean
 }

@@ -21,5 +21,5 @@ export class <%= name %> {
   updatedAt: Date;
 
   @ApiProperty()
-  deletedAt: Date;
+  isActive: boolean;
 }
