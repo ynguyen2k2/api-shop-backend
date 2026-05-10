@@ -2,6 +2,7 @@
 to: src/<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>/infrastructure/persistence/relational/entities/<%= h.inflection.transform(name, ['underscore', 'dasherize']) %>.entity.ts
 ---
 import {
+  Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
@@ -22,6 +23,6 @@ export class <%= name %>Entity extends EntityRelationalHelper {
   @UpdateDateColumn({ type: 'timestamp'})
   updatedAt: Date;
 
-  @Collumn(type:boolean,{default:false})
+  @Column({ default: true })
   isActive: boolean
 }
