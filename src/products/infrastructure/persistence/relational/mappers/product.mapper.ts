@@ -1,3 +1,4 @@
+import { VariantEntity } from '~/variants/infrastructure/persistence/relational/entities/variant.entity'
 import { Product } from '../../../../domain/product'
 import { ProductEntity } from '../entities/product.entity'
 
@@ -18,11 +19,25 @@ export class ProductMapper {
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
     domainEntity.isActive = raw.isActive
-
+    domainEntity.variants = raw.variants
     return domainEntity
   }
 
   static toPersistence(domainEntity: Product): ProductEntity {
+    let variants: VariantEntity[] = []
+    if (domainEntity.variants.length !== 0)
+      variants = domainEntity.variants?.map((variant) => {
+        const variantEntity = new VariantEntity()
+        variantEntity.id = variant.id
+        variantEntity.sku = variant.sku
+        variantEntity.stock = variant.stock
+        variantEntity.price = variant.price
+        variantEntity.compareAtPrice = variant.compareAtPrice
+        variantEntity.createdAt = variant.createdAt
+        variantEntity.updatedAt = variant.updatedAt
+        variantEntity.isActive = variant.isActive
+        return variantEntity
+      })
     const persistenceEntity = new ProductEntity()
     if (domainEntity.id) {
       persistenceEntity.id = domainEntity.id
@@ -42,6 +57,7 @@ export class ProductMapper {
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
     persistenceEntity.isActive = domainEntity.isActive
+    persistenceEntity.variants = variants
     return persistenceEntity
   }
 }

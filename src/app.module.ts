@@ -13,6 +13,8 @@ import { CategoriesModule } from './categories/categories.module'
 import { AttributeValuesModule } from './attribute-values/attribute-values.module'
 import { ImageProductModule } from './image-products/image-products.module'
 
+import { VariantModule } from './variants/variants.module'
+
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
@@ -27,6 +29,7 @@ import { AttributesModule } from './attributes/attributes.module'
 
 @Module({
   imports: [
+    VariantModule,
     ImageProductModule,
     AttributesModule,
     AttributeValuesModule,

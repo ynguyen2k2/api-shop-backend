@@ -241,7 +241,9 @@ describe('UsersController', () => {
     })
 
     it('should pass sort options to the service', async () => {
-      const sort = [{ orderBy: 'createdAt' as keyof User, order: 'DESC' }] as SortUserDto[]
+      const sort = [
+        { orderBy: 'createdAt' as keyof User, order: 'DESC' },
+      ] as SortUserDto[]
       service.findManyWithPagination.mockResolvedValue([mockUser2, mockUser])
 
       const result = await controller.findAll({

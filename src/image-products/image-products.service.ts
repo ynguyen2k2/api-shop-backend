@@ -21,10 +21,7 @@ export class ImageProductService {
     private readonly productsService: ProductsService,
   ) {}
 
-  async create(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createImageProductDto: CreateImageProductDto,
-  ) {
+  async create(createImageProductDto: CreateImageProductDto) {
     const photoId = createImageProductDto.photo?.id
     let photo: FileType | null = null
     let product: Product | null = null
@@ -65,7 +62,7 @@ export class ImageProductService {
 
   async update(
     id: ImageProduct['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     updateImageProductDto: UpdateImageProductDto,
   ) {
     const photoId = updateImageProductDto?.photo?.id

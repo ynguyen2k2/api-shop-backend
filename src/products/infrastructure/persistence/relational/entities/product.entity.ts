@@ -8,6 +8,7 @@ import {
 } from 'typeorm'
 import { ImageProductEntity } from '~/image-products/infrastructure/persistence/relational/entities/image-product.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
+import { VariantEntity } from '~/variants/infrastructure/persistence/relational/entities/variant.entity'
 
 @Entity({
   name: 'product',
@@ -42,6 +43,9 @@ export class ProductEntity extends EntityRelationalHelper {
 
   @Column({ type: String, nullable: true })
   reviews: string | null
+
+  @OneToMany(() => VariantEntity, (variant) => variant.product)
+  variants: VariantEntity[]
 
   @Column({ type: Boolean, default: false })
   isFeatured: boolean

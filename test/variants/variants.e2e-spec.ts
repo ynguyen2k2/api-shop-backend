@@ -1,31 +1,51 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ImageProductController } from '~/image-products/image-products.controller'
-import { ImageProductService } from '~/image-products/image-products.service'
-import { CreateImageProductDto } from '~/image-products/dto/create-image-product.dto'
-import { UpdateImageProductDto } from '~/image-products/dto/update-image-product.dto'
-import { ImageProduct } from '~/image-products/domain/image-product'
+import { VariantController } from '~/variants/variants.controller'
+import { VariantService } from '~/variants/variants.service'
+import { CreateVariantDto } from '~/variants/dto/create-variant.dto'
+import { UpdateVariantDto } from '~/variants/dto/update-variant.dto'
+import { Variant } from '~/variants/domain/variant'
 
-const mockImageProduct: ImageProduct = {
+const mockProduct = {
   id: 1,
-  photo: null,
-  product: null,
-  order: 1,
+  name: 'iPhone 16 Pro',
+  slug: 'iphone-16-pro',
+  brand: 'Apple',
+  category: 'Smartphones',
+  isActive: true,
+  isFeatured: true,
+  isNew: true,
+  averageRating: 4.8,
+  totalReviews: 120,
+  variants: [],
+  createdAt: new Date('2026-01-01'),
+  updatedAt: new Date('2026-01-01'),
+}
+
+const mockVariant: Variant = {
+  id: 1,
+  sku: 'SKU-IP16PRO-128',
+  stock: 50,
+  price: 999.99,
+  compareAtPrice: 1099.99,
+  product: mockProduct as any,
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   isActive: true,
 }
 
-const mockImageProduct2: ImageProduct = {
+const mockVariant2: Variant = {
   id: 2,
-  photo: null,
-  product: null,
-  order: 2,
+  sku: 'SKU-IP16PRO-256',
+  stock: 30,
+  price: 1099.99,
+  compareAtPrice: 1199.99,
+  product: mockProduct as any,
   createdAt: new Date('2026-01-02'),
   updatedAt: new Date('2026-01-02'),
   isActive: true,
 }
 
-const mockImageProductService = {
+const mockVariantService = {
   create: jest.fn(),
   findAllWithPagination: jest.fn(),
   findById: jest.fn(),
@@ -33,26 +53,26 @@ const mockImageProductService = {
   remove: jest.fn(),
 }
 
-describe('ImageProductController', () => {
-  let controller: ImageProductController
-  let service: typeof mockImageProductService
+describe('VariantController', () => {
+  let controller: VariantController
+  let service: typeof mockVariantService
 
   beforeEach(async () => {
     // Reset all mocks before each test
     jest.clearAllMocks()
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ImageProductController],
+      controllers: [VariantController],
       providers: [
         {
-          provide: ImageProductService,
-          useValue: mockImageProductService,
+          provide: VariantService,
+          useValue: mockVariantService,
         },
       ],
     }).compile()
 
-    controller = module.get<ImageProductController>(ImageProductController)
-    service = mockImageProductService
+    controller = module.get<VariantController>(VariantController)
+    service = mockVariantService
   })
 
   it('should be defined', () => {
@@ -60,43 +80,51 @@ describe('ImageProductController', () => {
   })
 
   // ──────────────────────────────────────────────
-  // POST /image-products  →  create()
+  // POST /variants  →  create()
   // ──────────────────────────────────────────────
   describe('create', () => {
-    it('should create an image product', async () => {
-      const dto: CreateImageProductDto = {
-        order: 1,
-        photo: { id: 'abc-123', path: '/uploads/photo.jpg' },
-        product: { id: '10' },
+    it('should create a variant', async () => {
+      const dto: CreateVariantDto = {
+        price: 999.99,
+        stock: 50,
+        compareAtPrice: 1099.99,
+        product: { id: '1' },
       }
 
-      service.create.mockResolvedValue(mockImageProduct)
+      service.create.mockResolvedValue(mockVariant)
 
       const result = await controller.create(dto)
 
       expect(service.create).toHaveBeenCalledWith(dto)
       expect(service.create).toHaveBeenCalledTimes(1)
-      expect(result).toEqual(mockImageProduct)
+      expect(result).toEqual(mockVariant)
     })
 
-    it('should create an image product without optional fields', async () => {
-      const dto: CreateImageProductDto = { order: 3 }
+    it('should return the created variant with correct properties', async () => {
+      const dto: CreateVariantDto = {
+        price: 999.99,
+        stock: 50,
+        compareAtPrice: 1099.99,
+        product: { id: '1' },
+      }
 
-      service.create.mockResolvedValue({ ...mockImageProduct, order: 3 })
+      service.create.mockResolvedValue(mockVariant)
 
       const result = await controller.create(dto)
 
-      expect(service.create).toHaveBeenCalledWith(dto)
-      expect(result.order).toBe(3)
+      expect(result.sku).toBe('SKU-IP16PRO-128')
+      expect(result.stock).toBe(50)
+      expect(result.price).toBe(999.99)
+      expect(result.isActive).toBe(true)
     })
   })
 
   // ──────────────────────────────────────────────
-  // GET /image-products  →  findAll()
+  // GET /variants  →  findAll()
   // ──────────────────────────────────────────────
   describe('findAll', () => {
-    it('should return paginated image products', async () => {
-      const data = [mockImageProduct, mockImageProduct2]
+    it('should return paginated variants', async () => {
+      const data = [mockVariant, mockVariant2]
       service.findAllWithPagination.mockResolvedValue(data)
 
       const result = await controller.findAll({ page: 1, limit: 10 })
@@ -132,7 +160,7 @@ describe('ImageProductController', () => {
 
     it('should report hasNextPage true when data length equals limit', async () => {
       const items = Array.from({ length: 5 }, (_, i) => ({
-        ...mockImageProduct,
+        ...mockVariant,
         id: i + 1,
       }))
       service.findAllWithPagination.mockResolvedValue(items)
@@ -141,23 +169,35 @@ describe('ImageProductController', () => {
 
       expect(result.hasNextPage).toBe(true) // 5 items === limit of 5
     })
+
+    it('should handle page 2 correctly', async () => {
+      service.findAllWithPagination.mockResolvedValue([mockVariant2])
+
+      const result = await controller.findAll({ page: 2, limit: 1 })
+
+      expect(service.findAllWithPagination).toHaveBeenCalledWith({
+        paginationOptions: { page: 2, limit: 1 },
+      })
+      expect(result.data).toHaveLength(1)
+      expect(result.hasNextPage).toBe(true)
+    })
   })
 
   // ──────────────────────────────────────────────
-  // GET /image-products/:id  →  findById()
+  // GET /variants/:id  →  findById()
   // ──────────────────────────────────────────────
   describe('findById', () => {
-    it('should return the image product by id', async () => {
-      service.findById.mockResolvedValue(mockImageProduct)
+    it('should return the variant by id', async () => {
+      service.findById.mockResolvedValue(mockVariant)
 
       const result = await controller.findById('1')
 
       expect(service.findById).toHaveBeenCalledWith('1')
       expect(service.findById).toHaveBeenCalledTimes(1)
-      expect(result).toEqual(mockImageProduct)
+      expect(result).toEqual(mockVariant)
     })
 
-    it('should return null when image product is not found', async () => {
+    it('should return null when variant is not found', async () => {
       service.findById.mockResolvedValue(null)
 
       const result = await controller.findById('999')
@@ -168,12 +208,12 @@ describe('ImageProductController', () => {
   })
 
   // ──────────────────────────────────────────────
-  // PATCH /image-products/:id  →  update()
+  // PATCH /variants/:id  →  update()
   // ──────────────────────────────────────────────
   describe('update', () => {
-    it('should update an image product', async () => {
-      const dto: UpdateImageProductDto = { order: 5 }
-      const updated = { ...mockImageProduct, order: 5 }
+    it('should update a variant', async () => {
+      const dto: UpdateVariantDto = {}
+      const updated = { ...mockVariant }
 
       service.update.mockResolvedValue(updated)
 
@@ -181,33 +221,26 @@ describe('ImageProductController', () => {
 
       expect(service.update).toHaveBeenCalledWith('1', dto)
       expect(service.update).toHaveBeenCalledTimes(1)
-      expect(result!.order).toBe(5)
+      expect(result).toEqual(updated)
     })
 
-    it('should update photo and product references', async () => {
-      const dto: UpdateImageProductDto = {
-        photo: { id: 'new-photo-id', path: '/uploads/new-photo.jpg' },
-        product: { id: '20' },
-      }
+    it('should return null when updating a non-existent variant', async () => {
+      const dto: UpdateVariantDto = {}
 
-      service.update.mockResolvedValue({ ...mockImageProduct, ...dto })
+      service.update.mockResolvedValue(null)
 
-      const result = await controller.update('1', dto)
+      const result = await controller.update('999', dto)
 
-      expect(service.update).toHaveBeenCalledWith('1', dto)
-      expect(result!.photo).toEqual({
-        id: 'new-photo-id',
-        path: '/uploads/new-photo.jpg',
-      })
-      expect(result!.product).toEqual({ id: '20' })
+      expect(service.update).toHaveBeenCalledWith('999', dto)
+      expect(result).toBeNull()
     })
   })
 
   // ──────────────────────────────────────────────
-  // DELETE /image-products/:id  →  remove()
+  // DELETE /variants/:id  →  remove()
   // ──────────────────────────────────────────────
   describe('remove', () => {
-    it('should remove an image product by id', async () => {
+    it('should remove a variant by id', async () => {
       service.remove.mockResolvedValue(undefined)
 
       const result = await controller.remove('1')
