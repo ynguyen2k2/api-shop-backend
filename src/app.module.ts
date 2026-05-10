@@ -11,9 +11,6 @@ import { AllConfigType } from '~/config/config.type'
 import path from 'path'
 import { CategoriesModule } from './categories/categories.module'
 import { AttributeValuesModule } from './attribute-values/attribute-values.module'
-
-import { SkuModule } from './skus/skus.module'
-
 import { ImageProductModule } from './image-products/image-products.module'
 
 // <database-block>
@@ -31,7 +28,6 @@ import { AttributesModule } from './attributes/attributes.module'
 @Module({
   imports: [
     ImageProductModule,
-    SkuModule,
     AttributesModule,
     AttributeValuesModule,
     CategoriesModule,
