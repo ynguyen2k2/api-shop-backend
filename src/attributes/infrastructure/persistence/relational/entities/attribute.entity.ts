@@ -42,6 +42,6 @@ export class AttributeEntity extends EntityRelationalHelper {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date
 
-  @DeleteDateColumn({ type: 'timestamp' })
-  deletedAt: Date
+  @Column({ type: Boolean, default: true })
+  isActive: boolean
 }

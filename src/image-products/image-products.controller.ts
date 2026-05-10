@@ -10,8 +10,8 @@ import {
   Query,
 } from '@nestjs/common'
 import { ImageProductService } from './image-products.service'
-import { CreateimageProductDto } from './dto/create-image-product.dto'
-import { UpdateimageProductDto } from './dto/update-image-product.dto'
+import { CreateImageProductDto } from './dto/create-image-product.dto'
+import { UpdateImageProductDto } from './dto/update-image-product.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -19,7 +19,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
-import { imageProduct } from './domain/image-product'
+import { ImageProduct } from './domain/image-product'
 import { AuthGuard } from '@nestjs/passport'
 import {
   InfinityPaginationResponse,
@@ -40,19 +40,19 @@ export class ImageProductController {
 
   @Post()
   @ApiCreatedResponse({
-    type: imageProduct,
+    type: ImageProduct,
   })
-  create(@Body() createimageProductDto: CreateimageProductDto) {
-    return this.imageProductsService.create(createimageProductDto)
+  create(@Body() createImageProductDto: CreateImageProductDto) {
+    return this.imageProductsService.create(createImageProductDto)
   }
 
   @Get()
   @ApiOkResponse({
-    type: InfinityPaginationResponse(imageProduct),
+    type: InfinityPaginationResponse(ImageProduct),
   })
   async findAll(
     @Query() query: FindAllImageProductDto,
-  ): Promise<InfinityPaginationResponseDto<imageProduct>> {
+  ): Promise<InfinityPaginationResponseDto<ImageProduct>> {
     const page = query?.page ?? 1
     let limit = query?.limit ?? 10
     if (limit > 50) {
@@ -77,7 +77,7 @@ export class ImageProductController {
     required: true,
   })
   @ApiOkResponse({
-    type: imageProduct,
+    type: ImageProduct,
   })
   findById(@Param('id') id: string) {
     return this.imageProductsService.findById(id)
@@ -90,13 +90,13 @@ export class ImageProductController {
     required: true,
   })
   @ApiOkResponse({
-    type: imageProduct,
+    type: ImageProduct,
   })
   update(
     @Param('id') id: string,
-    @Body() updateimageProductDto: UpdateimageProductDto,
+    @Body() updateImageProductDto: UpdateImageProductDto,
   ) {
-    return this.imageProductsService.update(id, updateimageProductDto)
+    return this.imageProductsService.update(id, updateImageProductDto)
   }
 
   @Delete(':id')

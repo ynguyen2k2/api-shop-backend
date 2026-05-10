@@ -68,6 +68,6 @@ export class UserEntity extends EntityRelationalHelper {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @DeleteDateColumn()
-  deletedAt: Date
+  @Column({ default: true })
+  isActive: boolean
 }

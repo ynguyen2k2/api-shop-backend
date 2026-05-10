@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { ImageProductEntity } from '~/image-products/infrastructure/persistence/relational/entities/image-product.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
@@ -14,45 +16,50 @@ export class ProductEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string | number
 
-  @Column()
+  @Column({ type: String })
   name: string
 
-  @Column()
-  description: string
+  @Column({ type: String, nullable: true })
+  description: string | null
 
-  @Column()
-  price: number
+  @Column({ type: String, nullable: true })
+  shortDescription: string | null
 
-  @Column()
-  stock: number
+  @Column({ type: String, nullable: true })
+  specifications: string | null
 
-  @Column()
-  imageUrl: string
+  @Column({ type: String })
+  slug: string
 
-  @Column()
-  category: string
+  @OneToMany(() => ImageProductEntity, (imageProduct) => imageProduct.product)
+  images: ImageProductEntity[]
 
-  @Column()
+  @Column({ type: String })
   brand: string
 
-  @Column()
-  isActive: boolean
+  @Column({ type: String })
+  category: string
 
-  @Column()
+  @Column({ type: String, nullable: true })
+  reviews: string | null
+
+  @Column({ type: Boolean, default: false })
   isFeatured: boolean
 
-  @Column()
+  @Column({ type: Boolean, default: true })
   isNew: boolean
 
-  @Column()
+  @Column({ type: Number, nullable: true })
   averageRating: number
 
-  @Column()
+  @Column({ type: Number, nullable: true })
   totalReviews: number
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date
+  @Column({ type: Boolean, default: true })
+  isActive: boolean
 }

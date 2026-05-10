@@ -31,9 +31,6 @@ export class CategoryEntity extends EntityRelationalHelper {
   @Column({ type: String, nullable: true })
   image: string | null
 
-  @Column({ type: Boolean, default: true })
-  isActive: boolean
-
   @ManyToOne(() => CategoryEntity, (category) => category.children, {
     nullable: true,
     onDelete: 'CASCADE',
@@ -45,9 +42,12 @@ export class CategoryEntity extends EntityRelationalHelper {
   children: CategoryEntity[] | null
 
   @ManyToMany(() => AttributeEntity, (attribute) => attribute.category)
+  attribute: AttributeEntity[]
   @CreateDateColumn()
   createdAt: Date
 
   @UpdateDateColumn()
   updatedAt: Date
+  @Column({ type: Boolean, default: true })
+  isActive: boolean
 }

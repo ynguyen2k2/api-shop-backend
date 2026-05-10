@@ -25,4 +25,7 @@ export class AttributeValue {
 
   @ApiProperty({ type: Date, default: null })
   updatedAt: Date
+
+  @ApiProperty({ type: Boolean })
+  isActive: boolean
 }

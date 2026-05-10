@@ -1,15 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
+import { FileType } from '~/files/domain/file'
+import { Product } from '~/products/domain/product'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String
   : Number
-export class imageProduct {
+export class ImageProduct {
   @ApiProperty({
     type: idType,
   })
   id: number | string
+
+  @ApiProperty({ type: () => FileType })
+  photo?: FileType | null
+
+  @ApiProperty({ type: () => Product })
+  product?: Product | null
+
+  @ApiProperty()
+  order: number
 
   @ApiProperty()
   createdAt: Date
@@ -18,5 +29,5 @@ export class imageProduct {
   updatedAt: Date
 
   @ApiProperty()
-  deletedAt: Date
+  isActive: boolean
 }

@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common'
-import { imageProductRepository } from '../image-product.repository'
-import { imageProductRelationalRepository } from './repositories/image-product.repository'
+import { ImageProductRepository } from '../image-product.repository'
+import { ImageProductRelationalRepository } from './repositories/image-product.repository'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { imageProductEntity } from './entities/image-product.entity'
+import { ImageProductEntity } from './entities/image-product.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([imageProductEntity])],
+  imports: [TypeOrmModule.forFeature([ImageProductEntity])],
   providers: [
     {
-      provide: imageProductRepository,
-      useClass: imageProductRelationalRepository,
+      provide: ImageProductRepository,
+      useClass: ImageProductRelationalRepository,
     },
   ],
-  exports: [imageProductRepository],
+  exports: [ImageProductRepository],
 })
-export class RelationalimageProductPersistenceModule {}
+export class RelationalImageProductPersistenceModule {}

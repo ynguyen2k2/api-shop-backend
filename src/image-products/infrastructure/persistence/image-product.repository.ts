@@ -1,27 +1,27 @@
 import { DeepPartial } from '~/utils/type/deep-partial.type'
 import { NullableType } from '~/utils/type/nullable.type'
 import { IPaginationOptions } from '~/utils/type/pagination-options'
-import { imageProduct } from '~/image-products/domain/image-product'
+import { ImageProduct } from '~/image-products/domain/image-product'
 
-export abstract class imageProductRepository {
+export abstract class ImageProductRepository {
   abstract create(
-    data: Omit<imageProduct, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
-  ): Promise<imageProduct>
+    data: Omit<ImageProduct, 'id' | 'createdAt' | 'updatedAt' | 'isActive'>,
+  ): Promise<ImageProduct>
 
   abstract findAllWithPagination({
     paginationOptions,
   }: {
     paginationOptions: IPaginationOptions
-  }): Promise<imageProduct[]>
+  }): Promise<ImageProduct[]>
 
-  abstract findById(id: imageProduct['id']): Promise<NullableType<imageProduct>>
+  abstract findById(id: ImageProduct['id']): Promise<NullableType<ImageProduct>>
 
-  abstract findByIds(ids: imageProduct['id'][]): Promise<imageProduct[]>
+  abstract findByIds(ids: ImageProduct['id'][]): Promise<ImageProduct[]>
 
   abstract update(
-    id: imageProduct['id'],
-    payload: DeepPartial<imageProduct>,
-  ): Promise<imageProduct | null>
+    id: ImageProduct['id'],
+    payload: DeepPartial<ImageProduct>,
+  ): Promise<ImageProduct | null>
 
-  abstract remove(id: imageProduct['id']): Promise<void>
+  abstract remove(id: ImageProduct['id']): Promise<void>
 }

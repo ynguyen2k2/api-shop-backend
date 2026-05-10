@@ -29,4 +29,7 @@ export class AttributeValueEntity extends EntityRelationalHelper {
 
   @UpdateDateColumn({ type: 'timestamp', default: null })
   updatedAt: Date
+
+  @Column({ type: Boolean, default: true })
+  isActive: boolean
 }

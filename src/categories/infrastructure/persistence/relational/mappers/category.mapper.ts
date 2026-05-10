@@ -34,7 +34,6 @@ export class CategoryMapper {
     domainEntity.slug = raw.slug
     domainEntity.description = raw.description
     domainEntity.image = raw.image
-    domainEntity.isActive = raw.isActive
     // Assign the safely mapped parent and explicitly mapped children arrays
     domainEntity.parent = parentCategory.id
       ? (parentCategory as Category)
@@ -43,6 +42,7 @@ export class CategoryMapper {
       childrenCategories.length > 0 ? (childrenCategories as Category[]) : null
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
+    domainEntity.isActive = raw.isActive
 
     return domainEntity
   }
@@ -59,9 +59,9 @@ export class CategoryMapper {
       parentCategoryEntity.slug = domainEntity.parent.slug
       parentCategoryEntity.description = domainEntity.parent.description
       parentCategoryEntity.image = domainEntity.parent.image
-      parentCategoryEntity.isActive = domainEntity.parent.isActive
       parentCategoryEntity.createdAt = domainEntity.parent.createdAt
       parentCategoryEntity.updatedAt = domainEntity.parent.updatedAt
+      parentCategoryEntity.isActive = domainEntity.parent.isActive
     }
 
     if (domainEntity.children) {

@@ -22,7 +22,7 @@ export class UserMapper {
     domainEntity.status = raw.status
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
-    domainEntity.deletedAt = raw.deletedAt
+    domainEntity.isActive = raw.isActive
     return domainEntity
   }
 
@@ -66,7 +66,7 @@ export class UserMapper {
     persistenceEntity.status = status
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
-    persistenceEntity.deletedAt = domainEntity.deletedAt
+    persistenceEntity.isActive = domainEntity.isActive
     return persistenceEntity
   }
 }

@@ -7,16 +7,17 @@ export class ProductMapper {
     domainEntity.id = raw.id
     domainEntity.name = raw.name
     domainEntity.description = raw.description
-
+    domainEntity.shortDescription = raw.shortDescription
+    domainEntity.specifications = raw.specifications
     domainEntity.category = raw.category
     domainEntity.brand = raw.brand
-    domainEntity.isActive = raw.isActive
     domainEntity.isFeatured = raw.isFeatured
     domainEntity.isNew = raw.isNew
     domainEntity.averageRating = raw.averageRating
     domainEntity.totalReviews = raw.totalReviews
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
+    domainEntity.isActive = raw.isActive
 
     return domainEntity
   }
@@ -27,18 +28,20 @@ export class ProductMapper {
       persistenceEntity.id = domainEntity.id
     }
     persistenceEntity.name = domainEntity.name
-    persistenceEntity.description = domainEntity.description
+    persistenceEntity.description = domainEntity.description || null
+    persistenceEntity.shortDescription = domainEntity.shortDescription || null
+    persistenceEntity.specifications = domainEntity.specifications || null
 
     persistenceEntity.category = domainEntity.category
     persistenceEntity.brand = domainEntity.brand
-    persistenceEntity.isActive = domainEntity.isActive
+    persistenceEntity.reviews = domainEntity.reviews || null
     persistenceEntity.isFeatured = domainEntity.isFeatured
     persistenceEntity.isNew = domainEntity.isNew
-    persistenceEntity.averageRating = domainEntity.averageRating
-    persistenceEntity.totalReviews = domainEntity.totalReviews
+    persistenceEntity.averageRating = domainEntity.averageRating || 0
+    persistenceEntity.totalReviews = domainEntity.totalReviews || 0
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
-
+    persistenceEntity.isActive = domainEntity.isActive
     return persistenceEntity
   }
 }

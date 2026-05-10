@@ -1,63 +1,63 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, In } from 'typeorm'
-import { imageProductEntity } from '../entities/image-product.entity'
+import { ImageProductEntity } from '../entities/image-product.entity'
 import { NullableType } from '~/utils/type/nullable.type'
-import { imageProduct } from '~/image-products/domain/image-product'
-import { imageProductRepository } from '~/image-products/infrastructure/persistence/image-product.repository'
-import { imageProductMapper } from '../mappers/image-product.mapper'
+import { ImageProduct } from '~/image-products/domain/image-product'
+import { ImageProductRepository } from '~/image-products/infrastructure/persistence/image-product.repository'
+import { ImageProductMapper } from '../mappers/image-product.mapper'
 import { IPaginationOptions } from '~/utils/type/pagination-options'
 
 @Injectable()
-export class imageProductRelationalRepository
-  implements imageProductRepository
+export class ImageProductRelationalRepository
+  implements ImageProductRepository
 {
   constructor(
-    @InjectRepository(imageProductEntity)
-    private readonly imageProductRepository: Repository<imageProductEntity>,
+    @InjectRepository(ImageProductEntity)
+    private readonly imageProductRepository: Repository<ImageProductEntity>,
   ) {}
 
-  async create(data: imageProduct): Promise<imageProduct> {
-    const persistenceModel = imageProductMapper.toPersistence(data)
+  async create(data: ImageProduct): Promise<ImageProduct> {
+    const persistenceModel = ImageProductMapper.toPersistence(data)
     const newEntity = await this.imageProductRepository.save(
       this.imageProductRepository.create(persistenceModel),
     )
-    return imageProductMapper.toDomain(newEntity)
+    return ImageProductMapper.toDomain(newEntity)
   }
 
   async findAllWithPagination({
     paginationOptions,
   }: {
     paginationOptions: IPaginationOptions
-  }): Promise<imageProduct[]> {
+  }): Promise<ImageProduct[]> {
     const entities = await this.imageProductRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
     })
 
-    return entities.map((entity) => imageProductMapper.toDomain(entity))
+    return entities.map((entity) => ImageProductMapper.toDomain(entity))
   }
 
-  async findById(id: imageProduct['id']): Promise<NullableType<imageProduct>> {
+  async findById(id: ImageProduct['id']): Promise<NullableType<ImageProduct>> {
     const entity = await this.imageProductRepository.findOne({
       where: { id },
     })
 
-    return entity ? imageProductMapper.toDomain(entity) : null
+    return entity ? ImageProductMapper.toDomain(entity) : null
   }
 
-  async findByIds(ids: imageProduct['id'][]): Promise<imageProduct[]> {
+  async findByIds(ids: ImageProduct['id'][]): Promise<ImageProduct[]> {
     const entities = await this.imageProductRepository.find({
       where: { id: In(ids) },
     })
 
-    return entities.map((entity) => imageProductMapper.toDomain(entity))
+    return entities.map((entity) => ImageProductMapper.toDomain(entity))
   }
 
   async update(
-    id: imageProduct['id'],
-    payload: Partial<imageProduct>,
-  ): Promise<imageProduct> {
+    id: ImageProduct['id'],
+    payload: Partial<ImageProduct>,
+  ): Promise<ImageProduct> {
     const entity = await this.imageProductRepository.findOne({
       where: { id },
     })
@@ -68,17 +68,17 @@ export class imageProductRelationalRepository
 
     const updatedEntity = await this.imageProductRepository.save(
       this.imageProductRepository.create(
-        imageProductMapper.toPersistence({
-          ...imageProductMapper.toDomain(entity),
+        ImageProductMapper.toPersistence({
+          ...ImageProductMapper.toDomain(entity),
           ...payload,
         }),
       ),
     )
 
-    return imageProductMapper.toDomain(updatedEntity)
+    return ImageProductMapper.toDomain(updatedEntity)
   }
 
-  async remove(id: imageProduct['id']): Promise<void> {
+  async remove(id: ImageProduct['id']): Promise<void> {
     await this.imageProductRepository.delete(id)
   }
 }

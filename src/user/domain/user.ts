@@ -77,5 +77,6 @@ export class User {
   updatedAt: Date
 
   @ApiProperty()
-  deletedAt: Date
+  @Exclude()
+  isActive: boolean
 }

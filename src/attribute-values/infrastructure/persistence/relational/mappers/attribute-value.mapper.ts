@@ -11,6 +11,7 @@ export class AttributeValueMapper {
     domainEntity.attribute = raw.attribute
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
+    domainEntity.isActive = raw.isActive
 
     return domainEntity
   }
@@ -28,7 +29,7 @@ export class AttributeValueMapper {
     }
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
-
+    persistenceEntity.isActive = domainEntity.isActive
     return persistenceEntity
   }
 }

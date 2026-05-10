@@ -20,22 +20,18 @@ export class Product {
   @ApiProperty({
     type: String,
   })
-  description: string
+  description?: string | null
 
   @ApiProperty({
     type: String,
   })
-  shortDescription: string
+  shortDescription?: string | null
 
   @ApiProperty({
     type: String,
   })
-  specifications: string
+  specifications?: string | null
 
-  @ApiProperty({
-    type: String,
-  })
-  tags: string[]
   @ApiProperty({
     type: String,
   })
@@ -54,7 +50,7 @@ export class Product {
   @ApiProperty({
     type: String,
   })
-  reviews: string
+  reviews?: string | null
   @ApiProperty({
     type: Boolean,
   })
@@ -72,11 +68,11 @@ export class Product {
   @ApiProperty({
     type: Number,
   })
-  averageRating: number
+  averageRating: number | null
   @ApiProperty({
     type: Number,
   })
-  totalReviews: number
+  totalReviews: number | null
   @ApiProperty()
   createdAt: Date
 

@@ -23,9 +23,6 @@ export class Category {
   @ApiProperty({ required: false })
   image: string | null
 
-  @ApiProperty()
-  isActive: boolean
-
   @ApiProperty({ type: () => Category })
   parent: Category | null
 
@@ -37,4 +34,7 @@ export class Category {
 
   @ApiProperty()
   updatedAt: Date
+
+  @ApiProperty({ type: Boolean })
+  isActive: boolean
 }

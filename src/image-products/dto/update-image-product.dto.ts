@@ -2,6 +2,6 @@
 // import { Allow } from 'class-validator';
 
 import { PartialType } from '@nestjs/swagger'
-import { CreateimageProductDto } from './create-image-product.dto'
+import { CreateImageProductDto } from './create-image-product.dto'
 
-export class UpdateimageProductDto extends PartialType(CreateimageProductDto) {}
+export class UpdateImageProductDto extends PartialType(CreateImageProductDto) {}

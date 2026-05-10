@@ -38,6 +38,6 @@ export class Attribute {
   @ApiProperty({ type: Date })
   updatedAt: Date
 
-  @ApiProperty({ type: Date })
-  deletedAt: Date
+  @ApiProperty({ type: Boolean })
+  isActive: boolean
 }
