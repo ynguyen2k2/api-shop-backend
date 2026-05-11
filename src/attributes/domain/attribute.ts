@@ -39,5 +39,5 @@ export class Attribute {
   updatedAt: Date
 
   @ApiProperty({ type: Boolean })
-  isActive: boolean
+  isActive?: boolean
 }

@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { InventoryEntity } from '~/inventories/infrastructure/persistence/relational/entities/inventory.entity'
 import { Product } from '~/products/domain/product'
 import { ProductEntity } from '~/products/infrastructure/persistence/relational/entities/product.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
@@ -23,8 +25,11 @@ export class VariantEntity extends EntityRelationalHelper {
   @Column()
   price: number
 
-  @Column()
-  stock: number
+  @OneToOne(() => InventoryEntity, (inventory) => inventory.variant, {
+    nullable: true,
+  })
+  inventory?: InventoryEntity | null
+
   @Column()
   compareAtPrice: number
 

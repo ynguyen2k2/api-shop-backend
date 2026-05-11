@@ -1,61 +1,58 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { VariantController } from '~/variants/variants.controller'
-import { VariantService } from '~/variants/variants.service'
-import { CreateVariantDto } from '~/variants/dto/create-variant.dto'
-import { UpdateVariantDto } from '~/variants/dto/update-variant.dto'
-import { Variant } from '~/variants/domain/variant'
+import { InventoryController } from '~/inventories/inventories.controller'
+import { InventoryService } from '~/inventories/inventories.service'
+import { CreateInventoryDto } from '~/inventories/dto/create-inventory.dto'
+import { UpdateInventoryDto } from '~/inventories/dto/update-inventory.dto'
+import { Inventory } from '~/inventories/domain/inventory'
 
-const mockProduct = {
-  id: 1,
-  name: 'iPhone 16 Pro',
-  slug: 'iphone-16-pro',
-  brand: 'Apple',
-  category: 'Smartphones',
-  isActive: true,
-  isFeatured: true,
-  isNew: true,
-  averageRating: 4.8,
-  totalReviews: 120,
-  variants: [],
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
-}
-
-const mockInventory = {
-  id: 1,
-  quantity: 100,
-  reserved: 10,
-  warehouse: 'WH-01',
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
-  isActive: true,
-}
-
-const mockVariant: Variant = {
+const mockVariant = {
   id: 1,
   sku: 'SKU-IP16PRO-128',
   price: 999.99,
   compareAtPrice: 1099.99,
-  inventory: mockInventory as any,
-  product: mockProduct as any,
+  product: {
+    id: 1,
+    name: 'iPhone 16 Pro',
+    slug: 'iphone-16-pro',
+    brand: 'Apple',
+    category: 'Smartphones',
+    isActive: true,
+    isFeatured: true,
+    isNew: true,
+    averageRating: 4.8,
+    totalReviews: 120,
+    variants: [],
+    createdAt: new Date('2026-01-01'),
+    updatedAt: new Date('2026-01-01'),
+  },
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   isActive: true,
 }
 
-const mockVariant2: Variant = {
+const mockInventory: Inventory = {
+  id: 1,
+  variant: mockVariant as any,
+  quantity: 100,
+  reserved: 10,
+  warehouse: 'WH-MAIN-01',
+  createdAt: new Date('2026-01-01'),
+  updatedAt: new Date('2026-01-01'),
+  isActive: true,
+}
+
+const mockInventory2: Inventory = {
   id: 2,
-  sku: 'SKU-IP16PRO-256',
-  price: 1099.99,
-  compareAtPrice: 1199.99,
-  inventory: null,
-  product: mockProduct as any,
+  variant: mockVariant as any,
+  quantity: 50,
+  reserved: 5,
+  warehouse: 'WH-SOUTH-02',
   createdAt: new Date('2026-01-02'),
   updatedAt: new Date('2026-01-02'),
   isActive: true,
 }
 
-const mockVariantService = {
+const mockInventoryService = {
   create: jest.fn(),
   findAllWithPagination: jest.fn(),
   findById: jest.fn(),
@@ -63,25 +60,25 @@ const mockVariantService = {
   remove: jest.fn(),
 }
 
-describe('VariantController', () => {
-  let controller: VariantController
-  let service: typeof mockVariantService
+describe('InventoryController', () => {
+  let controller: InventoryController
+  let service: typeof mockInventoryService
 
   beforeEach(async () => {
     jest.clearAllMocks()
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [VariantController],
+      controllers: [InventoryController],
       providers: [
         {
-          provide: VariantService,
-          useValue: mockVariantService,
+          provide: InventoryService,
+          useValue: mockInventoryService,
         },
       ],
     }).compile()
 
-    controller = module.get<VariantController>(VariantController)
-    service = mockVariantService
+    controller = module.get<InventoryController>(InventoryController)
+    service = mockInventoryService
   })
 
   it('should be defined', () => {
@@ -89,84 +86,53 @@ describe('VariantController', () => {
   })
 
   // ──────────────────────────────────────────────
-  // POST /variants  →  create()
+  // POST /inventories  →  create()
   // ──────────────────────────────────────────────
   describe('create', () => {
-    it('should create a variant and return it', async () => {
-      const dto: CreateVariantDto = {
-        price: 999.99,
-        stock: 50,
-        compareAtPrice: 1099.99,
-        product: { id: '1' },
-      }
+    it('should create an inventory and return it', async () => {
+      const dto: CreateInventoryDto = {}
 
-      service.create.mockResolvedValue(mockVariant)
+      service.create.mockResolvedValue(mockInventory)
 
       const result = await controller.create(dto)
 
       expect(service.create).toHaveBeenCalledWith(dto)
       expect(service.create).toHaveBeenCalledTimes(1)
-      expect(result).toEqual(mockVariant)
+      expect(result).toEqual(mockInventory)
     })
 
-    it('should return the created variant with correct properties', async () => {
-      const dto: CreateVariantDto = {
-        price: 999.99,
-        stock: 50,
-        compareAtPrice: 1099.99,
-        product: { id: '1' },
-      }
+    it('should return the created inventory with correct properties', async () => {
+      const dto: CreateInventoryDto = {}
 
-      service.create.mockResolvedValue(mockVariant)
+      service.create.mockResolvedValue(mockInventory)
 
       const result = await controller.create(dto)
 
-      expect(result.sku).toBe('SKU-IP16PRO-128')
-      expect(result.price).toBe(999.99)
-      expect(result.compareAtPrice).toBe(1099.99)
+      expect(result.quantity).toBe(100)
+      expect(result.reserved).toBe(10)
+      expect(result.warehouse).toBe('WH-MAIN-01')
       expect(result.isActive).toBe(true)
-      expect(result.product).toBeDefined()
     })
 
-    it('should create a variant with inventory relation', async () => {
-      const dto: CreateVariantDto = {
-        price: 999.99,
-        stock: 50,
-        compareAtPrice: 1099.99,
-        product: { id: '1' },
-      }
+    it('should return inventory with variant relation', async () => {
+      const dto: CreateInventoryDto = {}
 
-      service.create.mockResolvedValue(mockVariant)
+      service.create.mockResolvedValue(mockInventory)
 
       const result = await controller.create(dto)
 
-      expect(result.inventory).toBeDefined()
-      expect(result.inventory!.quantity).toBe(100)
-      expect(result.inventory!.warehouse).toBe('WH-01')
-    })
-
-    it('should create a variant without inventory', async () => {
-      const dto: CreateVariantDto = {
-        price: 1099.99,
-        stock: 30,
-        compareAtPrice: 1199.99,
-        product: { id: '1' },
-      }
-
-      service.create.mockResolvedValue(mockVariant2)
-
-      const result = await controller.create(dto)
-
-      expect(result.inventory).toBeNull()
+      expect(result.variant).toBeDefined()
+      expect(result.variant.sku).toBe('SKU-IP16PRO-128')
+      expect(result.variant.price).toBe(999.99)
     })
   })
 
   // ──────────────────────────────────────────────
-  // GET /variants  →  findAll()
+  // GET /inventories  →  findAll()
   // ──────────────────────────────────────────────
   describe('findAll', () => {
-    it('should return paginated variants', async () => {
-      const data = [mockVariant, mockVariant2]
+    it('should return paginated inventories', async () => {
+      const data = [mockInventory, mockInventory2]
       service.findAllWithPagination.mockResolvedValue(data)
 
       const result = await controller.findAll({ page: 1, limit: 10 })
@@ -202,7 +168,7 @@ describe('VariantController', () => {
 
     it('should report hasNextPage true when data length equals limit', async () => {
       const items = Array.from({ length: 5 }, (_, i) => ({
-        ...mockVariant,
+        ...mockInventory,
         id: i + 1,
       }))
       service.findAllWithPagination.mockResolvedValue(items)
@@ -213,7 +179,7 @@ describe('VariantController', () => {
     })
 
     it('should handle page 2 correctly', async () => {
-      service.findAllWithPagination.mockResolvedValue([mockVariant2])
+      service.findAllWithPagination.mockResolvedValue([mockInventory2])
 
       const result = await controller.findAll({ page: 2, limit: 1 })
 
@@ -223,23 +189,33 @@ describe('VariantController', () => {
       expect(result.data).toHaveLength(1)
       expect(result.hasNextPage).toBe(true)
     })
+
+    it('should return different warehouse inventories', async () => {
+      const data = [mockInventory, mockInventory2]
+      service.findAllWithPagination.mockResolvedValue(data)
+
+      const result = await controller.findAll({ page: 1, limit: 10 })
+
+      expect(result.data[0].warehouse).toBe('WH-MAIN-01')
+      expect(result.data[1].warehouse).toBe('WH-SOUTH-02')
+    })
   })
 
   // ──────────────────────────────────────────────
-  // GET /variants/:id  →  findById()
+  // GET /inventories/:id  →  findById()
   // ──────────────────────────────────────────────
   describe('findById', () => {
-    it('should return the variant by id', async () => {
-      service.findById.mockResolvedValue(mockVariant)
+    it('should return the inventory by id', async () => {
+      service.findById.mockResolvedValue(mockInventory)
 
       const result = await controller.findById('1')
 
       expect(service.findById).toHaveBeenCalledWith('1')
       expect(service.findById).toHaveBeenCalledTimes(1)
-      expect(result).toEqual(mockVariant)
+      expect(result).toEqual(mockInventory)
     })
 
-    it('should return null when variant is not found', async () => {
+    it('should return null when inventory is not found', async () => {
       service.findById.mockResolvedValue(null)
 
       const result = await controller.findById('999')
@@ -248,25 +224,28 @@ describe('VariantController', () => {
       expect(result).toBeNull()
     })
 
-    it('should return variant with inventory data', async () => {
-      service.findById.mockResolvedValue(mockVariant)
+    it('should return inventory with all fields', async () => {
+      service.findById.mockResolvedValue(mockInventory)
 
       const result = await controller.findById('1')
 
-      expect(result.inventory).toBeDefined()
-      expect(result.inventory!.quantity).toBe(100)
-      expect(result.inventory!.reserved).toBe(10)
-      expect(result.inventory!.warehouse).toBe('WH-01')
+      expect(result.quantity).toBe(100)
+      expect(result.reserved).toBe(10)
+      expect(result.warehouse).toBe('WH-MAIN-01')
+      expect(result.isActive).toBe(true)
+      expect(result.variant).toBeDefined()
+      expect(result.createdAt).toEqual(new Date('2026-01-01'))
+      expect(result.updatedAt).toEqual(new Date('2026-01-01'))
     })
   })
 
   // ──────────────────────────────────────────────
-  // PATCH /variants/:id  →  update()
+  // PATCH /inventories/:id  →  update()
   // ──────────────────────────────────────────────
   describe('update', () => {
-    it('should update a variant', async () => {
-      const dto: UpdateVariantDto = { price: 899.99 }
-      const updated = { ...mockVariant, price: 899.99 }
+    it('should update an inventory', async () => {
+      const dto: UpdateInventoryDto = {}
+      const updated = { ...mockInventory }
 
       service.update.mockResolvedValue(updated)
 
@@ -275,11 +254,10 @@ describe('VariantController', () => {
       expect(service.update).toHaveBeenCalledWith('1', dto)
       expect(service.update).toHaveBeenCalledTimes(1)
       expect(result).toEqual(updated)
-      expect(result!.price).toBe(899.99)
     })
 
-    it('should return null when updating a non-existent variant', async () => {
-      const dto: UpdateVariantDto = { price: 899.99 }
+    it('should return null when updating a non-existent inventory', async () => {
+      const dto: UpdateInventoryDto = {}
 
       service.update.mockResolvedValue(null)
 
@@ -288,25 +266,13 @@ describe('VariantController', () => {
       expect(service.update).toHaveBeenCalledWith('999', dto)
       expect(result).toBeNull()
     })
-
-    it('should update compareAtPrice only', async () => {
-      const dto: UpdateVariantDto = { compareAtPrice: 1299.99 }
-      const updated = { ...mockVariant, compareAtPrice: 1299.99 }
-
-      service.update.mockResolvedValue(updated)
-
-      const result = await controller.update('1', dto)
-
-      expect(result!.compareAtPrice).toBe(1299.99)
-      expect(result!.price).toBe(mockVariant.price) // unchanged
-    })
   })
 
   // ──────────────────────────────────────────────
-  // DELETE /variants/:id  →  remove()
+  // DELETE /inventories/:id  →  remove()
   // ──────────────────────────────────────────────
   describe('remove', () => {
-    it('should remove a variant by id', async () => {
+    it('should remove an inventory by id', async () => {
       service.remove.mockResolvedValue(undefined)
 
       const result = await controller.remove('1')
@@ -317,3 +283,4 @@ describe('VariantController', () => {
     })
   })
 })
+

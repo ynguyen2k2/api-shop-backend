@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { Decimal128 } from 'typeorm'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
+import { Inventory } from '~/inventories/domain/inventory'
 import { Product } from '~/products/domain/product'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
@@ -15,8 +16,9 @@ export class Variant {
 
   @ApiProperty({ example: 'sku-012012' })
   sku: string
-  @ApiProperty({})
-  stock: number
+
+  @ApiProperty({ type: Inventory })
+  inventory?: Inventory | null
 
   @ApiProperty({
     type: 'number',
