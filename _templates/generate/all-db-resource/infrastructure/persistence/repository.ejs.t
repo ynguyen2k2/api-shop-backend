@@ -8,7 +8,7 @@ import { <%= name %> } from '../../domain/<%= h.inflection.transform(name, ['und
 
 export abstract class <%= name %>Repository {
   abstract create(
-    data: Omit<<%= name %>, 'id' | 'createdAt' | 'updatedAt'>,
+    data: Omit<<%= name %>, 'id' | 'createdAt' | 'updatedAt' | 'isActive'>,
   ): Promise<<%= name %>>;
 
   abstract findAllWithPagination({
