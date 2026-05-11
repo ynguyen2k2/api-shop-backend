@@ -5,8 +5,8 @@ import {
   // do not remove this comment
   Module,
 } from '@nestjs/common';
-import { <%= h.inflection.transform(name, ['pluralize']) %>Service } from './<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.service';
-import { <%= h.inflection.transform(name, ['pluralize']) %>Controller } from './<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.controller';
+import { <%= h.inflection.transform(name ) %>Service } from './<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.service';
+import { <%= h.inflection.transform(name ) %>Controller } from './<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>.controller';
 import { Relational<%= name %>PersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module';
 import databaseConfig from '../database/config/database.config';
 import { DatabaseConfig } from '../database/config/database-config.type';
@@ -22,8 +22,8 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
     // do not remove this comment
     infrastructurePersistenceModule,
   ],
-  controllers: [<%= h.inflection.transform(name, ['pluralize']) %>Controller],
-  providers: [<%= h.inflection.transform(name, ['pluralize']) %>Service],
-  exports: [<%= h.inflection.transform(name, ['pluralize']) %>Service, infrastructurePersistenceModule],
+  controllers: [<%= h.inflection.transform(name ) %>Controller],
+  providers: [<%= h.inflection.transform(name ) %>Service],
+  exports: [<%= h.inflection.transform(name ) %>Service, infrastructurePersistenceModule],
 })
-export class <%= h.inflection.transform(name, ['pluralize']) %>Module {}
+export class <%= h.inflection.transform(name ) %>Module {}

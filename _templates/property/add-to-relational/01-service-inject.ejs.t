@@ -5,5 +5,5 @@ after: constructor
 skip_if: private readonly <%= h.inflection.camelize(type, true) %>Service
 ---
 <% if (kind === 'reference' || kind === 'duplication') { -%>
-  private readonly <%= h.inflection.camelize(type, true) %>Service: <%= h.inflection.transform(type, ['pluralize']) %>Service,
+  private readonly <%= h.inflection.camelize(type, true) %>Service: <%= h.inflection.transform(type) %>Service,
 <% } -%>
