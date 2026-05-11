@@ -119,7 +119,7 @@ describe('CartItemController', () => {
 
       expect(result.cart).toBeDefined()
       expect(result.cart.id).toBe('cart-1')
-      
+
       expect(result.variant).toBeDefined()
       expect(result.variant.id).toBe('variant-1')
       expect(result.variant.sku).toBe('SKU-IP16PRO-128')

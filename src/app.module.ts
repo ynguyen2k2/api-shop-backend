@@ -12,16 +12,11 @@ import path from 'path'
 import { CategoriesModule } from './categories/categories.module'
 import { AttributeValuesModule } from './attribute-values/attribute-values.module'
 import { ImageProductModule } from './image-products/image-products.module'
-
 import { VariantModule } from './variants/variants.module'
-
 import { InventoryModule } from './inventories/inventories.module'
-
 import { CartModule } from './carts/carts.module'
-
-import { Cart-ItemModule } from './cart--items/cart--items.module';
-
-import { CartItemModule } from './cart-items/cart-items.module';
+import { CartItemModule } from './cart-items/cart-items.module'
+import { ReviewModule } from './reviews/reviews.module'
 
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
@@ -37,8 +32,8 @@ import { AttributesModule } from './attributes/attributes.module'
 
 @Module({
   imports: [
+    ReviewModule,
     CartItemModule,
-    Cart-ItemModule,
     CartModule,
     InventoryModule,
     VariantModule,

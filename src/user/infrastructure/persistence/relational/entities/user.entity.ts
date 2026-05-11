@@ -9,9 +9,11 @@ import {
   UpdateDateColumn,
   JoinColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm'
 import { AuthProvidersEnum } from '~/auth/auth-providers.enum'
 import { FileEntity } from '~/files/infrastructure/persistence/relational/entities/file.entity'
+import { ReviewEntity } from '~/reviews/infrastructure/persistence/relational/entities/review.entity'
 import { RoleEntity } from '~/roles/infrastructure/persistence/relational/entities/role.entity'
 import { StatusEntity } from '~/statuses/infrastucture/persistence/relational/entities/status.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
@@ -21,7 +23,7 @@ import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 })
 export class UserEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn()
-  id: number
+  id: String
 
   // For "string | null" we need to use String type.
   // More info: https://github.com/typeorm/typeorm/issues/2567
@@ -61,6 +63,9 @@ export class UserEntity extends EntityRelationalHelper {
     eager: true,
   })
   status?: StatusEntity
+
+  @OneToMany(() => ReviewEntity, (review) => review.user)
+  reviews: ReviewEntity[]
 
   @CreateDateColumn()
   createdAt: Date

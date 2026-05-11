@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { ImageProductEntity } from '~/image-products/infrastructure/persistence/relational/entities/image-product.entity'
+import { ReviewEntity } from '~/reviews/infrastructure/persistence/relational/entities/review.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 import { VariantEntity } from '~/variants/infrastructure/persistence/relational/entities/variant.entity'
 
@@ -41,8 +42,8 @@ export class ProductEntity extends EntityRelationalHelper {
   @Column({ type: String })
   category: string
 
-  @Column({ type: String, nullable: true })
-  reviews: string | null
+  @OneToMany(() => ReviewEntity, (review) => review.product)
+  reviews: ReviewEntity[]
 
   @OneToMany(() => VariantEntity, (variant) => variant.product)
   variants: VariantEntity[]
