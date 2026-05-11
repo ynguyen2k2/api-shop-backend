@@ -17,6 +17,12 @@ import { VariantModule } from './variants/variants.module'
 
 import { InventoryModule } from './inventories/inventories.module'
 
+import { CartModule } from './carts/carts.module'
+
+import { Cart-ItemModule } from './cart--items/cart--items.module';
+
+import { CartItemModule } from './cart-items/cart-items.module';
+
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
@@ -31,6 +37,9 @@ import { AttributesModule } from './attributes/attributes.module'
 
 @Module({
   imports: [
+    CartItemModule,
+    Cart-ItemModule,
+    CartModule,
     InventoryModule,
     VariantModule,
     ImageProductModule,

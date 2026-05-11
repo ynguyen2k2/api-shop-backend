@@ -1,58 +1,53 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { InventoryController } from '~/inventories/inventories.controller'
-import { InventoryService } from '~/inventories/inventories.service'
-import { CreateInventoryDto } from '~/inventories/dto/create-inventory.dto'
-import { UpdateInventoryDto } from '~/inventories/dto/update-inventory.dto'
-import { Inventory } from '~/inventories/domain/inventory'
+import { CartItemController } from '~/cart-items/cart-items.controller'
+import { CartItemService } from '~/cart-items/cart-items.service'
+import { CreateCartItemDto } from '~/cart-items/dto/create-cart-item.dto'
+import { UpdateCartItemDto } from '~/cart-items/dto/update-cart-item.dto'
+import { CartItem } from '~/cart-items/domain/cart-item'
+
+const mockCart = {
+  id: 'cart-1',
+  createdAt: new Date('2026-01-01'),
+  updatedAt: new Date('2026-01-01'),
+  isActive: true,
+}
 
 const mockVariant = {
-  id: 1,
+  id: 'variant-1',
   sku: 'SKU-IP16PRO-128',
   price: 999.99,
   compareAtPrice: 1099.99,
-  product: {
-    id: 1,
-    name: 'iPhone 16 Pro',
-    slug: 'iphone-16-pro',
-    brand: 'Apple',
-    category: 'Smartphones',
-    isActive: true,
-    isFeatured: true,
-    isNew: true,
-    averageRating: 4.8,
-    totalReviews: 120,
-    variants: [],
-    createdAt: new Date('2026-01-01'),
-    updatedAt: new Date('2026-01-01'),
-  },
+  product: null,
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   isActive: true,
 }
 
-const mockInventory: Inventory = {
-  id: 1,
+const mockCartItem: CartItem = {
+  id: 'cart-item-1',
+  cart: mockCart as any,
   variant: mockVariant as any,
-  quantity: 100,
-  reserved: 10,
-  warehouse: 'WH-MAIN-01',
+  quantity: 2,
+  priceSnapshot: 999.99,
+  comparePriceSnapshot: 1099.99,
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   isActive: true,
 }
 
-const mockInventory2: Inventory = {
-  id: 2,
+const mockCartItem2: CartItem = {
+  id: 'cart-item-2',
+  cart: mockCart as any,
   variant: mockVariant as any,
-  quantity: 50,
-  reserved: 5,
-  warehouse: 'WH-SOUTH-02',
+  quantity: 1,
+  priceSnapshot: 199.99,
+  comparePriceSnapshot: 249.99,
   createdAt: new Date('2026-01-02'),
   updatedAt: new Date('2026-01-02'),
   isActive: true,
 }
 
-const mockInventoryService = {
+const mockCartItemService = {
   create: jest.fn(),
   findAllWithPagination: jest.fn(),
   findById: jest.fn(),
@@ -60,25 +55,25 @@ const mockInventoryService = {
   remove: jest.fn(),
 }
 
-describe('InventoryController', () => {
-  let controller: InventoryController
-  let service: typeof mockInventoryService
+describe('CartItemController', () => {
+  let controller: CartItemController
+  let service: typeof mockCartItemService
 
   beforeEach(async () => {
     jest.clearAllMocks()
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [InventoryController],
+      controllers: [CartItemController],
       providers: [
         {
-          provide: InventoryService,
-          useValue: mockInventoryService,
+          provide: CartItemService,
+          useValue: mockCartItemService,
         },
       ],
     }).compile()
 
-    controller = module.get<InventoryController>(InventoryController)
-    service = mockInventoryService
+    controller = module.get<CartItemController>(CartItemController)
+    service = mockCartItemService
   })
 
   it('should be defined', () => {
@@ -86,53 +81,57 @@ describe('InventoryController', () => {
   })
 
   // ──────────────────────────────────────────────
-  // POST /inventories  →  create()
+  // POST /cart-items  →  create()
   // ──────────────────────────────────────────────
   describe('create', () => {
-    it('should create an inventory and return it', async () => {
-      const dto: CreateInventoryDto = {}
+    it('should create a cart item and return it', async () => {
+      const dto: CreateCartItemDto = {}
 
-      service.create.mockResolvedValue(mockInventory)
+      service.create.mockResolvedValue(mockCartItem)
 
       const result = await controller.create(dto)
 
       expect(service.create).toHaveBeenCalledWith(dto)
       expect(service.create).toHaveBeenCalledTimes(1)
-      expect(result).toEqual(mockInventory)
+      expect(result).toEqual(mockCartItem)
     })
 
-    it('should return the created inventory with correct properties', async () => {
-      const dto: CreateInventoryDto = {}
+    it('should return the created cart item with correct properties', async () => {
+      const dto: CreateCartItemDto = {}
 
-      service.create.mockResolvedValue(mockInventory)
+      service.create.mockResolvedValue(mockCartItem)
 
       const result = await controller.create(dto)
 
-      expect(result.quantity).toBe(100)
-      expect(result.reserved).toBe(10)
-      expect(result.warehouse).toBe('WH-MAIN-01')
+      expect(result.id).toBe('cart-item-1')
+      expect(result.quantity).toBe(2)
+      expect(result.priceSnapshot).toBe(999.99)
+      expect(result.comparePriceSnapshot).toBe(1099.99)
       expect(result.isActive).toBe(true)
     })
 
-    it('should return inventory with variant relation', async () => {
-      const dto: CreateInventoryDto = {}
+    it('should return cart item with cart and variant relations', async () => {
+      const dto: CreateCartItemDto = {}
 
-      service.create.mockResolvedValue(mockInventory)
+      service.create.mockResolvedValue(mockCartItem)
 
       const result = await controller.create(dto)
 
+      expect(result.cart).toBeDefined()
+      expect(result.cart.id).toBe('cart-1')
+      
       expect(result.variant).toBeDefined()
+      expect(result.variant.id).toBe('variant-1')
       expect(result.variant.sku).toBe('SKU-IP16PRO-128')
-      expect(result.variant.price).toBe(999.99)
     })
   })
 
   // ──────────────────────────────────────────────
-  // GET /inventories  →  findAll()
+  // GET /cart-items  →  findAll()
   // ──────────────────────────────────────────────
   describe('findAll', () => {
-    it('should return paginated inventories', async () => {
-      const data = [mockInventory, mockInventory2]
+    it('should return paginated cart items', async () => {
+      const data = [mockCartItem, mockCartItem2]
       service.findAllWithPagination.mockResolvedValue(data)
 
       const result = await controller.findAll({ page: 1, limit: 10 })
@@ -168,8 +167,8 @@ describe('InventoryController', () => {
 
     it('should report hasNextPage true when data length equals limit', async () => {
       const items = Array.from({ length: 5 }, (_, i) => ({
-        ...mockInventory,
-        id: i + 1,
+        ...mockCartItem,
+        id: `cart-item-${i + 1}`,
       }))
       service.findAllWithPagination.mockResolvedValue(items)
 
@@ -177,107 +176,72 @@ describe('InventoryController', () => {
 
       expect(result.hasNextPage).toBe(true) // 5 items === limit of 5
     })
-
-    it('should handle page 2 correctly', async () => {
-      service.findAllWithPagination.mockResolvedValue([mockInventory2])
-
-      const result = await controller.findAll({ page: 2, limit: 1 })
-
-      expect(service.findAllWithPagination).toHaveBeenCalledWith({
-        paginationOptions: { page: 2, limit: 1 },
-      })
-      expect(result.data).toHaveLength(1)
-      expect(result.hasNextPage).toBe(true)
-    })
-
-    it('should return different warehouse inventories', async () => {
-      const data = [mockInventory, mockInventory2]
-      service.findAllWithPagination.mockResolvedValue(data)
-
-      const result = await controller.findAll({ page: 1, limit: 10 })
-
-      expect(result.data[0].warehouse).toBe('WH-MAIN-01')
-      expect(result.data[1].warehouse).toBe('WH-SOUTH-02')
-    })
   })
 
   // ──────────────────────────────────────────────
-  // GET /inventories/:id  →  findById()
+  // GET /cart-items/:id  →  findById()
   // ──────────────────────────────────────────────
   describe('findById', () => {
-    it('should return the inventory by id', async () => {
-      service.findById.mockResolvedValue(mockInventory)
+    it('should return the cart item by id', async () => {
+      service.findById.mockResolvedValue(mockCartItem)
 
-      const result = await controller.findById('1')
+      const result = await controller.findById('cart-item-1')
 
-      expect(service.findById).toHaveBeenCalledWith('1')
+      expect(service.findById).toHaveBeenCalledWith('cart-item-1')
       expect(service.findById).toHaveBeenCalledTimes(1)
-      expect(result).toEqual(mockInventory)
+      expect(result).toEqual(mockCartItem)
     })
 
-    it('should return null when inventory is not found', async () => {
+    it('should return null when cart item is not found', async () => {
       service.findById.mockResolvedValue(null)
 
-      const result = await controller.findById('999')
+      const result = await controller.findById('non-existent-cart-item')
 
-      expect(service.findById).toHaveBeenCalledWith('999')
+      expect(service.findById).toHaveBeenCalledWith('non-existent-cart-item')
       expect(result).toBeNull()
-    })
-
-    it('should return inventory with all fields', async () => {
-      service.findById.mockResolvedValue(mockInventory)
-
-      const result = await controller.findById('1')
-
-      expect(result.quantity).toBe(100)
-      expect(result.reserved).toBe(10)
-      expect(result.warehouse).toBe('WH-MAIN-01')
-      expect(result.isActive).toBe(true)
-      expect(result.variant).toBeDefined()
-      expect(result.createdAt).toEqual(new Date('2026-01-01'))
-      expect(result.updatedAt).toEqual(new Date('2026-01-01'))
     })
   })
 
   // ──────────────────────────────────────────────
-  // PATCH /inventories/:id  →  update()
+  // PATCH /cart-items/:id  →  update()
   // ──────────────────────────────────────────────
   describe('update', () => {
-    it('should update an inventory', async () => {
-      const dto: UpdateInventoryDto = {}
-      const updated = { ...mockInventory }
+    it('should update a cart item quantity', async () => {
+      const dto: UpdateCartItemDto = {}
+      const updated = { ...mockCartItem, quantity: 5 }
 
       service.update.mockResolvedValue(updated)
 
-      const result = await controller.update('1', dto)
+      const result = await controller.update('cart-item-1', dto)
 
-      expect(service.update).toHaveBeenCalledWith('1', dto)
+      expect(service.update).toHaveBeenCalledWith('cart-item-1', dto)
       expect(service.update).toHaveBeenCalledTimes(1)
       expect(result).toEqual(updated)
+      expect(result!.quantity).toBe(5)
     })
 
-    it('should return null when updating a non-existent inventory', async () => {
-      const dto: UpdateInventoryDto = {}
+    it('should return null when updating a non-existent cart item', async () => {
+      const dto: UpdateCartItemDto = {}
 
       service.update.mockResolvedValue(null)
 
-      const result = await controller.update('999', dto)
+      const result = await controller.update('non-existent-cart-item', dto)
 
-      expect(service.update).toHaveBeenCalledWith('999', dto)
+      expect(service.update).toHaveBeenCalledWith('non-existent-cart-item', dto)
       expect(result).toBeNull()
     })
   })
 
   // ──────────────────────────────────────────────
-  // DELETE /inventories/:id  →  remove()
+  // DELETE /cart-items/:id  →  remove()
   // ──────────────────────────────────────────────
   describe('remove', () => {
-    it('should remove an inventory by id', async () => {
+    it('should remove a cart item by id', async () => {
       service.remove.mockResolvedValue(undefined)
 
-      const result = await controller.remove('1')
+      const result = await controller.remove('cart-item-1')
 
-      expect(service.remove).toHaveBeenCalledWith('1')
+      expect(service.remove).toHaveBeenCalledWith('cart-item-1')
       expect(service.remove).toHaveBeenCalledTimes(1)
       expect(result).toBeUndefined()
     })
