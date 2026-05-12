@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm'
 import { CartEntity } from '~/carts/infrastructure/persistence/relational/entities/cart.entity'
@@ -14,6 +15,7 @@ import { VariantEntity } from '~/variants/infrastructure/persistence/relational/
 @Entity({
   name: 'cart_item',
 })
+@Unique(['cart', 'variant'])
 export class CartItemEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string | number

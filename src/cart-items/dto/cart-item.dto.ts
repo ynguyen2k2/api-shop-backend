@@ -1,8 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString } from 'class-validator'
-
+import databaseConfig from '~/database/config/database-config'
+import { DatabaseConfig } from '~/database/config/database-config.type'
+const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
+  ? String
+  : Number
 export class CartItemDto {
-  @ApiProperty()
+  @ApiProperty({
+    type: idType,
+  })
   @IsString()
   @IsNotEmpty()
   id: string

@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { CartItem } from '~/cart-items/domain/cart-item'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
+import { User } from '~/user/domain/user'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String
@@ -9,8 +11,15 @@ export class Cart {
   @ApiProperty({
     type: idType,
   })
-  id: number | string
+  id: string
 
+  @ApiProperty({
+    type: User,
+  })
+  user: User
+
+  @ApiProperty({ type: CartItem })
+  cartItems?: CartItem[]
   @ApiProperty()
   createdAt: Date
 

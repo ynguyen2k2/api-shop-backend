@@ -1,30 +1,36 @@
 import {
   // common
   Injectable,
+  NotFoundException,
 } from '@nestjs/common'
 import { CreateCartDto } from './dto/create-cart.dto'
 import { UpdateCartDto } from './dto/update-cart.dto'
 import { CartRepository } from './infrastructure/persistence/cart.repository'
 import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { Cart } from './domain/cart'
+import { UsersService } from '~/user/users.service'
+import { CartItem } from '~/cart-items/domain/cart-item'
+import { CartItemService } from '~/cart-items/cart-items.service'
 
 @Injectable()
 export class CartService {
   constructor(
     // Dependencies here
     private readonly cartRepository: CartRepository,
+    private readonly userService: UsersService,
+    private readonly cartItemService: CartItemService,
   ) {}
 
   async create(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createCartDto: CreateCartDto,
   ) {
-    // Do not remove comment below.
-    // <creating-property />
+    const userId = createCartDto.user.id
+    const user = await this.userService.findById(userId)
+    if (!user) throw new NotFoundException('User is not found')
 
     return this.cartRepository.create({
-      // Do not remove comment below.
-      // <creating-property-payload />
+      user,
     })
   }
 
@@ -54,12 +60,21 @@ export class CartService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateCartDto: UpdateCartDto,
   ) {
-    // Do not remove comment below.
-    // <updating-property />
+    if (updateCartDto.user) {
+      const userId = updateCartDto?.user.id
+      const user = await this.userService.findById(userId)
+      if (!user) throw new NotFoundException('User is not found')
+      updateCartDto.user = user
+    }
 
+    const cartItemLength = updateCartDto.cartItems?.length ?? 0
+    if (cartItemLength > 0 && updateCartDto.cartItems) {
+      const cartItemIds = updateCartDto.cartItems.map((item) => item.id)
+      const cartItems = this.cartItemService.findByIds(cartItemIds)
+      if (!cartItems) throw new NotFoundException('CartItem is not found!')
+    }
     return this.cartRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
+      ...updateCartDto,
     })
   }
 

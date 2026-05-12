@@ -11,7 +11,7 @@ export class CartItem {
   @ApiProperty({
     type: idType,
   })
-  id: number | string
+  id: string
 
   @ApiProperty({ type: Cart })
   cart: Cart

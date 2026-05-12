@@ -5,7 +5,7 @@ import { Cart } from '~/carts/domain/cart'
 
 export abstract class CartRepository {
   abstract create(
-    data: Omit<Cart, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
+    data: Omit<Cart, 'id' | 'createdAt' | 'updatedAt' | 'isActive'>,
   ): Promise<Cart>
 
   abstract findAllWithPagination({

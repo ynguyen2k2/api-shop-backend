@@ -1,30 +1,48 @@
 import {
   // common
   Injectable,
+  NotFoundException,
 } from '@nestjs/common'
 import { CreateCartItemDto } from './dto/create-cart-item.dto'
 import { UpdateCartItemDto } from './dto/update-cart-item.dto'
 import { CartItemRepository } from './infrastructure/persistence/cart-item.repository'
 import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { CartItem } from './domain/cart-item'
+import { CartService } from '~/carts/carts.service'
+import { ProductsService } from '~/products/products.service'
+import { VariantService } from '~/variants/variants.service'
+import { Cart } from '~/carts/domain/cart'
+import { Variant } from '~/variants/domain/variant'
 
 @Injectable()
 export class CartItemService {
   constructor(
     // Dependencies here
     private readonly cartItemRepository: CartItemRepository,
+    private readonly cartService: CartService,
+    private readonly variantService: VariantService,
   ) {}
 
   async create(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createCartItemDto: CreateCartItemDto,
   ) {
-    // Do not remove comment below.
-    // <creating-property />
+    const cartId = createCartItemDto.cart.id
+    const cart = await this.cartService.findById(cartId)
+    if (!cart) {
+      throw new NotFoundException('Cart is not found')
+    }
+
+    const variantId = createCartItemDto.variant.id
+    const variant = await this.variantService.findById(variantId)
+    if (!variant) {
+      throw new NotFoundException('Variant is not found')
+    }
 
     return this.cartItemRepository.create({
-      // Do not remove comment below.
-      // <creating-property-payload />
+      ...createCartItemDto,
+      cart,
+      variant,
     })
   }
 
@@ -54,12 +72,20 @@ export class CartItemService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateCartItemDto: UpdateCartItemDto,
   ) {
-    // Do not remove comment below.
-    // <updating-property />
+    const cartId = updateCartItemDto.cart?.id
+    if (cartId) {
+      const cart = await this.cartService.findById(cartId)
+      if (!cart) throw new NotFoundException('Cart is not found')
+    }
+
+    const variantId = updateCartItemDto.variant?.id
+    if (variantId) {
+      const variant = await this.variantService.findById(variantId)
+      if (!variant) throw new NotFoundException('Variant is not found')
+    }
 
     return this.cartItemRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
+      ...updateCartItemDto,
     })
   }
 
