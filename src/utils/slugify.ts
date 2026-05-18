@@ -7,4 +7,8 @@ const slugify = (text: string, separator: string = '-') => {
     .replace(new RegExp(`(^${escapedSeparator}|${escapedSeparator}$)`, 'g'), '')
 }
 
+export const generateUniqueSKU = (name: string): string => {
+  return slugify(name)
+}
+
 export default slugify
