@@ -2,8 +2,8 @@ import { Product } from '~/product/domain/product'
 import { ProductEntity } from '~/product/infrastructure/persistence/relational/entities/product.entity'
 import { VariantEntity } from '~/product/infrastructure/persistence/relational/entities/variant.entity'
 import { VariantMapper } from '~/product/infrastructure/persistence/relational/mappers/variant.mapper'
-import { ReviewEntity } from '~/reviews/infrastructure/persistence/relational/entities/review.entity'
-import { ReviewMapper } from '~/reviews/infrastructure/persistence/relational/mappers/review.mapper'
+import { ReviewEntity } from '~/review/infrastructure/persistence/relational/entities/review.entity'
+import { ReviewMapper } from '~/review/infrastructure/persistence/relational/mappers/review.mapper'
 
 export class ProductMapper {
   static toDomain(raw: ProductEntity): Product {

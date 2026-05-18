@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
-import { Review } from '~/reviews/domain/review'
+import { Review } from '~/review/domain/review'
 import { Variant } from '~/product/domain/variant'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase

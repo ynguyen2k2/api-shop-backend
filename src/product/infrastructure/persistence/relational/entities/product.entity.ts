@@ -8,7 +8,7 @@ import {
 } from 'typeorm'
 import { ImageProductEntity } from '~/image-products/infrastructure/persistence/relational/entities/image-product.entity'
 import { VariantEntity } from '~/product/infrastructure/persistence/relational/entities/variant.entity'
-import { ReviewEntity } from '~/reviews/infrastructure/persistence/relational/entities/review.entity'
+import { ReviewEntity } from '~/review/infrastructure/persistence/relational/entities/review.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
