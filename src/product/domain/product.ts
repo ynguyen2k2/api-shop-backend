@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import databaseConfig from 'database/config/database-config'
 import { DatabaseConfig } from 'database/config/database-config.type'
-import { Review } from 'review/domain/review'
 import { Variant } from 'product/domain/variant'
 import { ProductImage } from 'product/domain/product-image'
 
@@ -30,7 +29,7 @@ export class Product {
   })
   shortDescription?: string | null
 
-  @ApiProperty({ type: ProductImage })
+  @ApiProperty({ type: () => [ProductImage] })
   images?: ProductImage[]
 
   @ApiProperty({
@@ -54,9 +53,7 @@ export class Product {
   })
   category: string
 
-  @ApiProperty({
-    type: Variant,
-  })
+  @ApiProperty({ type: () => [Variant] })
   variants?: Variant[]
   @ApiProperty({
     type: Boolean,

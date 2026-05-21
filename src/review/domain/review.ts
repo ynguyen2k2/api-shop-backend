@@ -13,10 +13,10 @@ export class Review {
   })
   id: number | string
 
-  @ApiProperty()
+  @ApiProperty({ type: () => User })
   user: User
 
-  @ApiProperty()
+  @ApiProperty({ type: () => Product })
   product: Product
 
   @ApiProperty()

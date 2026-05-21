@@ -23,12 +23,12 @@ export class Attribute {
   type: string
 
   @ApiProperty({
-    type: AttributeValue,
+    type: () => [AttributeValue],
   })
   values?: AttributeValue[]
 
   @ApiProperty({
-    type: Category,
+    type: () => Category,
   })
   category?: Category
 

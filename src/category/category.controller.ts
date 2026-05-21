@@ -46,9 +46,6 @@ export class CategoryController {
   }
 
   @Get()
-  @ApiOkResponse({
-    type: InfinityPaginationResponse(Category),
-  })
   async findAll(
     @Query() query: FindAllcategoryDto,
   ): Promise<InfinityPaginationResponseDto<Category>> {
@@ -75,9 +72,6 @@ export class CategoryController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: Category,
-  })
   findById(@Param('id') id: string) {
     return this.categoryService.findById(id)
   }
@@ -87,9 +81,6 @@ export class CategoryController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Category,
   })
   update(
     @Param('id') id: string,

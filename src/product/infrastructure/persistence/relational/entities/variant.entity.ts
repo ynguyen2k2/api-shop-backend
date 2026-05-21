@@ -8,9 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
-import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
 import { EntityRelationalHelper } from 'utils/relational-entity-helper'
-
+import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
 @Entity({
   name: 'variant',
 })

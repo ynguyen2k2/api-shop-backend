@@ -3,10 +3,10 @@ import { IsInt, Min } from 'class-validator'
 import { CartDto } from 'cart/dto/cart/cart.dto'
 import { VariantDto } from 'product/dto/variant/variant.dto'
 export class CreateCartItemDto {
-  @ApiProperty()
+  @ApiProperty({ type: () => VariantDto })
   variant: VariantDto
 
-  @ApiProperty()
+  @ApiProperty({ type: () => CartDto })
   cart: CartDto
 
   @ApiProperty()

@@ -47,9 +47,6 @@ export class AttributesController {
   }
 
   @Get()
-  @ApiOkResponse({
-    type: InfinityPaginationResponse(Attribute),
-  })
   async findAll(
     @Query() query: FindAllAttributesDto,
   ): Promise<InfinityPaginationResponseDto<Attribute>> {
@@ -76,9 +73,6 @@ export class AttributesController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: Attribute,
-  })
   findById(@Param('id') id: string) {
     return this.attributesService.findById(id)
   }
@@ -88,9 +82,6 @@ export class AttributesController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Attribute,
   })
   update(
     @Param('id') id: string,

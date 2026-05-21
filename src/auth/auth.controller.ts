@@ -47,9 +47,6 @@ export class AuthController {
     groups: ['me'],
   })
   @Post('email/login')
-  @ApiOkResponse({
-    type: LoginResponseDto,
-  })
   @HttpCode(HttpStatus.OK)
   public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseDto> {
     myLogger.log(loginDto, 'loginDto')
@@ -102,9 +99,6 @@ export class AuthController {
   })
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
-  @ApiOkResponse({
-    type: User,
-  })
   @HttpCode(HttpStatus.OK)
   public me(
     @Request() request: { user: JwtPayloadType },
@@ -151,9 +145,6 @@ export class AuthController {
   @Patch('me')
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({
-    type: User,
-  })
   public update(
     @Request() request: { user: JwtPayloadType },
     @Body() userDto: AuthUpdateDto,

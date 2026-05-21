@@ -15,8 +15,6 @@ import { CreateCartDto } from './dto/cart/create-cart.dto'
 import { UpdateCartDto } from './dto/cart/update-cart.dto'
 import {
   ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -37,9 +35,6 @@ export class CartController {
   constructor(private readonly cartService: CartService) {}
 
   @Post()
-  @ApiCreatedResponse({
-    type: Cart,
-  })
   create(@Body() createCartDto: CreateCartDto) {
     return this.cartService.create(createCartDto)
   }
@@ -50,9 +45,6 @@ export class CartController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: Cart,
-  })
   findById(@Param('id') id: string) {
     return this.cartService.findById(id)
   }
@@ -62,9 +54,6 @@ export class CartController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Cart,
   })
   update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
     return this.cartService.update(id, updateCartDto)
@@ -86,9 +75,6 @@ export class CartController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Cart,
   })
   async addItem(
     @Param('id') cartId: string,

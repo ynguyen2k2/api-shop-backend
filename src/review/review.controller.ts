@@ -47,9 +47,6 @@ export class ReviewController {
   }
 
   @Get()
-  @ApiOkResponse({
-    type: InfinityPaginationResponse(Review),
-  })
   async findAll(
     @Query() query: FindAllReviewDto,
   ): Promise<InfinityPaginationResponseDto<Review>> {
@@ -76,9 +73,6 @@ export class ReviewController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: Review,
-  })
   findById(@Param('id') id: string) {
     return this.reviewsService.findById(id)
   }
@@ -88,9 +82,6 @@ export class ReviewController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Review,
   })
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     return this.reviewsService.update(id, updateReviewDto)

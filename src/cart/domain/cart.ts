@@ -14,11 +14,11 @@ export class Cart {
   id: string
 
   @ApiProperty({
-    type: User,
+    type: () => User,
   })
   user: User
 
-  @ApiProperty({ type: CartItem })
+  @ApiProperty({ type: () => [CartItem] })
   items?: CartItem[]
   @ApiProperty()
   createdAt: Date

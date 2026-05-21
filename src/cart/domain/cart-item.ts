@@ -14,11 +14,11 @@ export class CartItem {
   })
   id: string
 
-  @ApiProperty({ type: Cart })
+  @ApiProperty({ type: () => Cart })
   cart: Cart
 
   @ApiProperty({
-    type: Variant,
+    type: () => Variant,
   })
   variant: Variant
 

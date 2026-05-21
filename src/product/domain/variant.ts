@@ -16,7 +16,7 @@ export class Variant {
   @ApiProperty({ example: 'sku-012012' })
   sku: string
 
-  @ApiProperty({ type: Inventory })
+  @ApiProperty({ type: () => Inventory })
   inventory?: Inventory | null
 
   @ApiProperty({
@@ -27,7 +27,7 @@ export class Variant {
   @ApiProperty({})
   compareAtPrice: number
 
-  @ApiProperty({ type: Product })
+  @ApiProperty({ type: () => Product })
   product: Product
 
   @ApiProperty()

@@ -12,7 +12,7 @@ export class Inventory {
   })
   id: number | string
 
-  @ApiProperty()
+  @ApiProperty({ type: () => Variant })
   variant: Variant
 
   @ApiProperty()

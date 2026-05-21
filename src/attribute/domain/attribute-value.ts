@@ -16,7 +16,7 @@ export class AttributeValue {
   value: string
 
   @ApiProperty({
-    type: Attribute,
+    type: () => Attribute,
   })
   attribute: Attribute
 

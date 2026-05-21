@@ -31,10 +31,10 @@ import { CategoryModule } from 'category/category.module'
 @Module({
   imports: [
     ReviewModule,
-    CartModule,
+    // CartModule,
     AttributesModule,
     CategoryModule,
-    ProductModule,
+    // ProductModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: AllConfig,

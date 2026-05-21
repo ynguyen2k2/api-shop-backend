@@ -58,9 +58,6 @@ export class UsersController {
     return this.userService.create(createProfileDto)
   }
 
-  @ApiOkResponse({
-    type: InfinityPaginationResponse(User),
-  })
   @SerializeOptions({
     groups: ['admin'],
   })
@@ -88,9 +85,6 @@ export class UsersController {
     )
   }
 
-  @ApiOkResponse({
-    type: User,
-  })
   @SerializeOptions({
     groups: ['admin'],
   })
@@ -104,10 +98,6 @@ export class UsersController {
   findOne(@Param('id') id: User['id']): Promise<NullableType<User>> {
     return this.userService.findById(id)
   }
-
-  @ApiOkResponse({
-    type: User,
-  })
   @SerializeOptions({
     groups: ['admin'],
   })

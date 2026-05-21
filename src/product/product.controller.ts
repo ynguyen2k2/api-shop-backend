@@ -16,17 +16,13 @@ import { UpdateProductDto } from './dto/product/update-product.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
-  ApiOkResponse,
   ApiNoContentResponse,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
 import { Product } from './domain/product'
 import { AuthGuard } from '@nestjs/passport'
-import {
-  InfinityPaginationResponse,
-  InfinityPaginationResponseDto,
-} from '../utils/dto/infinity-pagination-response.dto'
+import { InfinityPaginationResponseDto } from '../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../utils/infinity-pagination'
 import { FindAllProductsDto } from './dto/product/find-all-products.dto'
 import { ProductService } from './services/product.service'
@@ -34,7 +30,6 @@ import { ProductVariantService } from 'product/services/product-variant.service'
 import { ProductInventoryService } from 'product/services/product-inventory.service'
 import { CreateVariantDto } from 'product/dto/variant/create-variant.dto'
 import { UpdateVariantDto } from 'product/dto/variant/update-variant.dto'
-import { Variant } from 'product/domain/variant'
 import { FileDto } from 'files/dto/file-dto'
 import { ProductImageService } from 'product/services/product-image.service'
 import { ProductImage } from 'product/domain/product-image'
@@ -61,17 +56,11 @@ export class ProductController {
   // ──────────────────────────────────────────────
 
   @Post()
-  @ApiCreatedResponse({
-    type: Product,
-  })
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto)
   }
 
   @Get()
-  @ApiOkResponse({
-    type: InfinityPaginationResponse(Product),
-  })
   async findAll(
     @Query() query: FindAllProductsDto,
   ): Promise<InfinityPaginationResponseDto<Product>> {
@@ -98,9 +87,6 @@ export class ProductController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: Product,
-  })
   findById(@Param('id') id: string) {
     return this.productService.findById(id)
   }
@@ -110,9 +96,6 @@ export class ProductController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Product,
   })
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto)
@@ -138,9 +121,6 @@ export class ProductController {
     type: String,
     required: true,
   })
-  @ApiCreatedResponse({
-    type: Variant,
-  })
   async addVariant(
     @Param('id') productId: string,
     @Body()
@@ -154,9 +134,6 @@ export class ProductController {
     name: 'id',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: [Variant],
   })
   async findProductVariants(
     @Param('id') productId: string,
@@ -182,9 +159,6 @@ export class ProductController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: Variant,
-  })
   async findVariantById(
     @Param('id') productId: string,
     @Param('variantId') variantId: string,
@@ -202,9 +176,6 @@ export class ProductController {
     name: 'variantId',
     type: String,
     required: true,
-  })
-  @ApiOkResponse({
-    type: Variant,
   })
   async updateVariant(
     @Param('id') productId: string,
@@ -280,9 +251,6 @@ export class ProductController {
     type: String,
     required: true,
   })
-  @ApiOkResponse({
-    type: [ProductImage],
-  })
   async reorderImages(
     @Param('id') productId: string,
     @Body() reorderImagesDto: ProductImage['id'][],
@@ -337,9 +305,6 @@ export class ProductController {
     required: true,
     description: 'Variant ID',
   })
-  @ApiOkResponse({
-    type: Inventory,
-  })
   async findVariantInventory(
     @Param('id') productId: string,
     @Param('variantId') variantId: string,
@@ -359,9 +324,6 @@ export class ProductController {
     type: String,
     required: true,
     description: 'Variant ID',
-  })
-  @ApiOkResponse({
-    type: Inventory,
   })
   async setStock(
     @Param('id') productId: string,
@@ -384,9 +346,6 @@ export class ProductController {
     required: true,
     description: 'Variant ID',
   })
-  @ApiOkResponse({
-    type: Inventory,
-  })
   async increaseStock(
     @Param('id') productId: string,
     @Param('variantId') variantId: string,
@@ -407,9 +366,6 @@ export class ProductController {
     type: String,
     required: true,
     description: 'Variant ID',
-  })
-  @ApiOkResponse({
-    type: Inventory,
   })
   async decreaseStock(
     @Param('id') productId: string,
@@ -432,9 +388,6 @@ export class ProductController {
     required: true,
     description: 'Variant ID',
   })
-  @ApiOkResponse({
-    type: Inventory,
-  })
   async reserveStock(
     @Param('id') productId: string,
     @Param('variantId') variantId: string,
@@ -455,9 +408,6 @@ export class ProductController {
     type: String,
     required: true,
     description: 'Variant ID',
-  })
-  @ApiOkResponse({
-    type: Inventory,
   })
   async releaseReservedStock(
     @Param('id') productId: string,
