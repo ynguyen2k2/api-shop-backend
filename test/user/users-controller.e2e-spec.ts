@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { UsersController } from '~/user/users.controller'
-import { UsersService } from '~/user/users.service'
-import { CreateUserDto } from '~/user/dto/create-user.dto'
-import { UpdateUserDto } from '~/user/dto/update-user.dto'
-import { SortUserDto } from '~/user/dto/query-user.dto'
-import { User } from '~/user/domain/user'
+import { UsersController } from 'user/users.controller'
+import { UsersService } from 'user/users.service'
+import { CreateUserDto } from 'user/dto/create-user.dto'
+import { UpdateUserDto } from 'user/dto/update-user.dto'
+import { SortUserDto } from 'user/dto/query-user.dto'
+import { User } from 'user/domain/user'
 
 // ──────────────────────────────────────────────
 // Mock data

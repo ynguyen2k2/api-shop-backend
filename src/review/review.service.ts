@@ -7,19 +7,19 @@ import {
 import { CreateReviewDto } from './dto/create-review.dto'
 import { UpdateReviewDto } from './dto/update-review.dto'
 import { ReviewRepository } from './infrastructure/persistence/review.repository'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 import { Review } from './domain/review'
-import { UsersService } from '~/user/users.service'
-import { Product } from '~/product/domain/product'
-import { User } from '~/user/domain/user'
-import { ProductService } from '~/product/services/product.service'
+import { UserService } from 'user/users.service'
+import { Product } from 'product/domain/product'
+import { User } from 'user/domain/user'
+import { ProductService } from 'product/services/product.service'
 
 @Injectable()
 export class ReviewService {
   constructor(
     // Dependencies here
     private readonly reviewRepository: ReviewRepository,
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly productService: ProductService,
   ) {}
 
@@ -39,7 +39,7 @@ export class ReviewService {
     createReviewDto: CreateReviewDto,
   ) {
     const userId = createReviewDto.user.id
-    const user = await this.usersService.findById(userId)
+    const user = await this.userService.findById(userId)
     const productId = createReviewDto.product.id
     const product = await this.productService.findById(productId)
 
@@ -130,7 +130,7 @@ export class ReviewService {
     let product: Product | null = null
     if (updateReviewDto.user) {
       const userId = updateReviewDto.user.id
-      user = await this.usersService.findById(userId)
+      user = await this.userService.findById(userId)
     }
 
     if (!user) {

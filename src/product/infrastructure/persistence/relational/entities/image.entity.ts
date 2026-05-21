@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { FileEntity } from '~/files/infrastructure/persistence/relational/entities/file.entity'
-import { ProductEntity } from '~/product/infrastructure/persistence/relational/entities/product.entity'
-import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
+import { FileEntity } from 'files/infrastructure/persistence/relational/entities/file.entity'
+import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
+import { EntityRelationalHelper } from 'utils/relational-entity-helper'
 
 @Entity({
   name: 'image_product',

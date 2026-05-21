@@ -3,15 +3,22 @@ import { AttributeRepository } from '../../../domain/respositories/attribute.rep
 import { AttributeRelationalRepository } from './repositories/attribute.repository'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { AttributeEntity } from './entities/attribute.entity'
+import { AttributeValueEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
+import { AttributeValueRelationalRepository } from 'attribute/infrastructure/persistence/relational/repositories/attribute-value.repository'
+import { AttributeValueRepository } from 'attribute/domain/respositories/attribute-value.repository'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AttributeEntity])],
+  imports: [TypeOrmModule.forFeature([AttributeEntity, AttributeValueEntity])],
   providers: [
     {
       provide: AttributeRepository,
       useClass: AttributeRelationalRepository,
     },
+    {
+      provide: AttributeValueRepository,
+      useClass: AttributeValueRelationalRepository,
+    },
   ],
-  exports: [AttributeRepository],
+  exports: [AttributeRepository, AttributeValueRepository],
 })
 export class RelationalAttributePersistenceModule {}

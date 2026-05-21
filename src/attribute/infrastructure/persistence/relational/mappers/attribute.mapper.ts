@@ -1,9 +1,9 @@
-import { Attribute } from '~/attribute/domain/attribute'
-import { AttributeValue } from '~/attribute/domain/attribute-value'
-import { AttributeEntity } from '~/attribute/infrastructure/persistence/relational/entities/attribute.entity'
-import { AttributeValueMapper } from '~/attribute/infrastructure/persistence/relational/mappers/attribute-value.mapper'
-import { Category } from '~/categories/domain/category'
-import { CategoryEntity } from '~/categories/infrastructure/persistence/relational/entities/category.entity'
+import { Attribute } from 'attribute/domain/attribute'
+import { AttributeValue } from 'attribute/domain/attribute-value'
+import { AttributeEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute.entity'
+import { AttributeValueMapper } from 'attribute/infrastructure/persistence/relational/mappers/attribute-value.mapper'
+import { Category } from 'category/domain/category'
+import { CategoryEntity } from 'category/infrastructure/persistence/relational/entities/category.entity'
 
 export class AttributeMapper {
   static toDomain(raw: AttributeEntity): Attribute {

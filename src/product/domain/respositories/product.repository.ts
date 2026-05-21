@@ -1,6 +1,6 @@
-import { DeepPartial } from '~/utils/type/deep-partial.type'
-import { NullableType } from '~/utils/type/nullable.type'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { DeepPartial } from 'utils/type/deep-partial.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 import { Product } from '../product'
 
 export abstract class ProductRepository {

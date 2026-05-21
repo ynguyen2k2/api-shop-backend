@@ -2,9 +2,9 @@ import {
   // common
   Module,
 } from '@nestjs/common'
-import { FilesService } from '~/files/file.service'
-import { RelationalFilePersistenceModule } from '~/files/infrastructure/persistence/relational/relational-persistence.module'
-import { FilesLocalModule } from '~/files/infrastructure/upload/local/files.module'
+import { FilesService } from 'files/file.service'
+import { RelationalFilePersistenceModule } from 'files/infrastructure/persistence/relational/relational-persistence.module'
+import { FilesLocalModule } from 'files/infrastructure/upload/local/files.module'
 
 // // <database-block>
 // const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)

@@ -1,9 +1,9 @@
 import { HttpStatus, UnprocessableEntityException } from '@nestjs/common'
-import { FileDto } from '~/files/dto/file-dto'
-import { Product } from '~/product/domain/product'
-import { ProductImage } from '~/product/domain/product-image'
-import { ProductRepository } from '~/product/domain/respositories/product.repository'
-import { FilesService } from '~/files/file.service'
+import { FileDto } from 'files/dto/file-dto'
+import { Product } from 'product/domain/product'
+import { ProductImage } from 'product/domain/product-image'
+import { ProductRepository } from 'product/domain/respositories/product.repository'
+import { FilesService } from 'files/file.service'
 
 export class ProductImageService {
   constructor(
@@ -59,7 +59,7 @@ export class ProductImageService {
     await this.productRepository.update(productId, { images: product.images })
     return {}
   }
-  async reorderImage(
+  async reorderImages(
     productId: Product['id'],
     imagesIds: ProductImage['id'][],
   ) {

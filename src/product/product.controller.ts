@@ -8,14 +8,16 @@ import {
   Delete,
   UseGuards,
   Query,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common'
-import { ProductService } from './services/product.service'
 import { CreateProductDto } from './dto/product/create-product.dto'
 import { UpdateProductDto } from './dto/product/update-product.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiNoContentResponse,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
@@ -27,6 +29,17 @@ import {
 } from '../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../utils/infinity-pagination'
 import { FindAllProductsDto } from './dto/product/find-all-products.dto'
+import { ProductService } from './services/product.service'
+import { ProductVariantService } from 'product/services/product-variant.service'
+import { ProductInventoryService } from 'product/services/product-inventory.service'
+import { CreateVariantDto } from 'product/dto/variant/create-variant.dto'
+import { UpdateVariantDto } from 'product/dto/variant/update-variant.dto'
+import { Variant } from 'product/domain/variant'
+import { FileDto } from 'files/dto/file-dto'
+import { ProductImageService } from 'product/services/product-image.service'
+import { ProductImage } from 'product/domain/product-image'
+import { Inventory } from 'product/domain/inventory'
+import { CreateInventoryDto } from 'product/dto/inventory/create-inventory.dto'
 
 @ApiTags('Products')
 @ApiBearerAuth()
@@ -36,7 +49,16 @@ import { FindAllProductsDto } from './dto/product/find-all-products.dto'
   version: '1',
 })
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private readonly variantService: ProductVariantService,
+    private readonly productImageService: ProductImageService,
+    private readonly inventoryService: ProductInventoryService,
+  ) {}
+
+  // ──────────────────────────────────────────────
+  //  Product CRUD
+  // ──────────────────────────────────────────────
 
   @Post()
   @ApiCreatedResponse({
@@ -104,5 +126,366 @@ export class ProductController {
   })
   remove(@Param('id') id: string) {
     return this.productService.remove(id)
+  }
+
+  // ──────────────────────────────────────────────
+  //  Product Variants
+  // ──────────────────────────────────────────────
+
+  @Post(':id/variants')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiCreatedResponse({
+    type: Variant,
+  })
+  async addVariant(
+    @Param('id') productId: string,
+    @Body()
+    createVariantDto: CreateVariantDto,
+  ) {
+    return await this.variantService.createVariant(productId, createVariantDto)
+  }
+
+  @Get(':id/variants')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiOkResponse({
+    type: [Variant],
+  })
+  async findProductVariants(
+    @Param('id') productId: string,
+    @Query() query: FindAllProductsDto,
+  ) {
+    return await this.variantService.findProductVariants({
+      productId,
+      paginationOptions: {
+        page: query?.page ?? 1,
+        limit: query?.limit ?? 10,
+      },
+    })
+  }
+
+  @Get(':id/variants/:variantId')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+  })
+  @ApiOkResponse({
+    type: Variant,
+  })
+  async findVariantById(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+  ) {
+    return await this.variantService.findById(variantId)
+  }
+
+  @Patch(':id/variants/:variantId')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+  })
+  @ApiOkResponse({
+    type: Variant,
+  })
+  async updateVariant(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body() updateVariantDto: UpdateVariantDto,
+  ) {
+    return await this.variantService.updateVariant(variantId, updateVariantDto)
+  }
+
+  @Delete(':id/variants/:variantId')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse()
+  async removeVariant(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+  ) {
+    return await this.variantService.removeVariant(variantId)
+  }
+
+  // ──────────────────────────────────────────────
+  //  Product Images
+  // ──────────────────────────────────────────────
+
+  @Post(':id/images')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiCreatedResponse({
+    type: ProductImage,
+  })
+  async attachImage(
+    @Param('id') productId: string,
+    @Body() attachImageDto: FileDto,
+  ) {
+    return await this.productImageService.attachImage(productId, attachImageDto)
+  }
+
+  @Delete(':id/images/:imageId')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiParam({
+    name: 'imageId',
+    type: String,
+    required: true,
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse()
+  async removeImage(
+    @Param('id') productId: string,
+    @Param('imageId') imageId: string,
+  ) {
+    return await this.productImageService.removeImage(productId, imageId)
+  }
+
+  @Patch(':id/images/reorder')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiOkResponse({
+    type: [ProductImage],
+  })
+  async reorderImages(
+    @Param('id') productId: string,
+    @Body() reorderImagesDto: ProductImage['id'][],
+  ) {
+    return await this.productImageService.reorderImages(
+      productId,
+      reorderImagesDto,
+    )
+  }
+
+  // ──────────────────────────────────────────────
+  //  Variant Inventory
+  // ──────────────────────────────────────────────
+
+  @Post(':id/variants/:variantId/inventory')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiCreatedResponse({
+    type: Inventory,
+  })
+  async createInventory(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body() createInventoryDto: CreateInventoryDto,
+  ) {
+    return await this.inventoryService.createInventory({
+      variantId,
+      createInventoryDto,
+    })
+  }
+
+  @Get(':id/variants/:variantId/inventory')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiOkResponse({
+    type: Inventory,
+  })
+  async findVariantInventory(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+  ) {
+    return await this.inventoryService.findbyVariantId(variantId)
+  }
+
+  @Patch(':id/variants/:variantId/inventory/set-stock')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiOkResponse({
+    type: Inventory,
+  })
+  async setStock(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body('quantity') quantity: number,
+  ) {
+    return await this.inventoryService.setStock(variantId, quantity)
+  }
+
+  @Patch(':id/variants/:variantId/inventory/increase-stock')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiOkResponse({
+    type: Inventory,
+  })
+  async increaseStock(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body('quantity') quantity: number,
+  ) {
+    return await this.inventoryService.increaseStock(variantId, quantity)
+  }
+
+  @Patch(':id/variants/:variantId/inventory/decrease-stock')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiOkResponse({
+    type: Inventory,
+  })
+  async decreaseStock(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body('quantity') quantity: number,
+  ) {
+    return await this.inventoryService.decreaseStock(variantId, quantity)
+  }
+
+  @Patch(':id/variants/:variantId/inventory/reserve')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiOkResponse({
+    type: Inventory,
+  })
+  async reserveStock(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body('quantity') quantity: number,
+  ) {
+    return await this.inventoryService.reserveStock(variantId, quantity)
+  }
+
+  @Patch(':id/variants/:variantId/inventory/release')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @ApiOkResponse({
+    type: Inventory,
+  })
+  async releaseReservedStock(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+    @Body('quantity') quantity: number,
+  ) {
+    return await this.inventoryService.releaseReservedStock(variantId, quantity)
+  }
+
+  @Delete(':id/variants/:variantId/inventory')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+    description: 'Product ID',
+  })
+  @ApiParam({
+    name: 'variantId',
+    type: String,
+    required: true,
+    description: 'Variant ID',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse()
+  async removeInventory(
+    @Param('id') productId: string,
+    @Param('variantId') variantId: string,
+  ) {
+    return await this.inventoryService.removeInventory(variantId)
   }
 }

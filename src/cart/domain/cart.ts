@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { CartItem } from '~/cart/domain/cart-item'
-import databaseConfig from '~/database/config/database-config'
-import { DatabaseConfig } from '~/database/config/database-config.type'
-import { User } from '~/user/domain/user'
+import { CartItem } from 'cart/domain/cart-item'
+import databaseConfig from 'database/config/database-config'
+import { DatabaseConfig } from 'database/config/database-config.type'
+import { User } from 'user/domain/user'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String

@@ -1,21 +1,20 @@
-import {
-  forwardRef,
-  // do not remove this comment
-  Module,
-} from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { AttributesService } from './attributes.service'
 import { AttributesController } from './attributes.controller'
 import { RelationalAttributePersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
-import { AttributeValuesModule } from '~/attribute-values/attribute-values.module'
-
+import { CategoryModule } from 'category/category.module'
 @Module({
   imports: [
     // do not remove this comment
     RelationalAttributePersistenceModule,
-    forwardRef(() => AttributeValuesModule),
+    CategoryModule,
   ],
   controllers: [AttributesController],
   providers: [AttributesService],
-  exports: [AttributesService, RelationalAttributePersistenceModule],
+  exports: [
+    AttributesService,
+    RelationalAttributePersistenceModule,
+    CategoryModule,
+  ],
 })
 export class AttributesModule {}

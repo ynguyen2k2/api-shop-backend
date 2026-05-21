@@ -1,8 +1,8 @@
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 import { FilterUserDto, SortUserDto } from '../../dto/query-user.dto'
-import { User } from '~/user/domain/user'
-import { NullableType } from '~/utils/type/nullable.type'
-import { DeepPartial } from '~/utils/type/deep-partial.type'
+import { User } from 'user/domain/user'
+import { NullableType } from 'utils/type/nullable.type'
+import { DeepPartial } from 'utils/type/deep-partial.type'
 
 export abstract class UserRepository {
   abstract create(

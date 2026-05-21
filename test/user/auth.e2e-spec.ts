@@ -5,15 +5,15 @@ import {
   INestApplication,
 } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import { AppModule } from '~/app.module'
+import { AppModule } from 'app.module'
 import {
   MAIL_HOST,
   MAIL_PORT,
   TESTER_EMAIL,
   TESTER_PASSWORD,
 } from '../utils/constants'
-import { myLogger } from '~/logger/mylogger.service'
-import { ResolvePromisesInterceptor } from '~/utils/serializer-interceptor'
+import { myLogger } from 'logger/mylogger.service'
+import { ResolvePromisesInterceptor } from 'utils/serializer-interceptor'
 import { Reflector } from '@nestjs/core'
 
 describe('User Controller E2E Tests', () => {

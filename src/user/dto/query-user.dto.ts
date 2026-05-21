@@ -8,8 +8,8 @@ import {
   ValidateNested,
 } from 'class-validator'
 import { Transform, Type, plainToInstance } from 'class-transformer'
-import { RoleDto } from '~/roles/dto/role.dto'
-import { User } from '~/user/domain/user'
+import { RoleDto } from 'roles/dto/role.dto'
+import { User } from 'user/domain/user'
 
 export class FilterUserDto {
   @ApiPropertyOptional({ type: RoleDto })

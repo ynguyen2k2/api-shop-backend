@@ -5,12 +5,12 @@ import {
 import { CreateCategoryDto } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto'
 import { CategoryRepository } from './infrastructure/persistence/category.repository'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 import { Category } from './domain/category'
-import { NullableType } from '~/utils/type/nullable.type'
+import { NullableType } from 'utils/type/nullable.type'
 
 @Injectable()
-export class CategoriesService {
+export class CategoryService {
   constructor(
     // Dependencies here
     private readonly categoryRepository: CategoryRepository,
@@ -21,7 +21,7 @@ export class CategoriesService {
     // <creating-property />
     let slug = createCategoryDto.slug
     let parentCategory: NullableType<Category> = null
-    let childCategories: NullableType<Category[]> = null
+    let childcategory: NullableType<Category[]> = null
     if (!slug) {
       slug = createCategoryDto.name.toLowerCase().replace(/ /g, '-')
     }
@@ -38,10 +38,10 @@ export class CategoriesService {
     }
     const childrenCategoryIds = createCategoryDto.childrenIds
     if (childrenCategoryIds) {
-      childCategories =
+      childcategory =
         await this.categoryRepository.findByIds(childrenCategoryIds)
-      if (!childCategories) {
-        throw new Error('Child categories not found')
+      if (!childcategory) {
+        throw new Error('Child category not found')
       }
     }
     return this.categoryRepository.create({
@@ -51,7 +51,7 @@ export class CategoriesService {
       image: createCategoryDto.image ?? null,
       isActive: createCategoryDto.isActive ?? true,
       parent: parentCategory,
-      children: childCategories,
+      children: childcategory,
       // Do not remove comment below.
       // <creating-property-payload />
     })

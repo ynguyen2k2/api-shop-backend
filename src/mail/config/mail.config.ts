@@ -9,8 +9,8 @@ import {
   IsBoolean,
   IsEmail,
 } from 'class-validator'
-import { MailConfig } from '~/mail/config/mail-config.type'
-import validateConfig from '~/utils/validation-config'
+import { MailConfig } from 'mail/config/mail-config.type'
+import validateConfig from 'utils/validation-config'
 
 class EnvironmentVariablesValidator {
   @IsInt()

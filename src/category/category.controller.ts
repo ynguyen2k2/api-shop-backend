@@ -9,7 +9,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { CategoriesService } from './categories.service'
+import { CategoryService } from './category.service'
 import { CreateCategoryDto } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto'
 import {
@@ -26,24 +26,23 @@ import {
   InfinityPaginationResponseDto,
 } from '../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../utils/infinity-pagination'
-import { FindAllCategoriesDto } from './dto/find-all-categories.dto'
-
-@ApiTags('Categories')
+import { FindAllcategoryDto } from './dto/find-all-category.dto'
+@ApiTags('category')
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @Controller({
-  path: 'categories',
+  path: 'category',
   version: '1',
 })
-export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+export class CategoryController {
+  constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
   @ApiCreatedResponse({
     type: Category,
   })
   create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto)
+    return this.categoryService.create(createCategoryDto)
   }
 
   @Get()
@@ -51,7 +50,7 @@ export class CategoriesController {
     type: InfinityPaginationResponse(Category),
   })
   async findAll(
-    @Query() query: FindAllCategoriesDto,
+    @Query() query: FindAllcategoryDto,
   ): Promise<InfinityPaginationResponseDto<Category>> {
     const page = query?.page ?? 1
     let limit = query?.limit ?? 10
@@ -60,7 +59,7 @@ export class CategoriesController {
     }
 
     return infinityPagination(
-      await this.categoriesService.findAllWithPagination({
+      await this.categoryService.findAllWithPagination({
         paginationOptions: {
           page,
           limit,
@@ -80,7 +79,7 @@ export class CategoriesController {
     type: Category,
   })
   findById(@Param('id') id: string) {
-    return this.categoriesService.findById(id)
+    return this.categoryService.findById(id)
   }
 
   @Patch(':id')
@@ -96,7 +95,7 @@ export class CategoriesController {
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(id, updateCategoryDto)
+    return this.categoryService.update(id, updateCategoryDto)
   }
 
   @Delete(':id')
@@ -106,6 +105,6 @@ export class CategoriesController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.categoriesService.remove(id)
+    return this.categoryService.remove(id)
   }
 }

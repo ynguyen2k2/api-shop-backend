@@ -3,30 +3,30 @@ import {
   Injectable,
   UnprocessableEntityException,
 } from '@nestjs/common'
-import { User } from '~/user/domain/user'
-import { CreateUserDto } from '~/user/dto/create-user.dto'
-import { UserRepository } from '~/user/infrastructure/persistence/user-repository'
+import { User } from 'user/domain/user'
+import { CreateUserDto } from 'user/dto/create-user.dto'
+import { UserRepository } from 'user/infrastructure/persistence/user-repository'
 import bcrypt from 'bcrypt'
-import { FileType } from '~/files/domain/file'
-import { FilesService } from '~/files/file.service'
-import { Role } from '~/roles/domain/role'
-import { RoleEnum } from '~/roles/roles-enum'
-import { Status } from '~/statuses/domain/status'
-import { StatusEnum } from '~/statuses/status-enum'
-import { FilterUserDto, SortUserDto } from '~/user/dto/query-user.dto'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
-import { AuthProvidersEnum } from '~/auth/auth-providers.enum'
-import { NullableType } from '~/utils/type/nullable.type'
-import { UpdateUserDto } from '~/user/dto/update-user.dto'
-import { MyLogger } from '~/logger/mylogger.service'
+import { FileType } from 'files/domain/file'
+import { FilesService } from 'files/file.service'
+import { Role } from 'roles/domain/role'
+import { RoleEnum } from 'roles/roles-enum'
+import { Status } from 'statuses/domain/status'
+import { StatusEnum } from 'statuses/status-enum'
+import { FilterUserDto, SortUserDto } from 'user/dto/query-user.dto'
+import { IPaginationOptions } from 'utils/type/pagination-options'
+import { AuthProvidersEnum } from 'auth/auth-providers.enum'
+import { NullableType } from 'utils/type/nullable.type'
+import { UpdateUserDto } from 'user/dto/update-user.dto'
+import { MyLogger } from 'logger/mylogger.service'
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     private readonly logger: MyLogger,
     private readonly usersRepository: UserRepository,
     private readonly filesService: FilesService,
   ) {
-    this.logger.setContext(UsersService.name)
+    this.logger.setContext(UserService.name)
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {

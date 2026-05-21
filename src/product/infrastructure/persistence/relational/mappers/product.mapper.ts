@@ -1,9 +1,7 @@
-import { Product } from '~/product/domain/product'
-import { ProductEntity } from '~/product/infrastructure/persistence/relational/entities/product.entity'
-import { VariantEntity } from '~/product/infrastructure/persistence/relational/entities/variant.entity'
-import { VariantMapper } from '~/product/infrastructure/persistence/relational/mappers/variant.mapper'
-import { ReviewEntity } from '~/review/infrastructure/persistence/relational/entities/review.entity'
-import { ReviewMapper } from '~/review/infrastructure/persistence/relational/mappers/review.mapper'
+import { Product } from 'product/domain/product'
+import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
+import { VariantEntity } from 'product/infrastructure/persistence/relational/entities/variant.entity'
+import { VariantMapper } from 'product/infrastructure/persistence/relational/mappers/variant.mapper'
 
 export class ProductMapper {
   static toDomain(raw: ProductEntity): Product {
@@ -27,11 +25,7 @@ export class ProductMapper {
         VariantMapper.toDomain(variant),
       )
     }
-    if (raw.reviews && raw.reviews.length !== 0) {
-      domainEntity.reviews = raw.reviews.map((review) =>
-        ReviewMapper.toDomain(review),
-      )
-    }
+
     return domainEntity
   }
 
@@ -50,19 +44,6 @@ export class ProductMapper {
         return variantEntity
       })
     }
-    let reviews: ReviewEntity[] | undefined | null = undefined
-    if (domainEntity.reviews && domainEntity.reviews.length !== 0) {
-      reviews = domainEntity.reviews.map((review) => {
-        const reviewEntity = new ReviewEntity()
-        reviewEntity.id = review.id
-        reviewEntity.rating = review.rating
-        reviewEntity.comment = review.comment
-        reviewEntity.createdAt = review.createdAt
-        reviewEntity.updatedAt = review.updatedAt
-        reviewEntity.isActive = review.isActive
-        return reviewEntity
-      })
-    }
     const persistenceEntity = new ProductEntity()
     if (domainEntity.id) {
       persistenceEntity.id = domainEntity.id
@@ -75,7 +56,6 @@ export class ProductMapper {
     persistenceEntity.category = domainEntity.category
     persistenceEntity.brand = domainEntity.brand
 
-    persistenceEntity.reviews = reviews || null
     persistenceEntity.isFeatured = domainEntity.isFeatured
     persistenceEntity.isNew = domainEntity.isNew
     persistenceEntity.averageRating = domainEntity.averageRating || 0

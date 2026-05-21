@@ -52,7 +52,7 @@ Available log methods:
 4. Include relevant context in error messages
 
 ```ts
-import { MyLogger } from '~/logger/mylogger.service'
+import { MyLogger } from 'logger/mylogger.service'
 
 export class UsersService {
   constructor(

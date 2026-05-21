@@ -2,8 +2,8 @@ import {
   // do not remove this comment
   Module,
 } from '@nestjs/common'
-import { CategoriesService } from './categories.service'
-import { CategoriesController } from './categories.controller'
+import { CategoryService } from './category.service'
+import { CategoryController } from './category.controller'
 import { RelationalCategoryPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
 
 @Module({
@@ -11,8 +11,8 @@ import { RelationalCategoryPersistenceModule } from './infrastructure/persistenc
     // do not remove this comment
     RelationalCategoryPersistenceModule,
   ],
-  controllers: [CategoriesController],
-  providers: [CategoriesService],
-  exports: [CategoriesService, RelationalCategoryPersistenceModule],
+  controllers: [CategoryController],
+  providers: [CategoryService],
+  exports: [CategoryService, RelationalCategoryPersistenceModule],
 })
-export class CategoriesModule {}
+export class CategoryModule {}

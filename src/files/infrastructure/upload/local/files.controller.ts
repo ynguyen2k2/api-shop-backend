@@ -20,7 +20,7 @@ import {
 import { AuthGuard } from '@nestjs/passport'
 
 import { FileResponseDto } from './dto/file-response.dto'
-import { FilesLocalService } from '~/files/infrastructure/upload/local/file.services'
+import { FilesLocalService } from 'files/infrastructure/upload/local/file.services'
 
 @ApiTags('Files')
 @Controller({

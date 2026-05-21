@@ -1,14 +1,13 @@
 import {
   // common
   Injectable,
-  NotFoundException,
 } from '@nestjs/common'
 import { CreateProductDto } from '../dto/product/create-product.dto'
 import { UpdateProductDto } from '../dto/product/update-product.dto'
 import { ProductRepository } from '../domain/respositories/product.repository'
 import { IPaginationOptions } from '../../utils/type/pagination-options'
 import { Product } from '../domain/product'
-import slugify from '~/utils/slugify'
+import slugify from 'utils/slugify'
 
 @Injectable()
 export class ProductService {
@@ -52,12 +51,8 @@ export class ProductService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateProductDto: UpdateProductDto,
   ) {
-    // Do not remove comment below.
-    // <updating-property />
-
     return this.productRepository.update(id, {
-      // Do not remove comment below.
-      // <updating-property-payload />
+      ...updateProductDto,
     })
   }
 

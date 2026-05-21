@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
-import { VariantEntity } from '~/product/infrastructure/persistence/relational/entities/variant.entity'
+import { EntityRelationalHelper } from 'utils/relational-entity-helper'
+import { VariantEntity } from 'product/infrastructure/persistence/relational/entities/variant.entity'
 
 @Entity({
   name: 'inventory',

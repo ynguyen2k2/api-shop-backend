@@ -9,12 +9,12 @@ import { UpdateAttributeDto } from './dto/attribute/update-attribute.dto'
 import { AttributeRepository } from './domain/respositories/attribute.repository'
 import { IPaginationOptions } from '../utils/type/pagination-options'
 import { Attribute } from './domain/attribute'
-import slugify from '~/utils/slugify'
+import slugify from 'utils/slugify'
 
-import { CategoryRepository } from '~/categories/infrastructure/persistence/category.repository'
-import { AttributeValueRepository } from '~/attribute/domain/respositories/attribute-value.repository'
-import { CreateAttributeValueDto } from '~/attribute/dto/value/create-attribute-value.dto'
-import { AttributeValue } from '~/attribute/domain/attribute-value'
+import { AttributeValueRepository } from 'attribute/domain/respositories/attribute-value.repository'
+import { CreateAttributeValueDto } from 'attribute/dto/value/create-attribute-value.dto'
+import { AttributeValue } from 'attribute/domain/attribute-value'
+import { CategoryService } from 'category/category.service'
 
 @Injectable()
 export class AttributesService {
@@ -22,7 +22,7 @@ export class AttributesService {
     // Dependencies here
     private readonly attributeRepository: AttributeRepository,
     private readonly attributeValueRepository: AttributeValueRepository,
-    private readonly categoryRepository: CategoryRepository,
+    private readonly categoryService: CategoryService,
   ) {}
 
   async create(createAttributeDto: CreateAttributeDto) {
@@ -32,7 +32,7 @@ export class AttributesService {
       throw new BadRequestException('Attribute already exists')
     }
 
-    const category = await this.categoryRepository.findById(
+    const category = await this.categoryService.findById(
       createAttributeDto.categoryId,
     )
     if (!category) {

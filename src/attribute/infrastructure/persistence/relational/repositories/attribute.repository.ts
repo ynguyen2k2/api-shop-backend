@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, In } from 'typeorm'
 import { AttributeEntity } from '../entities/attribute.entity'
-import { NullableType } from '~/utils/type/nullable.type'
-import { Attribute } from '~/attribute/domain/attribute'
-import { AttributeRepository } from '~/attribute/domain/respositories/attribute.repository'
+import { NullableType } from 'utils/type/nullable.type'
+import { Attribute } from 'attribute/domain/attribute'
+import { AttributeRepository } from 'attribute/domain/respositories/attribute.repository'
 import { AttributeMapper } from '../mappers/attribute.mapper'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 
 @Injectable()
 export class AttributeRelationalRepository implements AttributeRepository {

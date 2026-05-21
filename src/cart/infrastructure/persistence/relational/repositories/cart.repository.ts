@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, In } from 'typeorm'
 import { CartEntity } from '../entities/cart.entity'
-import { NullableType } from '~/utils/type/nullable.type'
-import { Cart } from '~/cart/domain/cart'
-import { CartRepository } from '~/cart/domain/respositories/cart.repository'
+import { NullableType } from 'utils/type/nullable.type'
+import { Cart } from 'cart/domain/cart'
+import { CartRepository } from 'cart/domain/respositories/cart.repository'
 import { CartMapper } from '../mappers/cart.mapper'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 
 @Injectable()
 export class CartRelationalRepository implements CartRepository {

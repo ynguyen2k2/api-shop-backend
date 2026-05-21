@@ -29,7 +29,7 @@ Order history
 2.3 Products Module
 Product CRUD operations
 
-Categories & tags system
+category & tags system
 
 Inventory management
 

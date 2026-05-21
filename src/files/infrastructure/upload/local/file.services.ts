@@ -4,9 +4,9 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { AllConfigType } from '~/config/config.type'
-import { FileType } from '~/files/domain/file'
-import { FileRepository } from '~/files/infrastructure/persistence/file-repository'
+import { AllConfigType } from 'config/config.type'
+import { FileType } from 'files/domain/file'
+import { FileRepository } from 'files/infrastructure/persistence/file-repository'
 
 @Injectable()
 export class FilesLocalService {

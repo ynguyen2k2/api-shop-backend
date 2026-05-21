@@ -1,9 +1,9 @@
-import { DeepPartial } from '~/utils/type/deep-partial.type'
-import { NullableType } from '~/utils/type/nullable.type'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
-import { Review } from '~/review/domain/review'
-import { Product } from '~/product/domain/product'
-import { User } from '~/user/domain/user'
+import { DeepPartial } from 'utils/type/deep-partial.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'utils/type/pagination-options'
+import { Review } from 'review/domain/review'
+import { Product } from 'product/domain/product'
+import { User } from 'user/domain/user'
 
 export abstract class ReviewRepository {
   abstract create(

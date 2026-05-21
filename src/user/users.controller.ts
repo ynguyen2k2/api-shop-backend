@@ -21,19 +21,19 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
-import { RoleEnum } from '~/roles/roles-enum'
-import { RolesGuard } from '~/roles/roles-guard'
+import { RoleEnum } from 'roles/roles-enum'
+import { RolesGuard } from 'roles/roles-guard'
 import { AuthGuard } from '@nestjs/passport'
-import { Roles } from '~/roles/roles-decorator'
-import { UsersService } from '~/user/users.service'
-import { User } from '~/user/domain/user'
-import { QueryUserDto } from '~/user/dto/query-user.dto'
-import { NullableType } from '~/utils/type/nullable.type'
+import { Roles } from 'roles/roles-decorator'
+import { UserService } from 'user/users.service'
+import { User } from 'user/domain/user'
+import { QueryUserDto } from 'user/dto/query-user.dto'
+import { NullableType } from 'utils/type/nullable.type'
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
-} from '~/utils/dto/infinity-pagination-response.dto'
-import { infinityPagination } from '~/utils/infinity-pagination'
+} from 'utils/dto/infinity-pagination-response.dto'
+import { infinityPagination } from 'utils/infinity-pagination'
 
 @ApiBearerAuth()
 @Roles(RoleEnum.ADMIN)
@@ -44,7 +44,7 @@ import { infinityPagination } from '~/utils/infinity-pagination'
   version: '1',
 })
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly userService: UserService) {}
 
   @ApiCreatedResponse({
     type: User,
@@ -55,7 +55,7 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createProfileDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createProfileDto)
+    return this.userService.create(createProfileDto)
   }
 
   @ApiOkResponse({
@@ -76,7 +76,7 @@ export class UsersController {
     }
 
     return infinityPagination(
-      await this.usersService.findManyWithPagination({
+      await this.userService.findManyWithPagination({
         filterOptions: query?.filters,
         sortOptions: query?.sort,
         paginationOptions: {
@@ -102,7 +102,7 @@ export class UsersController {
     required: true,
   })
   findOne(@Param('id') id: User['id']): Promise<NullableType<User>> {
-    return this.usersService.findById(id)
+    return this.userService.findById(id)
   }
 
   @ApiOkResponse({
@@ -122,7 +122,7 @@ export class UsersController {
     @Param('id') id: User['id'],
     @Body() updateProfileDto: UpdateUserDto,
   ): Promise<User | null> {
-    return this.usersService.update(id, updateProfileDto)
+    return this.userService.update(id, updateProfileDto)
   }
 
   @Delete(':id')
@@ -133,6 +133,6 @@ export class UsersController {
   })
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: User['id']): Promise<void> {
-    return this.usersService.remove(id)
+    return this.userService.remove(id)
   }
 }

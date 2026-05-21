@@ -1,8 +1,8 @@
-import { Attribute } from '~/attribute/domain/attribute'
-import { AttributeValue } from '~/attribute/domain/attribute-value'
-import { DeepPartial } from '~/utils/type/deep-partial.type'
-import { NullableType } from '~/utils/type/nullable.type'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { Attribute } from 'attribute/domain/attribute'
+import { AttributeValue } from 'attribute/domain/attribute-value'
+import { DeepPartial } from 'utils/type/deep-partial.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 
 export abstract class AttributeValueRepository {
   abstract create(

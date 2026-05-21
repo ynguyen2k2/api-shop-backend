@@ -11,10 +11,10 @@ import {
   IsOptional,
   MinLength,
 } from 'class-validator'
-import { FileDto } from '~/files/dto/file-dto'
-import { RoleDto } from '~/roles/dto/role.dto'
-import { StatusDto } from '~/statuses/dto/status-dto'
-import { lowerCaseTransformer } from '~/utils/transformers/lower-case-transformers'
+import { FileDto } from 'files/dto/file-dto'
+import { RoleDto } from 'roles/dto/role.dto'
+import { StatusDto } from 'statuses/dto/status-dto'
+import { lowerCaseTransformer } from 'utils/transformers/lower-case-transformers'
 export class CreateUserDto {
   @ApiProperty({ example: 'test1@example.com', type: String })
   @Transform(lowerCaseTransformer)

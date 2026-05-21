@@ -4,14 +4,14 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common'
-import { ProductRepository } from '~/product/domain/respositories/product.repository'
-import { VariantRepository } from '~/product/domain/respositories/variant.repository'
+import { ProductRepository } from 'product/domain/respositories/product.repository'
+import { VariantRepository } from 'product/domain/respositories/variant.repository'
 import { NotFoundException } from '@nestjs/common'
-import { CreateVariantDto } from '~/product/dto/variant/create-variant.dto'
-import { Variant } from '~/product/domain/variant'
-import { Product } from '~/product/domain/product'
-import { UpdateVariantDto } from '~/product/dto/variant/update-variant.dto'
-import { generateUniqueSKU } from '~/utils/slugify'
+import { CreateVariantDto } from 'product/dto/variant/create-variant.dto'
+import { Variant } from 'product/domain/variant'
+import { Product } from 'product/domain/product'
+import { UpdateVariantDto } from 'product/dto/variant/update-variant.dto'
+import { generateUniqueSKU } from 'utils/slugify'
 import { IPaginationOptions } from '../../utils/type/pagination-options'
 
 @Injectable()
@@ -83,6 +83,7 @@ export class ProductVariantService {
       paginationOptions,
     })
   }
+
   async updateVariant(id: Variant['id'], updateVariantDto: UpdateVariantDto) {
     const variant = await this.variantRepository.findById(id)
     if (!variant) {

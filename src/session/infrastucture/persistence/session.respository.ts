@@ -1,6 +1,6 @@
-import { NullableType } from '~/utils/type/nullable.type'
+import { NullableType } from 'utils/type/nullable.type'
 import { Session } from '../../domain/session'
-import { User } from '~/user/domain/user'
+import { User } from 'user/domain/user'
 
 export abstract class SessionRepository {
   abstract findById(id: Session['id']): Promise<NullableType<Session>>

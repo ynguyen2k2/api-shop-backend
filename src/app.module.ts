@@ -3,45 +3,38 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmConfigService } from './database/typeorm-config.services'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
-import { UsersModule } from '~/user/users.module'
-import { AuthModule } from '~/auth/auth.module'
-import { AllConfig } from '~/config/config'
+import { UsersModule } from 'user/users.module'
+import { AuthModule } from 'auth/auth.module'
+import { AllConfig } from 'config/config'
 import { HeaderResolver, I18nModule } from 'nestjs-i18n'
-import { AllConfigType } from '~/config/config.type'
+import { AllConfigType } from 'config/config.type'
 import path from 'path'
-import { CategoriesModule } from './categories/categories.module'
-import { AttributeValuesModule } from './attribute-values/attribute-values.module'
-import { ImageProductModule } from './image-products/image-products.module'
-import { VariantModule } from './variants/variants.module'
-import { InventoryModule } from './inventories/inventories.module'
-import { CartModule } from './carts/carts.module'
-import { CartItemModule } from './cart-items/cart-items.module'
-import { ReviewModule } from './reviews/reviews.module'
+import { CartModule } from './cart/cart.module'
+import { ReviewModule } from './review/review.module'
 
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
-  dataSourceFactory: async (options: DataSourceOptions) => {
+  dataSourceFactory: async (options?: DataSourceOptions) => {
+    if (!options) {
+      throw new Error('DataSource options are required')
+    }
     return new DataSource(options).initialize()
   },
 })
 // </database-block>
-import { ProductsModule } from './products/products.module'
+import { ProductModule } from './product/product.module'
 
-import { AttributesModule } from './attributes/attributes.module'
+import { AttributesModule } from './attribute/attributes.module'
+import { CategoryModule } from 'category/category.module'
 
 @Module({
   imports: [
     ReviewModule,
-    CartItemModule,
     CartModule,
-    InventoryModule,
-    VariantModule,
-    ImageProductModule,
     AttributesModule,
-    AttributeValuesModule,
-    CategoriesModule,
-    ProductsModule,
+    CategoryModule,
+    ProductModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: AllConfig,

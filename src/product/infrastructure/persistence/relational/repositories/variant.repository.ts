@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, In } from 'typeorm'
 import { VariantEntity } from '../entities/variant.entity'
-import { NullableType } from '~/utils/type/nullable.type'
-import { Variant } from '~/product/domain/variant'
-import { VariantRepository } from '~/product/domain/respositories/variant.repository'
+import { NullableType } from 'utils/type/nullable.type'
+import { Variant } from 'product/domain/variant'
+import { VariantRepository } from 'product/domain/respositories/variant.repository'
 import { VariantMapper } from '../mappers/variant.mapper'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
-import { Product } from '~/product/domain/product'
+import { IPaginationOptions } from 'utils/type/pagination-options'
+import { Product } from 'product/domain/product'
 
 @Injectable()
 export class VariantRelationalRepository implements VariantRepository {

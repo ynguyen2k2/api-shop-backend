@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { InventoryEntity } from '~/inventories/infrastructure/persistence/relational/entities/inventory.entity'
-import { ProductEntity } from '~/product/infrastructure/persistence/relational/entities/product.entity'
-import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
+import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
+import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
+import { EntityRelationalHelper } from 'utils/relational-entity-helper'
 
 @Entity({
   name: 'variant',

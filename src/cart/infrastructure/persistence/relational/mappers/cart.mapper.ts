@@ -1,4 +1,4 @@
-import { Cart } from '~/cart/domain/cart'
+import { Cart } from 'cart/domain/cart'
 import { CartEntity } from '../entities/cart.entity'
 
 export class CartMapper {

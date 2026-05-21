@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
-import { ProductDto } from '~/product/dto/product/product.dto'
+import { ProductDto } from 'product/dto/product/product.dto'
 
 export class CreateVariantDto {
   @ApiProperty()

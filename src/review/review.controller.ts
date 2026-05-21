@@ -8,7 +8,6 @@ import {
   Delete,
   UseGuards,
   Query,
-  BadRequestException,
 } from '@nestjs/common'
 import { ReviewService } from './review.service'
 import { CreateReviewDto } from './dto/create-review.dto'
@@ -28,7 +27,6 @@ import {
 } from '../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../utils/infinity-pagination'
 import { FindAllReviewDto } from './dto/find-all-reviews.dto'
-import { UsersService } from '~/user/users.service'
 
 @ApiTags('Reviews')
 @ApiBearerAuth()

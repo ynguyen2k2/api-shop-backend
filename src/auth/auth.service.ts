@@ -15,31 +15,31 @@ import { AuthUpdateDto } from './dto/auth-update.dto'
 import { AuthProvidersEnum } from './auth-providers.enum'
 import { Session } from '../session/domain/session'
 import { SessionService } from '../session/session.service'
-import { UsersService } from '~/user/users.service'
+import { UserService } from 'user/users.service'
 import { ConfigService } from '@nestjs/config'
-import { AllConfigType } from '~/config/config.type'
-import { LoginResponseDto } from '~/auth/dto/login-response.dto'
-import { JwtRefreshPayloadType } from '~/auth/config/strategies/types/jwt-refresh-payload.type'
-import { User } from '~/user/domain/user'
-import { JwtPayloadType } from '~/auth/config/strategies/types/jwt-payload.type'
-import { NullableType } from '~/utils/type/nullable.type'
-import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
-import { RoleEnum } from '~/roles/roles-enum'
-import { StatusEnum } from '~/statuses/status-enum'
-import { MailService } from '~/mail/mail.service'
-import { MyLogger } from '~/logger/mylogger.service'
+import { AllConfigType } from 'config/config.type'
+import { LoginResponseDto } from 'auth/dto/login-response.dto'
+import { JwtRefreshPayloadType } from 'auth/config/strategies/types/jwt-refresh-payload.type'
+import { User } from 'user/domain/user'
+import { JwtPayloadType } from 'auth/config/strategies/types/jwt-payload.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { AuthRegisterLoginDto } from 'auth/dto/auth-register-logic.dto'
+import { RoleEnum } from 'roles/roles-enum'
+import { StatusEnum } from 'statuses/status-enum'
+import { MailService } from 'mail/mail.service'
+import { MyLogger } from 'logger/mylogger.service'
 @Injectable()
 export class AuthService {
   constructor(
     private readonly logger: MyLogger,
     private jwtService: JwtService,
-    private usersService: UsersService,
+    private userService: UserService,
     private sessionService: SessionService,
     private mailService: MailService,
     private configService: ConfigService<AllConfigType>,
   ) {}
   async validateLogin(loginDto: AuthEmailLoginDto): Promise<LoginResponseDto> {
-    const user = await this.usersService.findByEmail(loginDto.email)
+    const user = await this.userService.findByEmail(loginDto.email)
 
     if (!user) {
       throw new UnprocessableEntityException({
@@ -193,7 +193,7 @@ export class AuthService {
   // }
 
   async register(dto: AuthRegisterLoginDto): Promise<void> {
-    const user = await this.usersService.create({
+    const user = await this.userService.create({
       ...dto,
       email: dto.email,
       role: {
@@ -247,7 +247,7 @@ export class AuthService {
       })
     }
 
-    const user = await this.usersService.findById(userId)
+    const user = await this.userService.findById(userId)
 
     if (
       !user ||
@@ -263,7 +263,7 @@ export class AuthService {
       id: StatusEnum.ACTIVE,
     }
 
-    await this.usersService.update(user.id, user)
+    await this.userService.update(user.id, user)
   }
 
   async confirmNewEmail(hash: string): Promise<void> {
@@ -291,7 +291,7 @@ export class AuthService {
       })
     }
 
-    const user = await this.usersService.findById(userId)
+    const user = await this.userService.findById(userId)
 
     if (!user) {
       throw new NotFoundException({
@@ -305,11 +305,11 @@ export class AuthService {
       id: StatusEnum.ACTIVE,
     }
 
-    await this.usersService.update(user.id, user)
+    await this.userService.update(user.id, user)
   }
 
   async forgotPassword(email: string): Promise<void> {
-    const user = await this.usersService.findByEmail(email)
+    const user = await this.userService.findByEmail(email)
 
     if (!user) {
       throw new UnprocessableEntityException({
@@ -369,7 +369,7 @@ export class AuthService {
       })
     }
 
-    const user = await this.usersService.findById(userId)
+    const user = await this.userService.findById(userId)
 
     if (!user) {
       throw new UnprocessableEntityException({
@@ -386,18 +386,18 @@ export class AuthService {
       userId: user.id,
     })
 
-    await this.usersService.update(user.id, user)
+    await this.userService.update(user.id, user)
   }
 
   async me(userJwtPayload: JwtPayloadType): Promise<NullableType<User>> {
-    return this.usersService.findById(userJwtPayload.id)
+    return this.userService.findById(userJwtPayload.id)
   }
 
   async update(
     userJwtPayload: JwtPayloadType,
     userDto: AuthUpdateDto,
   ): Promise<NullableType<User>> {
-    const currentUser = await this.usersService.findById(userJwtPayload.id)
+    const currentUser = await this.userService.findById(userJwtPayload.id)
 
     if (!currentUser) {
       throw new UnprocessableEntityException({
@@ -448,7 +448,7 @@ export class AuthService {
     }
 
     if (userDto.email && userDto.email !== currentUser.email) {
-      const userByEmail = await this.usersService.findByEmail(userDto.email)
+      const userByEmail = await this.userService.findByEmail(userDto.email)
 
       if (userByEmail && userByEmail.id !== currentUser.id) {
         throw new UnprocessableEntityException({
@@ -484,9 +484,9 @@ export class AuthService {
 
     delete userDto.email
     delete userDto.oldPassword
-    await this.usersService.update(userJwtPayload.id, userDto)
+    await this.userService.update(userJwtPayload.id, userDto)
 
-    return this.usersService.findById(userJwtPayload.id)
+    return this.userService.findById(userJwtPayload.id)
   }
 
   async refreshToken(
@@ -507,7 +507,7 @@ export class AuthService {
       .update(randomStringGenerator())
       .digest('hex')
 
-    const user = await this.usersService.findById(session.user.id)
+    const user = await this.userService.findById(session.user.id)
 
     if (!user?.role) {
       throw new UnauthorizedException()
@@ -534,7 +534,7 @@ export class AuthService {
   }
 
   async softDelete(user: JwtPayloadType): Promise<void> {
-    await this.usersService.remove(user.id)
+    await this.userService.remove(user.id)
   }
 
   async logout(data: Pick<JwtRefreshPayloadType, 'sessionId'>) {

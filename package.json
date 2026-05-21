@@ -31,7 +31,7 @@
     "seed:run:relational": "ts-node -r tsconfig-paths/register ./src/database/seeds/relational/run-seed.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nest start ",
     "start:dev": "nest start --watch",
     "start:swc": "nest start -b swc -w ",
     "start:debug": "nest start --debug --watch",

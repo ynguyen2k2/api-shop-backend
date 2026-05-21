@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsInt } from 'class-validator'
-import { Cart } from '~/cart/domain/cart'
-import databaseConfig from '~/database/config/database-config'
-import { DatabaseConfig } from '~/database/config/database-config.type'
-import { Variant } from '~/product/domain/variant'
+import { Cart } from 'cart/domain/cart'
+import databaseConfig from 'database/config/database-config'
+import { DatabaseConfig } from 'database/config/database-config.type'
+import { Variant } from 'product/domain/variant'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String

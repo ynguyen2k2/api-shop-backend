@@ -116,15 +116,15 @@ Stores details about uploaded files (e.g., images).
 
 ## 10. category
 
-Hierarchical product categories.
+Hierarchical product category.
 
 - **id**: Number / String (Primary Key, Auto-generated) - Unique identifier for the category.
 - **name**: String - The display name of the category.
 - **slug**: String (Unique) - A URL-friendly version of the category name.
 - **description**: String (Nullable) - A detailed explanation of what the category contains.
 - **image**: String (Nullable) - A reference to an image representing the category.
-- **parent**: CategoryEntity (Many-to-One relation) - Reference to a parent category, allowing nested subcategories.
-- **children**: CategoryEntity[] (One-to-Many relation) - The subcategories that fall under this category.
+- **parent**: CategoryEntity (Many-to-One relation) - Reference to a parent category, allowing nested subcategory.
+- **children**: CategoryEntity[] (One-to-Many relation) - The subcategory that fall under this category.
 - **attribute**: AttributeEntity[] (Many-to-Many relation) - The specific attributes (e.g., 'Shoe Size') that apply to products in this category.
 - **createdAt**: Timestamp (Auto-generated) - When the category was created.
 - **updatedAt**: Timestamp (Auto-generated) - When the category was last modified.
@@ -139,7 +139,7 @@ Product attributes (e.g., Color, Size) used for filtering and variants.
 - **slug**: String - A URL-friendly identifier for the attribute.
 - **type**: String (Nullable) - The data type or UI representation of the attribute (e.g., 'color-swatch', 'dropdown').
 - **attributeValues**: AttributeValueEntity[] (One-to-Many relation) - The list of possible values for this attribute.
-- **category**: CategoryEntity (Many-to-Many relation) - The categories this attribute is applicable to.
+- **category**: CategoryEntity (Many-to-Many relation) - The category this attribute is applicable to.
 - **createdAt**: Timestamp (Auto-generated) - When the attribute was created.
 - **updatedAt**: Timestamp (Auto-generated) - When the attribute was last modified.
 - **isActive**: Boolean (Default: true) - Flag indicating if the attribute is currently in use.

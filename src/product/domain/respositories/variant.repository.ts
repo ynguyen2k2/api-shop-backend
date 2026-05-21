@@ -1,8 +1,8 @@
-import { DeepPartial } from '~/utils/type/deep-partial.type'
-import { NullableType } from '~/utils/type/nullable.type'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
-import { Variant } from '~/product/domain/variant'
-import { Product } from '~/product/domain/product'
+import { DeepPartial } from 'utils/type/deep-partial.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'utils/type/pagination-options'
+import { Variant } from 'product/domain/variant'
+import { Product } from 'product/domain/product'
 
 export abstract class VariantRepository {
   abstract create(

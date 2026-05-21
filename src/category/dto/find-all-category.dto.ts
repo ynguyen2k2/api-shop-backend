@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger'
 import { IsNumber, IsOptional } from 'class-validator'
 import { Transform } from 'class-transformer'
 
-export class FindAllCategoriesDto {
+export class FindAllcategoryDto {
   @ApiPropertyOptional()
   @Transform(({ value }) => (value ? Number(value) : 1))
   @IsNumber()

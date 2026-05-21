@@ -1,7 +1,8 @@
-import { Variant } from '~/product/domain/variant'
+import { Variant } from 'product/domain/variant'
 import { VariantEntity } from '../entities/variant.entity'
-import { InventoryMapper } from '~/inventories/infrastructure/persistence/relational/mappers/inventory.mapper'
-import { InventoryEntity } from '~/inventories/infrastructure/persistence/relational/entities/inventory.entity'
+import { InventoryMapper } from 'product/infrastructure/persistence/relational/mappers/inventory.mapper'
+import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
+import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
 
 export class VariantMapper {
   static toDomain(raw: VariantEntity): Variant {
@@ -20,19 +21,21 @@ export class VariantMapper {
   }
 
   static toPersistence(domainEntity: Variant): VariantEntity {
+    let product: ProductEntity | null = null
     if (domainEntity.product) {
-      domainEntity.product.id = domainEntity.product.id
-      domainEntity.product.name = domainEntity.product.name
-      domainEntity.product.slug = domainEntity.product.slug
-      domainEntity.product.brand = domainEntity.product.brand
-      domainEntity.product.category = domainEntity.product.category
-      domainEntity.product.isActive = domainEntity.product.isActive
-      domainEntity.product.isFeatured = domainEntity.product.isFeatured
-      domainEntity.product.isNew = domainEntity.product.isNew
-      domainEntity.product.averageRating = domainEntity.product.averageRating
-      domainEntity.product.totalReviews = domainEntity.product.totalReviews
-      domainEntity.product.createdAt = domainEntity.product.createdAt
-      domainEntity.product.updatedAt = domainEntity.product.updatedAt
+      product = new ProductEntity()
+      product.id = domainEntity.product.id
+      product.name = domainEntity.product.name
+      product.slug = domainEntity.product.slug
+      product.brand = domainEntity.product.brand
+      product.category = domainEntity.product.category
+      product.isActive = domainEntity.product.isActive
+      product.isFeatured = domainEntity.product.isFeatured
+      product.isNew = domainEntity.product.isNew
+      product.averageRating = domainEntity.product.averageRating || 0
+      product.totalReviews = domainEntity.product.totalReviews || 0
+      product.createdAt = domainEntity.product.createdAt
+      product.updatedAt = domainEntity.product.updatedAt
     }
     let inventory: InventoryEntity | null = null
     if (domainEntity.inventory) {

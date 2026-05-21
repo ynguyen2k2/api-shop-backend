@@ -9,7 +9,7 @@ import {
   ValidateIf,
   IsBoolean,
 } from 'class-validator'
-import validateConfig from '~/utils/validation-config'
+import validateConfig from 'utils/validation-config'
 import { DatabaseConfig } from './database-config.type'
 
 class EnvironmentVariablesValidator {

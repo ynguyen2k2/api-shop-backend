@@ -1,13 +1,13 @@
-import { Category } from '~/categories/domain/category'
+import { Category } from 'category/domain/category'
 import { CategoryEntity } from '../entities/category.entity'
-import { NullableType } from '~/utils/type/nullable.type'
-import { DeepPartial } from '~/utils/type/deep-partial.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { DeepPartial } from 'utils/type/deep-partial.type'
 
 export class CategoryMapper {
   static toDomain(raw: CategoryEntity): Category {
     const domainEntity = new Category()
     const parentCategory: NullableType<DeepPartial<Category>> = new Category()
-    let childrenCategories: NullableType<DeepPartial<Category[]>> = []
+    let childrencategory: NullableType<DeepPartial<Category[]>> = []
 
     if (raw.parent) {
       parentCategory.id = raw.parent.id
@@ -24,7 +24,7 @@ export class CategoryMapper {
       // ✅ RECURSIVE MAPPING for children
       // We call 'CategoryMapper.toDomain' again for each child.
       // If a child has children, it will call itself again forever into the 2nd, 3rd, 4th levels.
-      childrenCategories = raw.children.map((child) =>
+      childrencategory = raw.children.map((child) =>
         CategoryMapper.toDomain(child),
       )
     }
@@ -39,7 +39,7 @@ export class CategoryMapper {
       ? (parentCategory as Category)
       : null
     domainEntity.children =
-      childrenCategories.length > 0 ? (childrenCategories as Category[]) : null
+      childrencategory.length > 0 ? (childrencategory as Category[]) : null
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
     domainEntity.isActive = raw.isActive
@@ -50,7 +50,7 @@ export class CategoryMapper {
   static toPersistence(domainEntity: Category): CategoryEntity {
     const persistenceEntity = new CategoryEntity()
     let parentCategoryEntity: CategoryEntity | null = null
-    let childrenCategoriesEntities: CategoryEntity[] | null = null
+    let childrencategoryEntities: CategoryEntity[] | null = null
 
     if (domainEntity.parent) {
       parentCategoryEntity = new CategoryEntity()
@@ -66,7 +66,7 @@ export class CategoryMapper {
 
     if (domainEntity.children) {
       // ✅ RECURSIVE MAPPING for children
-      childrenCategoriesEntities = domainEntity.children.map((child) =>
+      childrencategoryEntities = domainEntity.children.map((child) =>
         CategoryMapper.toPersistence(child),
       )
     }
@@ -81,7 +81,7 @@ export class CategoryMapper {
     persistenceEntity.isActive = domainEntity.isActive
     // Assign mapped parent and children back to the entity
     persistenceEntity.parent = parentCategoryEntity
-    persistenceEntity.children = childrenCategoriesEntities
+    persistenceEntity.children = childrencategoryEntities
     persistenceEntity.createdAt = domainEntity.createdAt
     persistenceEntity.updatedAt = domainEntity.updatedAt
 

@@ -1,7 +1,7 @@
-import { Inventory } from '~/product/domain/inventory'
-import { DeepPartial } from '~/utils/type/deep-partial.type'
-import { NullableType } from '~/utils/type/nullable.type'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { Inventory } from 'product/domain/inventory'
+import { DeepPartial } from 'utils/type/deep-partial.type'
+import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'utils/type/pagination-options'
 
 export abstract class InventoryRepository {
   abstract create(

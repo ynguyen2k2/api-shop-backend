@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, In } from 'typeorm'
 import { InventoryEntity } from '../entities/inventory.entity'
-import { NullableType } from '~/utils/type/nullable.type'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
-import { Inventory } from '~/product/domain/inventory'
-import { InventoryMapper } from '~/product/infrastructure/persistence/relational/mappers/inventory.mapper'
-import { InventoryRepository } from '~/product/domain/respositories/inventory.repository'
+import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'utils/type/pagination-options'
+import { Inventory } from 'product/domain/inventory'
+import { InventoryMapper } from 'product/infrastructure/persistence/relational/mappers/inventory.mapper'
+import { InventoryRepository } from 'product/domain/respositories/inventory.repository'
 
 @Injectable()
 export class InventoryRelationalRepository implements InventoryRepository {
