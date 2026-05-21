@@ -69,6 +69,14 @@ export class VariantRelationalRepository implements VariantRepository {
     return entities.map((entity) => VariantMapper.toDomain(entity))
   }
 
+  async findBySku(sku: Variant['sku']): Promise<NullableType<Variant>> {
+    const entity = await this.variantRepository.findOne({
+      where: { sku },
+    })
+
+    return entity ? VariantMapper.toDomain(entity) : null
+  }
+
   async update(id: Variant['id'], payload: Partial<Variant>): Promise<Variant> {
     const entity = await this.variantRepository.findOne({
       where: { id },

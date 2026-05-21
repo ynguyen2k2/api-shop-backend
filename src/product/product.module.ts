@@ -5,6 +5,9 @@ import {
 import { ProductService } from './services/product.service'
 import { ProductController } from './product.controller'
 import { RelationalProductPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
+import { ProductVariantService } from '~/product/services/product-variant.service'
+import { ProductInventoryService } from '~/product/services/product-inventory.service'
+import { ProductImageService } from '~/product/services/product-image.service'
 
 @Module({
   imports: [
@@ -12,7 +15,12 @@ import { RelationalProductPersistenceModule } from './infrastructure/persistence
     RelationalProductPersistenceModule,
   ],
   controllers: [ProductController],
-  providers: [ProductService],
+  providers: [
+    ProductService,
+    ProductVariantService,
+    ProductInventoryService,
+    ProductImageService,
+  ],
   exports: [ProductService, RelationalProductPersistenceModule],
 })
 export class ProductModule {}

@@ -26,7 +26,7 @@ export abstract class VariantRepository {
   abstract findById(id: Variant['id']): Promise<NullableType<Variant>>
 
   abstract findByIds(ids: Variant['id'][]): Promise<Variant[]>
-
+  abstract findBySku(sku: Variant['sku']): Promise<NullableType<Variant>>
   abstract update(
     id: Variant['id'],
     payload: DeepPartial<Variant>,

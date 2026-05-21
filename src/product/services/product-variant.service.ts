@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import {
+  BadRequestException,
+  ConflictException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common'
 import { ProductRepository } from '~/product/domain/respositories/product.repository'
 import { VariantRepository } from '~/product/domain/respositories/variant.repository'
 import { NotFoundException } from '@nestjs/common'
@@ -29,10 +34,26 @@ export class ProductVariantService {
     }
     const product = await this.productRepository.findById(productId)
     if (!product) {
-      throw new NotFoundException(`Product don't have any variant`)
+      throw new NotFoundException({
+        status: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'productNotFound',
+        },
+      })
     }
 
     const sku = generateUniqueSKU(product.name)
+
+    const existingVariant = await this.variantRepository.findBySku(sku)
+
+    if (existingVariant) {
+      throw new ConflictException({
+        status: HttpStatus.CONFLICT,
+        errors: {
+          status: 'skuAlreadyExists',
+        },
+      })
+    }
 
     return this.variantRepository.create({
       ...createVariantDto,
@@ -40,7 +61,7 @@ export class ProductVariantService {
       sku,
     })
   }
-  findVariantById(id: Variant['id']) {
+  findById(id: Variant['id']) {
     return this.variantRepository.findById(id)
   }
   async findProductVariants({
@@ -62,6 +83,19 @@ export class ProductVariantService {
       paginationOptions,
     })
   }
-  updateVariant(updateVariantDto: UpdateVariantDto) {}
-  removeVariant(id: Variant['id']) {}
+  async updateVariant(id: Variant['id'], updateVariantDto: UpdateVariantDto) {
+    const variant = await this.variantRepository.findById(id)
+    if (!variant) {
+      throw new NotFoundException({
+        status: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'variantNotExists',
+        },
+      })
+    }
+    return this.variantRepository.update(id, updateVariantDto)
+  }
+  removeVariant(id: Variant['id']) {
+    return this.variantRepository.remove(id)
+  }
 }

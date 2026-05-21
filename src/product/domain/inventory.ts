@@ -1,34 +1,28 @@
 import { ApiProperty } from '@nestjs/swagger'
 import databaseConfig from '~/database/config/database-config'
 import { DatabaseConfig } from '~/database/config/database-config.type'
-import { Inventory } from '~/product/domain/inventory'
-import { Product } from '~/product/domain/product'
+import { Variant } from '~/product/domain/variant'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String
   : Number
-export class Variant {
+export class Inventory {
   @ApiProperty({
     type: idType,
   })
   id: number | string
 
-  @ApiProperty({ example: 'sku-012012' })
-  sku: string
+  @ApiProperty()
+  variant: Variant
 
-  @ApiProperty({ type: Inventory })
-  inventory?: Inventory | null
+  @ApiProperty()
+  quantity: number
 
-  @ApiProperty({
-    type: 'number',
-  })
-  price: number
+  @ApiProperty()
+  reserved: number
 
-  @ApiProperty({})
-  compareAtPrice: number
-
-  @ApiProperty({ type: Product })
-  product: Product
+  @ApiProperty()
+  warehouse: string
 
   @ApiProperty()
   createdAt: Date
