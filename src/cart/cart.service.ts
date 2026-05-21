@@ -1,5 +1,5 @@
 import {
-  // common
+  HttpStatus,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -11,18 +11,18 @@ import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { Cart } from './domain/cart'
 import { UsersService } from '~/user/users.service'
 import { CartItem } from '~/cart/domain/cart-item'
-import { User } from '~/user/domain/user'
 import { CartDto } from '~/cart/dto/cart/cart.dto'
 import { VariantDto } from '~/product/dto/variant/variant.dto'
-import { VariantRepository } from '~/product/domain/respositories/variant.repository'
-
+import { ProductVariantService } from '~/product/services/product-variant.service'
+import { ProductInventoryService } from '~/product/services/product-inventory.service'
 @Injectable()
 export class CartService {
   constructor(
     // Dependencies here
     private readonly cartRepository: CartRepository,
     private readonly userService: UsersService,
-    private readonly variantRepository: VariantRepository,
+    private readonly variantService: ProductVariantService,
+    private readonly inventoryService: ProductInventoryService,
   ) {}
 
   async create(
@@ -38,25 +38,8 @@ export class CartService {
     })
   }
 
-  findAllWithPagination({
-    paginationOptions,
-  }: {
-    paginationOptions: IPaginationOptions
-  }) {
-    return this.cartRepository.findAllWithPagination({
-      paginationOptions: {
-        page: paginationOptions.page,
-        limit: paginationOptions.limit,
-      },
-    })
-  }
-
   findById(id: Cart['id']) {
     return this.cartRepository.findById(id)
-  }
-
-  findByIds(ids: Cart['id'][]) {
-    return this.cartRepository.findByIds(ids)
   }
 
   async update(
@@ -90,18 +73,35 @@ export class CartService {
     quantity: number
   }) {
     const cart = await this.cartRepository.findById(cartId)
-    if (!cart) throw new NotFoundException('Cart is not found')
+    if (!cart)
+      throw new NotFoundException({
+        HttpStatus: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'cartNotFound',
+        },
+      })
 
-    const variant = await this.variantRepository.findById(variantId)
-    if (!variant) throw new NotFoundException('Variant is not found')
+    const variant = await this.variantService.findById(variantId)
+    if (!variant)
+      throw new NotFoundException({
+        HttpStatus: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'variantNotFound',
+        },
+      })
 
     const existingItem = cart.items?.find(
       (item) => item.variant.id === variantId,
     )
 
-    if (existingItem) {
+    const isAvailable = await this.inventoryService.validateAvailableStock(
+      variantId,
+      quantity,
+    )
+
+    if (existingItem && isAvailable) {
       existingItem.quantity += quantity
-    } else {
+    } else if (isAvailable) {
       const cartItem = new CartItem()
       cartItem.variant = variant
       cartItem.quantity = quantity
@@ -126,13 +126,24 @@ export class CartService {
     variantId: VariantDto['id']
   }) {
     const cart = await this.cartRepository.findById(cartId)
-    if (!cart) throw new NotFoundException('Cart is not found')
+    if (!cart)
+      throw new NotFoundException({
+        HttpStatus: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'cartNotFound',
+        },
+      })
 
     const existingItem = cart.items?.find(
       (item) => item.variant.id === variantId,
     )
     if (!existingItem)
-      throw new UnprocessableEntityException('Item is not in cart')
+      throw new UnprocessableEntityException({
+        HttpStatus: HttpStatus.UNPROCESSABLE_ENTITY,
+        errors: {
+          status: 'itemNotInCart',
+        },
+      })
 
     cart.items = cart.items?.filter((item) => item.variant.id !== variantId)
 
@@ -151,16 +162,36 @@ export class CartService {
     quantity: number
   }) {
     const cart = await this.cartRepository.findById(cartId)
-    if (!cart) throw new NotFoundException('Cart is not found')
+    if (!cart)
+      throw new NotFoundException({
+        HttpStatus: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'cartNotFound',
+        },
+      })
 
     const existingItem = cart.items?.find(
       (item) => item.variant.id === variantId,
     )
     if (!existingItem) {
-      throw new UnprocessableEntityException('Item is not in cart')
+      throw new UnprocessableEntityException({
+        HttpStatus: HttpStatus.UNPROCESSABLE_ENTITY,
+        errors: {
+          status: 'itemNotInCart',
+        },
+      })
     }
-    existingItem.quantity = quantity
-    if (quantity <= 0) {
+
+    const isAvailable = await this.inventoryService.validateAvailableStock(
+      variantId,
+      quantity,
+    )
+
+    if (isAvailable) {
+      existingItem.quantity = quantity
+    }
+
+    if (existingItem.quantity <= 0) {
       return this.removeItem({ cartId, variantId })
     }
     return this.cartRepository.update(cartId, {
