@@ -8,5 +8,7 @@ export class FileDto {
   id: string
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   path: string
 }
