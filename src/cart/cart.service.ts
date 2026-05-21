@@ -7,7 +7,6 @@ import {
 import { CreateCartDto } from './dto/cart/create-cart.dto'
 import { UpdateCartDto } from './dto/cart/update-cart.dto'
 import { CartRepository } from './domain/respositories/cart.repository'
-import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { Cart } from './domain/cart'
 import { UsersService } from '~/user/users.service'
 import { CartItem } from '~/cart/domain/cart-item'

@@ -7,7 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
-  Query,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common'
 import { CartService } from './cart.service'
 import { CreateCartDto } from './dto/cart/create-cart.dto'
@@ -16,17 +17,14 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger'
 import { Cart } from './domain/cart'
 import { AuthGuard } from '@nestjs/passport'
-import {
-  InfinityPaginationResponse,
-  InfinityPaginationResponseDto,
-} from '../utils/dto/infinity-pagination-response.dto'
-import { infinityPagination } from '../utils/infinity-pagination'
-import { FindAllCartDto } from './dto/cart/find-all-cart.dto'
+import { NullableType } from '~/utils/type/nullable.type'
 
 @ApiTags('Cart')
 @ApiBearerAuth()
@@ -44,30 +42,6 @@ export class CartController {
   })
   create(@Body() createCartDto: CreateCartDto) {
     return this.cartService.create(createCartDto)
-  }
-
-  @Get()
-  @ApiOkResponse({
-    type: InfinityPaginationResponse(Cart),
-  })
-  async findAll(
-    @Query() query: FindAllCartDto,
-  ): Promise<InfinityPaginationResponseDto<Cart>> {
-    const page = query?.page ?? 1
-    let limit = query?.limit ?? 10
-    if (limit > 50) {
-      limit = 50
-    }
-
-    return infinityPagination(
-      await this.cartService.findAllWithPagination({
-        paginationOptions: {
-          page,
-          limit,
-        },
-      }),
-      { page, limit },
-    )
   }
 
   @Get(':id')
@@ -104,5 +78,46 @@ export class CartController {
   })
   remove(@Param('id') id: string) {
     return this.cartService.remove(id)
+  }
+
+  //cart Item
+  @Post(':id/item')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  @ApiOkResponse({
+    type: Cart,
+  })
+  async addItem(
+    @Param('id') cartId: string,
+    @Body() addItemDto: { variantId: string; quantity: number },
+  ) {
+    return this.cartService.addItem({
+      cartId,
+      ...addItemDto,
+    })
+  }
+
+  @Delete(':id/items/:variantId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Remove an item from cart' })
+  @ApiParam({ name: 'cartId', type: String, description: 'Cart UUID' })
+  @ApiParam({ name: 'variantId', type: String, description: 'Variant UUID' })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Item removed from cart',
+  })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Cart not found' })
+  @ApiResponse({
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: 'Item not in cart',
+  })
+  removeItem(
+    @Param('id') cartId: string,
+    @Param('variantId') variantId: string,
+  ): Promise<NullableType<Cart>> {
+    return this.cartService.removeItem({ cartId, variantId })
   }
 }
