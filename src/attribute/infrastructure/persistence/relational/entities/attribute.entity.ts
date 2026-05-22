@@ -34,8 +34,6 @@ export class AttributeEntity extends EntityRelationalHelper {
   )
   attributeValues: AttributeValueEntity[]
 
-  @ManyToMany(() => CategoryEntity, (category) => category.attribute)
-  category: CategoryEntity
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 

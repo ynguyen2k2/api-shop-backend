@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { AttributeEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute.entity'
 import { EntityRelationalHelper } from 'utils/relational-entity-helper'
+import { VariantEntity } from 'product/infrastructure/persistence/relational/entities/variant.entity'
 
 @Entity({
   name: 'attribute-value',
@@ -20,9 +22,14 @@ export class AttributeValueEntity extends EntityRelationalHelper {
   @Column('varchar', { length: 255 })
   value: string
 
-  @ManyToOne(() => AttributeEntity, (attribute) => attribute.attributeValues)
+  @ManyToOne(() => AttributeEntity, (attribute) => attribute.attributeValues, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'attribute_id' })
   attribute: AttributeEntity
+
+  @ManyToMany(() => VariantEntity, (variant) => variant.value)
+  variant?: VariantEntity[]
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date

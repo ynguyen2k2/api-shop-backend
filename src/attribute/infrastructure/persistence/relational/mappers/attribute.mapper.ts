@@ -22,12 +22,7 @@ export class AttributeMapper {
         return attributeValue
       })
     }
-    if (raw.category) {
-      const category = new Category()
-      category.id = raw.category.id
-      category.name = raw.category.name
-      domainEntity.category = category
-    }
+
     domainEntity.createdAt = raw.createdAt
     domainEntity.updatedAt = raw.updatedAt
     domainEntity.isActive = raw.isActive
@@ -42,12 +37,7 @@ export class AttributeMapper {
     persistenceEntity.name = domainEntity.name
     persistenceEntity.slug = domainEntity.slug
     persistenceEntity.type = domainEntity.type
-    if (domainEntity.category) {
-      const categoryEntity = new CategoryEntity()
-      categoryEntity.id = domainEntity.category.id
-      categoryEntity.name = domainEntity.category.name
-      persistenceEntity.category = categoryEntity
-    }
+
     if (domainEntity.values) {
       persistenceEntity.attributeValues = domainEntity.values.map((value) =>
         AttributeValueMapper.toPersistence(value),

@@ -9,13 +9,12 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { AttributesService } from './attributes.service'
+import { AttributeService } from './attribute.service'
 import { CreateAttributeDto } from './dto/attribute/create-attribute.dto'
 import { UpdateAttributeDto } from './dto/attribute/update-attribute.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
-  ApiOkResponse,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
@@ -35,15 +34,15 @@ import { FindAllAttributesDto } from './dto/attribute/find-all-attributes.dto'
   path: 'attributes',
   version: '1',
 })
-export class AttributesController {
-  constructor(private readonly attributesService: AttributesService) {}
+export class AttributeController {
+  constructor(private readonly attributeService: AttributeService) {}
 
   @Post()
   @ApiCreatedResponse({
     type: Attribute,
   })
   create(@Body() createAttributeDto: CreateAttributeDto) {
-    return this.attributesService.create(createAttributeDto)
+    return this.attributeService.create(createAttributeDto)
   }
 
   @Get()
@@ -57,7 +56,7 @@ export class AttributesController {
     }
 
     return infinityPagination(
-      await this.attributesService.findAllWithPagination({
+      await this.attributeService.findAllWithPagination({
         paginationOptions: {
           page,
           limit,
@@ -74,7 +73,7 @@ export class AttributesController {
     required: true,
   })
   findById(@Param('id') id: string) {
-    return this.attributesService.findById(id)
+    return this.attributeService.findById(id)
   }
 
   @Patch(':id')
@@ -87,7 +86,7 @@ export class AttributesController {
     @Param('id') id: string,
     @Body() updateAttributeDto: UpdateAttributeDto,
   ) {
-    return this.attributesService.update(id, updateAttributeDto)
+    return this.attributeService.update(id, updateAttributeDto)
   }
 
   @Delete(':id')
@@ -97,6 +96,6 @@ export class AttributesController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.attributesService.remove(id)
+    return this.attributeService.remove(id)
   }
 }

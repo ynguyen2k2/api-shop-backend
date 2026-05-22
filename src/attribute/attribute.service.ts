@@ -14,15 +14,13 @@ import slugify from 'utils/slugify'
 import { AttributeValueRepository } from 'attribute/domain/respositories/attribute-value.repository'
 import { CreateAttributeValueDto } from 'attribute/dto/value/create-attribute-value.dto'
 import { AttributeValue } from 'attribute/domain/attribute-value'
-import { CategoryService } from 'category/category.service'
 
 @Injectable()
-export class AttributesService {
+export class AttributeService {
   constructor(
     // Dependencies here
     private readonly attributeRepository: AttributeRepository,
     private readonly attributeValueRepository: AttributeValueRepository,
-    private readonly categoryService: CategoryService,
   ) {}
 
   async create(createAttributeDto: CreateAttributeDto) {
@@ -32,18 +30,10 @@ export class AttributesService {
       throw new BadRequestException('Attribute already exists')
     }
 
-    const category = await this.categoryService.findById(
-      createAttributeDto.categoryId,
-    )
-    if (!category) {
-      throw new BadRequestException('Category not found')
-    }
-
     return this.attributeRepository.create({
       name: createAttributeDto.name,
       slug,
       type: createAttributeDto.type,
-      category,
     })
   }
 
