@@ -1,9 +1,9 @@
-import { Review } from 'review/domain/review'
+import { Review } from 'src/review/domain/review'
 import { ReviewEntity } from '../entities/review.entity'
-import { UserMapper } from 'user/infrastructure/persistence/relational/mappers/user.mapper'
-import { UserEntity } from 'user/infrastructure/persistence/relational/entities/user.entity'
-import { ProductMapper } from 'product/infrastructure/persistence/relational/mappers/product.mapper'
-import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
+import { UserMapper } from 'src/user/infrastructure/persistence/relational/mappers/user.mapper'
+import { UserEntity } from 'src/user/infrastructure/persistence/relational/entities/user.entity'
+import { ProductMapper } from 'src/product/infrastructure/persistence/relational/mappers/product.mapper'
+import { ProductEntity } from 'src/product/infrastructure/persistence/relational/entities/product.entity'
 
 export class ReviewMapper {
   static toDomain(raw: ReviewEntity): Review {

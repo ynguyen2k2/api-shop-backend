@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { AttributeValue } from 'attribute/domain/attribute-value'
-import databaseConfig from 'database/config/database-config'
-import { DatabaseConfig } from 'database/config/database-config.type'
-import { Inventory } from 'product/domain/inventory'
-import { Product } from 'product/domain/product'
+import { AttributeValue } from 'src/attribute/domain/attribute-value'
+import databaseConfig from 'src/database/config/database-config'
+import { DatabaseConfig } from 'src/database/config/database-config.type'
+import { Inventory } from 'src/product/domain/inventory'
+import { Product } from 'src/product/domain/product'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String

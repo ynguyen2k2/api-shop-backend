@@ -4,7 +4,7 @@ import { IsString } from 'class-validator'
 
 import { AuthConfig } from './auth-config.type'
 
-import validateConfig from 'utils/validation-config'
+import validateConfig from 'src/utils/validation-config'
 
 class EnvironmentVariablesValidator {
   @IsString()

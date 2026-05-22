@@ -22,7 +22,7 @@ import { AuthGuard } from '@nestjs/passport'
 import { InfinityPaginationResponseDto } from '../../utils/dto/infinity-pagination-response.dto'
 import { infinityPagination } from '../../utils/infinity-pagination'
 import { FindAllcategoryDto } from '../dto/category/find-all-category.dto'
-import { CreateCategoryDto } from 'category/dto/category/create-category.dto'
+import { CreateCategoryDto } from 'src/category/dto/category/create-category.dto'
 @ApiTags('category')
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))

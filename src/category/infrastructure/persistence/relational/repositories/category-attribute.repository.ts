@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { CategoryAttribute } from 'category/domain/category-attribute'
-import { CategoryAttributeRepository } from 'category/domain/repositories/category-attribute.respository'
-import { CategoryAttributeEntity } from 'category/infrastructure/persistence/relational/entities/category-attribute.entity'
-import { CategoryAttributeMapper } from 'category/infrastructure/persistence/relational/mappers/category-attribute.mapper'
+import { CategoryAttribute } from 'src/category/domain/category-attribute'
+import { CategoryAttributeRepository } from 'src/category/domain/repositories/category-attribute.respository'
+import { CategoryAttributeEntity } from 'src/category/infrastructure/persistence/relational/entities/category-attribute.entity'
+import { CategoryAttributeMapper } from 'src/category/infrastructure/persistence/relational/mappers/category-attribute.mapper'
 import { In, Repository } from 'typeorm'
-import { NullableType } from 'utils/type/nullable.type'
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { NullableType } from 'src/utils/type/nullable.type'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 
 @Injectable()
 export class CategoryAttributeRelationalRepository

@@ -9,9 +9,9 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm'
-import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
-import { UserEntity } from 'user/infrastructure/persistence/relational/entities/user.entity'
-import { EntityRelationalHelper } from 'utils/relational-entity-helper'
+import { ProductEntity } from 'src/product/infrastructure/persistence/relational/entities/product.entity'
+import { UserEntity } from 'src/user/infrastructure/persistence/relational/entities/user.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 
 @Entity({
   name: 'review',

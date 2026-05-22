@@ -8,12 +8,12 @@ import { CreateCartDto } from './dto/cart/create-cart.dto'
 import { UpdateCartDto } from './dto/cart/update-cart.dto'
 import { CartRepository } from './domain/respositories/cart.repository'
 import { Cart } from './domain/cart'
-import { UserService } from 'user/users.service'
-import { CartItem } from 'cart/domain/cart-item'
-import { CartDto } from 'cart/dto/cart/cart.dto'
-import { VariantDto } from 'product/dto/variant/variant.dto'
-import { ProductVariantService } from 'product/services/product-variant.service'
-import { ProductInventoryService } from 'product/services/product-inventory.service'
+import { UserService } from 'src/user/users.service'
+import { CartItem } from 'src/cart/domain/cart-item'
+import { CartDto } from 'src/cart/dto/cart/cart.dto'
+import { VariantDto } from 'src/product/dto/variant/variant.dto'
+import { ProductVariantService } from 'src/product/services/product-variant.service'
+import { ProductInventoryService } from 'src/product/services/product-inventory.service'
 @Injectable()
 export class CartService {
   constructor(

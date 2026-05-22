@@ -1,6 +1,6 @@
-import { DeepPartial } from 'utils/type/deep-partial.type'
-import { NullableType } from 'utils/type/nullable.type'
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { DeepPartial } from 'src/utils/type/deep-partial.type'
+import { NullableType } from 'src/utils/type/nullable.type'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 import { Attribute } from '../attribute'
 
 export abstract class AttributeRepository {

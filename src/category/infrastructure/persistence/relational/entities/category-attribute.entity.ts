@@ -1,5 +1,5 @@
-import { AttributeEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute.entity'
-import { CategoryEntity } from 'category/infrastructure/persistence/relational/entities/category.entity'
+import { AttributeEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute.entity'
+import { CategoryEntity } from 'src/category/infrastructure/persistence/relational/entities/category.entity'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('category_attributes')

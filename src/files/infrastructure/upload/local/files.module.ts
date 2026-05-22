@@ -8,9 +8,9 @@ import { MulterModule } from '@nestjs/platform-express'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { diskStorage } from 'multer'
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util'
-import { RelationalFilePersistenceModule } from 'files/infrastructure/persistence/relational/relational-persistence.module'
-import { AllConfigType } from 'config/config.type'
-import { FilesLocalService } from 'files/infrastructure/upload/local/file.services'
+import { RelationalFilePersistenceModule } from 'src/files/infrastructure/persistence/relational/relational-persistence.module'
+import { AllConfigType } from 'src/config/config.type'
+import { FilesLocalService } from 'src/files/infrastructure/upload/local/file.services'
 
 // <database-block>
 // const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)

@@ -5,9 +5,9 @@ import {
 import { CategoryService } from './service/category.service'
 import { CategoryController } from './controller/category.controller'
 import { RelationalCategoryPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
-import { CategoryAttributeController } from 'category/controller/category-attribute.controller'
-import { CategoryAttributeService } from 'category/service/category-attribute.service'
-import { AttributeModule } from 'attribute/attribute.module'
+import { CategoryAttributeController } from 'src/category/controller/category-attribute.controller'
+import { CategoryAttributeService } from 'src/category/service/category-attribute.service'
+import { AttributeModule } from 'src/attribute/attribute.module'
 
 @Module({
   imports: [RelationalCategoryPersistenceModule, AttributeModule],

@@ -5,10 +5,10 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common'
-import { InventoryRepository } from 'product/domain/respositories/inventory.repository'
-import { VariantRepository } from 'product/domain/respositories/variant.repository'
-import { CreateInventoryDto } from 'product/dto/inventory/create-inventory.dto'
-import { VariantDto } from 'product/dto/variant/variant.dto'
+import { InventoryRepository } from 'src/product/domain/respositories/inventory.repository'
+import { VariantRepository } from 'src/product/domain/respositories/variant.repository'
+import { CreateInventoryDto } from 'src/product/dto/inventory/create-inventory.dto'
+import { VariantDto } from 'src/product/dto/variant/variant.dto'
 
 export class ProductInventoryService {
   constructor(

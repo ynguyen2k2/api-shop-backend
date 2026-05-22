@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Attribute } from 'attribute/domain/attribute'
-import { Category } from 'category/domain/category'
+import { Attribute } from 'src/attribute/domain/attribute'
+import { Category } from 'src/category/domain/category'
 
 export class CategoryAttribute {
   @ApiProperty()

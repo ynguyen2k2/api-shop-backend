@@ -7,9 +7,9 @@ import { DataSource, DataSourceOptions } from 'typeorm'
 import { RoleSeedModule } from './role/role-seed.module'
 import { StatusSeedModule } from './status/status-seed.module'
 import { UserSeedModule } from './user/user-seed.module'
-import appConfig from 'config/app-config'
-import databaseConfig from 'database/config/database-config'
-import { TypeOrmConfigService } from 'database/typeorm-config.services'
+import appConfig from 'src/config/app-config'
+import databaseConfig from 'src/database/config/database-config'
+import { TypeOrmConfigService } from 'src/database/typeorm-config.services'
 
 @Module({
   imports: [

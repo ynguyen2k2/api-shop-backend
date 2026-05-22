@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { RelationalSessionPersistenceModule } from 'session/infrastucture/persistence/relational/relational-persistence.module'
-import { SessionService } from 'session/session.service'
+import { RelationalSessionPersistenceModule } from 'src/session/infrastucture/persistence/relational/relational-persistence.module'
+import { SessionService } from 'src/session/session.service'
 
 const infrastructurePersistenceModule = RelationalSessionPersistenceModule
 @Module({

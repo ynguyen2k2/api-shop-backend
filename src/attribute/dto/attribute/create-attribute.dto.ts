@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator'
-import { AttributeValueDto } from 'attribute/dto/value/attribute-value.dto'
+import { AttributeValueDto } from 'src/attribute/dto/value/attribute-value.dto'
 
 export class CreateAttributeDto {
   @ApiProperty()

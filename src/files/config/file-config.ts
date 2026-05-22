@@ -3,7 +3,7 @@ import { registerAs } from '@nestjs/config'
 import { IsEnum, IsString, ValidateIf } from 'class-validator'
 
 import { FileDriver, FileConfig } from './file-config.type'
-import validateConfig from 'utils/validation-config'
+import validateConfig from 'src/utils/validation-config'
 
 class EnvironmentVariablesValidator {
   @IsEnum(FileDriver)

@@ -1,7 +1,7 @@
-import { Product } from 'product/domain/product'
-import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
-import { VariantEntity } from 'product/infrastructure/persistence/relational/entities/variant.entity'
-import { VariantMapper } from 'product/infrastructure/persistence/relational/mappers/variant.mapper'
+import { Product } from 'src/product/domain/product'
+import { ProductEntity } from 'src/product/infrastructure/persistence/relational/entities/product.entity'
+import { VariantEntity } from 'src/product/infrastructure/persistence/relational/entities/variant.entity'
+import { VariantMapper } from 'src/product/infrastructure/persistence/relational/mappers/variant.mapper'
 
 export class ProductMapper {
   static toDomain(raw: ProductEntity): Product {

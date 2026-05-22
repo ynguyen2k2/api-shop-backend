@@ -8,8 +8,8 @@ import {
   UpdateDateColumn,
   JoinColumn,
 } from 'typeorm'
-import { EntityRelationalHelper } from 'utils/relational-entity-helper'
-import { CategoryAttributeEntity } from 'category/infrastructure/persistence/relational/entities/category-attribute.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
+import { CategoryAttributeEntity } from 'src/category/infrastructure/persistence/relational/entities/category-attribute.entity'
 
 @Entity({
   name: 'category',

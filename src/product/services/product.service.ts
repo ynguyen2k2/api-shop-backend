@@ -7,7 +7,7 @@ import { UpdateProductDto } from '../dto/product/update-product.dto'
 import { ProductRepository } from '../domain/respositories/product.repository'
 import { IPaginationOptions } from '../../utils/type/pagination-options'
 import { Product } from '../domain/product'
-import slugify from 'utils/slugify'
+import slugify from 'src/utils/slugify'
 
 @Injectable()
 export class ProductService {

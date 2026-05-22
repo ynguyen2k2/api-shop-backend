@@ -3,11 +3,11 @@ import {
   Injectable,
 } from '@nestjs/common'
 import { UpdateCategoryDto } from '../dto/category/update-category.dto'
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 import { Category } from '../domain/category'
-import { NullableType } from 'utils/type/nullable.type'
-import { CategoryRepository } from 'category/domain/repositories/category.repository'
-import { CreateCategoryDto } from 'category/dto/category/create-category.dto'
+import { NullableType } from 'src/utils/type/nullable.type'
+import { CategoryRepository } from 'src/category/domain/repositories/category.repository'
+import { CreateCategoryDto } from 'src/category/dto/category/create-category.dto'
 
 @Injectable()
 export class CategoryService {

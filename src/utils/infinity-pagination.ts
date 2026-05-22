@@ -1,4 +1,4 @@
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 import { InfinityPaginationResponseDto } from './dto/infinity-pagination-response.dto'
 
 export const infinityPagination = <T>(

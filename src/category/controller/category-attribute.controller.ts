@@ -25,13 +25,13 @@ import { CategoryAttributeService } from '../service/category-attribute.service'
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
-} from 'utils/dto/infinity-pagination-response.dto'
+} from 'src/utils/dto/infinity-pagination-response.dto'
 
-import { infinityPagination } from 'utils/infinity-pagination'
-import { CategoryAttribute } from 'category/domain/category-attribute'
-import { CreateCategoryAttributeDto } from 'category/dto/category-attribute/create-category-attribute.dto'
-import { FindAllCategoryAttributeDto } from 'category/dto/category-attribute/find-all-category.dto'
-import { UpdateCategoryAttributeDto } from 'category/dto/category-attribute/upate-category-attribute.dto'
+import { infinityPagination } from 'src/utils/infinity-pagination'
+import { CategoryAttribute } from 'src/category/domain/category-attribute'
+import { CreateCategoryAttributeDto } from 'src/category/dto/category-attribute/create-category-attribute.dto'
+import { FindAllCategoryAttributeDto } from 'src/category/dto/category-attribute/find-all-category.dto'
+import { UpdateCategoryAttributeDto } from 'src/category/dto/category-attribute/upate-category-attribute.dto'
 
 @ApiTags('Category Attributes')
 @ApiBearerAuth()

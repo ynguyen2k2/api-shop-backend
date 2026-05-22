@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { VariantEntity } from 'product/infrastructure/persistence/relational/entities/variant.entity'
-import { ReviewEntity } from 'review/infrastructure/persistence/relational/entities/review.entity'
-import { EntityRelationalHelper } from 'utils/relational-entity-helper'
-import { ImageProductEntity } from 'product/infrastructure/persistence/relational/entities/image.entity'
+import { VariantEntity } from 'src/product/infrastructure/persistence/relational/entities/variant.entity'
+import { ReviewEntity } from 'src/review/infrastructure/persistence/relational/entities/review.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
+import { ImageProductEntity } from 'src/product/infrastructure/persistence/relational/entities/image.entity'
 @Entity({
   name: 'product',
 })

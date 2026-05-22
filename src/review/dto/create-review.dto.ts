@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
 import { IsNumber, IsString, Max, MaxLength, Min } from 'class-validator'
-import { ProductDto } from 'product/dto/product/product.dto'
-import { UserDto } from 'user/dto/user.dto'
+import { ProductDto } from 'src/product/dto/product/product.dto'
+import { UserDto } from 'src/user/dto/user.dto'
 
 export class CreateReviewDto {
   @ApiProperty({ type: () => ProductDto })

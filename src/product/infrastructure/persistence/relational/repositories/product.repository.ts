@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, In } from 'typeorm'
 import { ProductEntity } from '../entities/product.entity'
-import { NullableType } from 'utils/type/nullable.type'
-import { Product } from 'product/domain/product'
-import { ProductRepository } from 'product/domain/respositories/product.repository'
+import { NullableType } from 'src/utils/type/nullable.type'
+import { Product } from 'src/product/domain/product'
+import { ProductRepository } from 'src/product/domain/respositories/product.repository'
 import { ProductMapper } from '../mappers/product.mapper'
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 
 @Injectable()
 export class ProductRelationalRepository implements ProductRepository {

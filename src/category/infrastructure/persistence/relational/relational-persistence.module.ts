@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common'
 import { CategoryRelationalRepository } from './repositories/category.repository'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CategoryEntity } from './entities/category.entity'
-import { CategoryRepository } from 'category/domain/repositories/category.repository'
-import { CategoryAttributeEntity } from 'category/infrastructure/persistence/relational/entities/category-attribute.entity'
-import { CategoryAttributeRepository } from 'category/domain/repositories/category-attribute.respository'
-import { CategoryAttributeRelationalRepository } from 'category/infrastructure/persistence/relational/repositories/category-attribute.repository'
+import { CategoryRepository } from 'src/category/domain/repositories/category.repository'
+import { CategoryAttributeEntity } from 'src/category/infrastructure/persistence/relational/entities/category-attribute.entity'
+import { CategoryAttributeRepository } from 'src/category/domain/repositories/category-attribute.respository'
+import { CategoryAttributeRelationalRepository } from 'src/category/infrastructure/persistence/relational/repositories/category-attribute.repository'
 
 @Module({
   imports: [

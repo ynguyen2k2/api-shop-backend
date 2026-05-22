@@ -1,9 +1,9 @@
-import { User } from 'user/domain/user'
+import { User } from 'src/user/domain/user'
 import { UserEntity } from '../entities/user.entity'
-import { FileMapper } from 'files/infrastructure/persistence/relational/mappers/file-mapper'
-import { RoleEntity } from 'roles/infrastructure/persistence/relational/entities/role.entity'
-import { FileEntity } from 'files/infrastructure/persistence/relational/entities/file.entity'
-import { StatusEntity } from 'statuses/infrastucture/persistence/relational/entities/status.entity'
+import { FileMapper } from 'src/files/infrastructure/persistence/relational/mappers/file-mapper'
+import { RoleEntity } from 'src/roles/infrastructure/persistence/relational/entities/role.entity'
+import { FileEntity } from 'src/files/infrastructure/persistence/relational/entities/file.entity'
+import { StatusEntity } from 'src/statuses/infrastucture/persistence/relational/entities/status.entity'
 
 export class UserMapper {
   static toDomain(raw: UserEntity): User {

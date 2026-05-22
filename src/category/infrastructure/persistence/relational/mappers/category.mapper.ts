@@ -1,7 +1,7 @@
-import { Category } from 'category/domain/category'
+import { Category } from 'src/category/domain/category'
 import { CategoryEntity } from '../entities/category.entity'
-import { NullableType } from 'utils/type/nullable.type'
-import { DeepPartial } from 'utils/type/deep-partial.type'
+import { NullableType } from 'src/utils/type/nullable.type'
+import { DeepPartial } from 'src/utils/type/deep-partial.type'
 
 export class CategoryMapper {
   static toDomain(raw: CategoryEntity): Category {

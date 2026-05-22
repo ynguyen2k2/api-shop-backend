@@ -1,8 +1,8 @@
-import { Variant } from 'product/domain/variant'
+import { Variant } from 'src/product/domain/variant'
 import { VariantEntity } from '../entities/variant.entity'
-import { InventoryMapper } from 'product/infrastructure/persistence/relational/mappers/inventory.mapper'
-import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
-import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
+import { InventoryMapper } from 'src/product/infrastructure/persistence/relational/mappers/inventory.mapper'
+import { InventoryEntity } from 'src/product/infrastructure/persistence/relational/entities/inventory.entity'
+import { ProductEntity } from 'src/product/infrastructure/persistence/relational/entities/product.entity'
 
 export class VariantMapper {
   static toDomain(raw: VariantEntity): Variant {

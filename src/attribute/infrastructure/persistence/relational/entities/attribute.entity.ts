@@ -8,9 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { AttributeValueEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
-import { CategoryEntity } from 'category/infrastructure/persistence/relational/entities/category.entity'
-import { EntityRelationalHelper } from 'utils/relational-entity-helper'
+import { AttributeValueEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
+import { CategoryEntity } from 'src/category/infrastructure/persistence/relational/entities/category.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 
 @Entity({
   name: 'attribute',

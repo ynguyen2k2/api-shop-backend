@@ -4,11 +4,11 @@ import { ProductRelationalRepository } from './repositories/product.repository'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ProductEntity } from './entities/product.entity'
 import { VariantEntity } from './entities/variant.entity'
-import { VariantRepository } from 'product/domain/respositories/variant.repository'
-import { VariantRelationalRepository } from 'product/infrastructure/persistence/relational/repositories/variant.repository'
-import { InventoryRepository } from 'product/domain/respositories/inventory.repository'
-import { InventoryRelationalRepository } from 'product/infrastructure/persistence/relational/repositories/inventory.repository'
-import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
+import { VariantRepository } from 'src/product/domain/respositories/variant.repository'
+import { VariantRelationalRepository } from 'src/product/infrastructure/persistence/relational/repositories/variant.repository'
+import { InventoryRepository } from 'src/product/domain/respositories/inventory.repository'
+import { InventoryRelationalRepository } from 'src/product/infrastructure/persistence/relational/repositories/inventory.repository'
+import { InventoryEntity } from 'src/product/infrastructure/persistence/relational/entities/inventory.entity'
 
 @Module({
   imports: [

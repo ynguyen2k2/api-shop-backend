@@ -3,8 +3,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { ConfigService } from '@nestjs/config'
 import { JwtRefreshPayloadType } from './types/jwt-refresh-payload.type'
-import { AllConfigType } from 'config/config.type'
-import { OrNeverType } from 'utils/type/or-never.type'
+import { AllConfigType } from 'src/config/config.type'
+import { OrNeverType } from 'src/utils/type/or-never.type'
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(

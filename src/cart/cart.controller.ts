@@ -22,7 +22,7 @@ import {
 } from '@nestjs/swagger'
 import { Cart } from './domain/cart'
 import { AuthGuard } from '@nestjs/passport'
-import { NullableType } from 'utils/type/nullable.type'
+import { NullableType } from 'src/utils/type/nullable.type'
 
 @ApiTags('Cart')
 @ApiBearerAuth()

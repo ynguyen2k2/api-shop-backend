@@ -5,9 +5,9 @@ import {
 import { ProductService } from './services/product.service'
 import { ProductController } from './product.controller'
 import { RelationalProductPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
-import { ProductVariantService } from 'product/services/product-variant.service'
-import { ProductInventoryService } from 'product/services/product-inventory.service'
-import { ProductImageService } from 'product/services/product-image.service'
+import { ProductVariantService } from 'src/product/services/product-variant.service'
+import { ProductInventoryService } from 'src/product/services/product-inventory.service'
+import { ProductImageService } from 'src/product/services/product-image.service'
 
 @Module({
   imports: [

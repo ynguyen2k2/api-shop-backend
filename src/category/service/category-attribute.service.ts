@@ -4,14 +4,14 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common'
-import { AttributeService } from 'attribute/attribute.service'
-import { CategoryAttributeRepository } from 'category/domain/repositories/category-attribute.respository'
-import { CategoryDto } from 'category/dto/category/category.dto'
-import { CreateCategoryAttributeDto } from 'category/dto/category-attribute/create-category-attribute.dto'
-import { CategoryService } from 'category/service/category.service'
-import { CategoryAttribute } from 'category/domain/category-attribute'
-import { UpdateCategoryAttributeDto } from 'category/dto/category-attribute/upate-category-attribute.dto'
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { AttributeService } from 'src/attribute/attribute.service'
+import { CategoryAttributeRepository } from 'src/category/domain/repositories/category-attribute.respository'
+import { CategoryDto } from 'src/category/dto/category/category.dto'
+import { CreateCategoryAttributeDto } from 'src/category/dto/category-attribute/create-category-attribute.dto'
+import { CategoryService } from 'src/category/service/category.service'
+import { CategoryAttribute } from 'src/category/domain/category-attribute'
+import { UpdateCategoryAttributeDto } from 'src/category/dto/category-attribute/upate-category-attribute.dto'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 
 @Injectable()
 export class CategoryAttributeService {

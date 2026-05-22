@@ -3,11 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmConfigService } from './database/typeorm-config.services'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
-import { UsersModule } from 'user/users.module'
-import { AuthModule } from 'auth/auth.module'
-import { AllConfig } from 'config/config'
+import { UsersModule } from 'src/user/users.module'
+import { AuthModule } from 'src/auth/auth.module'
+import { AllConfig } from 'src/config/config'
 import { HeaderResolver, I18nModule } from 'nestjs-i18n'
-import { AllConfigType } from 'config/config.type'
+import { AllConfigType } from 'src/config/config.type'
 import path from 'path'
 import { CartModule } from './cart/cart.module'
 import { ReviewModule } from './review/review.module'
@@ -23,10 +23,10 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   },
 })
 // </database-block>
-import { ProductModule } from './product/product.module'
+import { ProductModule } from 'src/product/product.module'
 
-import { AttributeModule } from './attribute/attribute.module'
-import { CategoryModule } from 'category/category.module'
+import { AttributeModule } from 'src/attribute/attribute.module'
+import { CategoryModule } from 'src/category/category.module'
 
 @Module({
   imports: [

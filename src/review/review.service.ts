@@ -7,12 +7,12 @@ import {
 import { CreateReviewDto } from './dto/create-review.dto'
 import { UpdateReviewDto } from './dto/update-review.dto'
 import { ReviewRepository } from './infrastructure/persistence/review.repository'
-import { IPaginationOptions } from 'utils/type/pagination-options'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
 import { Review } from './domain/review'
-import { UserService } from 'user/users.service'
-import { Product } from 'product/domain/product'
-import { User } from 'user/domain/user'
-import { ProductService } from 'product/services/product.service'
+import { UserService } from 'src/user/users.service'
+import { Product } from 'src/product/domain/product'
+import { User } from 'src/user/domain/user'
+import { ProductService } from 'src/product/services/product.service'
 
 @Injectable()
 export class ReviewService {

@@ -8,10 +8,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
-import { EntityRelationalHelper } from 'utils/relational-entity-helper'
-import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
-import { AttributeValueEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
+import { ProductEntity } from 'src/product/infrastructure/persistence/relational/entities/product.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
+import { InventoryEntity } from 'src/product/infrastructure/persistence/relational/entities/inventory.entity'
+import { AttributeValueEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
 @Entity({
   name: 'variant',
 })

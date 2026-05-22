@@ -1,9 +1,9 @@
 import { HttpStatus, UnprocessableEntityException } from '@nestjs/common'
-import { FileDto } from 'files/dto/file-dto'
-import { Product } from 'product/domain/product'
-import { ProductImage } from 'product/domain/product-image'
-import { ProductRepository } from 'product/domain/respositories/product.repository'
-import { FilesService } from 'files/file.service'
+import { FileDto } from 'src/files/dto/file-dto'
+import { Product } from 'src/product/domain/product'
+import { ProductImage } from 'src/product/domain/product-image'
+import { ProductRepository } from 'src/product/domain/respositories/product.repository'
+import { FilesService } from 'src/files/file.service'
 
 export class ProductImageService {
   constructor(

@@ -11,12 +11,12 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm'
-import { AuthProvidersEnum } from 'auth/auth-providers.enum'
-import { FileEntity } from 'files/infrastructure/persistence/relational/entities/file.entity'
-import { ReviewEntity } from 'review/infrastructure/persistence/relational/entities/review.entity'
-import { RoleEntity } from 'roles/infrastructure/persistence/relational/entities/role.entity'
-import { StatusEntity } from 'statuses/infrastucture/persistence/relational/entities/status.entity'
-import { EntityRelationalHelper } from 'utils/relational-entity-helper'
+import { AuthProvidersEnum } from 'src/auth/auth-providers.enum'
+import { FileEntity } from 'src/files/infrastructure/persistence/relational/entities/file.entity'
+import { ReviewEntity } from 'src/review/infrastructure/persistence/relational/entities/review.entity'
+import { RoleEntity } from 'src/roles/infrastructure/persistence/relational/entities/role.entity'
+import { StatusEntity } from 'src/statuses/infrastucture/persistence/relational/entities/status.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 
 @Entity({
   name: 'user',

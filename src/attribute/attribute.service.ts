@@ -9,11 +9,11 @@ import { UpdateAttributeDto } from './dto/attribute/update-attribute.dto'
 import { AttributeRepository } from './domain/respositories/attribute.repository'
 import { IPaginationOptions } from '../utils/type/pagination-options'
 import { Attribute } from './domain/attribute'
-import slugify from 'utils/slugify'
+import slugify from 'src/utils/slugify'
 
-import { AttributeValueRepository } from 'attribute/domain/respositories/attribute-value.repository'
-import { CreateAttributeValueDto } from 'attribute/dto/value/create-attribute-value.dto'
-import { AttributeValue } from 'attribute/domain/attribute-value'
+import { AttributeValueRepository } from 'src/attribute/domain/respositories/attribute-value.repository'
+import { CreateAttributeValueDto } from 'src/attribute/dto/value/create-attribute-value.dto'
+import { AttributeValue } from 'src/attribute/domain/attribute-value'
 
 @Injectable()
 export class AttributeService {

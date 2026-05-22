@@ -8,8 +8,8 @@ import { User } from '../../../../domain/user'
 import { UserRepository } from '../../user-repository'
 import { UserEntity } from '../entities/user.entity'
 import { UserMapper } from '../mappers/user.mapper'
-import { IPaginationOptions } from 'utils/type/pagination-options'
-import { NullableType } from 'utils/type/nullable.type'
+import { IPaginationOptions } from 'src/utils/type/pagination-options'
+import { NullableType } from 'src/utils/type/nullable.type'
 
 @Injectable()
 export class UsersRelationalRepository implements UserRepository {

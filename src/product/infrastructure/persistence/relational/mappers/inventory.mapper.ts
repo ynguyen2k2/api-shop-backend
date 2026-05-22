@@ -1,6 +1,6 @@
-import { Inventory } from 'product/domain/inventory'
+import { Inventory } from 'src/product/domain/inventory'
 import { InventoryEntity } from '../entities/inventory.entity'
-import { VariantEntity } from 'product/infrastructure/persistence/relational/entities/variant.entity'
+import { VariantEntity } from 'src/product/infrastructure/persistence/relational/entities/variant.entity'
 
 export class InventoryMapper {
   static toDomain(raw: InventoryEntity): Inventory {

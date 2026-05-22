@@ -1,6 +1,6 @@
-import { AttributeValue } from 'attribute/domain/attribute-value'
-import { AttributeValueEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
-import { AttributeEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute.entity'
+import { AttributeValue } from 'src/attribute/domain/attribute-value'
+import { AttributeValueEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
+import { AttributeEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute.entity'
 
 export class AttributeValueMapper {
   static toDomain(raw: AttributeValueEntity): AttributeValue {

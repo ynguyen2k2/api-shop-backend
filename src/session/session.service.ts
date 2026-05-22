@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { Session } from 'session/domain/session'
-import { SessionRepository } from 'session/infrastucture/persistence/session.respository'
-import { User } from 'user/domain/user'
-import { NullableType } from 'utils/type/nullable.type'
+import { Session } from 'src/session/domain/session'
+import { SessionRepository } from 'src/session/infrastucture/persistence/session.respository'
+import { User } from 'src/user/domain/user'
+import { NullableType } from 'src/utils/type/nullable.type'
 
 @Injectable()
 export class SessionService {
