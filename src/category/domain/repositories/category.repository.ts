@@ -1,7 +1,7 @@
 import { DeepPartial } from 'utils/type/deep-partial.type'
 import { NullableType } from 'utils/type/nullable.type'
 import { IPaginationOptions } from 'utils/type/pagination-options'
-import { Category } from '../../domain/category'
+import { Category } from '../category'
 
 export abstract class CategoryRepository {
   abstract create(

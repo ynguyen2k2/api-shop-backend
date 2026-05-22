@@ -7,17 +7,16 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   JoinColumn,
-  ManyToMany,
 } from 'typeorm'
-import { AttributeEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute.entity'
 import { EntityRelationalHelper } from 'utils/relational-entity-helper'
+import { CategoryAttributeEntity } from 'category/infrastructure/persistence/relational/entities/category-attribute.entity'
 
 @Entity({
   name: 'category',
 })
 export class CategoryEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn()
-  id: number | string
+  id: string
 
   @Column({ type: String })
   name: string
@@ -41,8 +40,12 @@ export class CategoryEntity extends EntityRelationalHelper {
   @OneToMany(() => CategoryEntity, (category) => category.parent)
   children: CategoryEntity[] | null
 
-  @ManyToMany(() => AttributeEntity, (attribute) => attribute.category)
-  attribute: AttributeEntity[]
+  @OneToMany(
+    () => CategoryAttributeEntity,
+    (categoryAttribute) => categoryAttribute.category,
+  )
+  categoryAttributes: CategoryAttributeEntity[]
+
   @CreateDateColumn()
   createdAt: Date
 

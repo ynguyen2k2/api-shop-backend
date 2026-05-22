@@ -35,9 +35,9 @@ export class CreateCategoryDto {
 
   @ApiProperty({ type: idType })
   @IsOptional()
-  parentId: string | number
+  parentId: string
 
   @ApiProperty({ type: [idType] })
   @IsOptional()
-  childrenIds: string[] | number[]
+  childrenIds: string[]
 }

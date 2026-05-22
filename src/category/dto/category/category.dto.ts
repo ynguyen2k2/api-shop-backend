@@ -9,5 +9,5 @@ const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
 export class CategoryDto {
   @ApiProperty({ type: idType })
   @IsNotEmpty()
-  id: string | number
+  id: string
 }

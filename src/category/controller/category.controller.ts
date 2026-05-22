@@ -9,29 +9,25 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common'
-import { CategoryService } from './category.service'
-import { CreateCategoryDto } from './dto/create-category.dto'
-import { UpdateCategoryDto } from './dto/update-category.dto'
+import { CategoryService } from '../service/category.service'
+import { UpdateCategoryDto } from '../dto/category/update-category.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
-  ApiOkResponse,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
-import { Category } from './domain/category'
+import { Category } from '../domain/category'
 import { AuthGuard } from '@nestjs/passport'
-import {
-  InfinityPaginationResponse,
-  InfinityPaginationResponseDto,
-} from '../utils/dto/infinity-pagination-response.dto'
-import { infinityPagination } from '../utils/infinity-pagination'
-import { FindAllcategoryDto } from './dto/find-all-category.dto'
+import { InfinityPaginationResponseDto } from '../../utils/dto/infinity-pagination-response.dto'
+import { infinityPagination } from '../../utils/infinity-pagination'
+import { FindAllcategoryDto } from '../dto/category/find-all-category.dto'
+import { CreateCategoryDto } from 'category/dto/category/create-category.dto'
 @ApiTags('category')
 @ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @Controller({
-  path: 'category',
+  path: 'Category',
   version: '1',
 })
 export class CategoryController {

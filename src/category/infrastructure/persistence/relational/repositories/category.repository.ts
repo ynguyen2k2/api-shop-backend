@@ -4,9 +4,9 @@ import { Repository, In } from 'typeorm'
 import { CategoryEntity } from '../entities/category.entity'
 import { NullableType } from 'utils/type/nullable.type'
 import { Category } from 'category/domain/category'
-import { CategoryRepository } from '../../category.repository'
 import { CategoryMapper } from '../mappers/category.mapper'
 import { IPaginationOptions } from 'utils/type/pagination-options'
+import { CategoryRepository } from 'category/domain/repositories/category.repository'
 
 @Injectable()
 export class CategoryRelationalRepository implements CategoryRepository {

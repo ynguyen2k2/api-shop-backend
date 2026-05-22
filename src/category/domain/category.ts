@@ -9,7 +9,7 @@ export class Category {
   @ApiProperty({
     type: idType,
   })
-  id: number | string
+  id: string
 
   @ApiProperty()
   name: string
