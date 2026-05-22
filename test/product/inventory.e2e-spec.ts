@@ -292,4 +292,3 @@ describe('ProductController — Inventory', () => {
     })
   })
 })
-

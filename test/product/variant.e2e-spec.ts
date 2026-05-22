@@ -274,4 +274,3 @@ describe('ProductController — Variants', () => {
     })
   })
 })
-
