@@ -7,10 +7,10 @@ import { CategoryController } from './controller/category.controller'
 import { RelationalCategoryPersistenceModule } from './infrastructure/persistence/relational/relational-persistence.module'
 import { CategoryAttributeController } from 'category/controller/category-attribute.controller'
 import { CategoryAttributeService } from 'category/service/category-attribute.service'
-import { AttributesModule } from 'attribute/attributes.module'
+import { AttributeModule } from 'attribute/attribute.module'
 
 @Module({
-  imports: [RelationalCategoryPersistenceModule, AttributesModule],
+  imports: [RelationalCategoryPersistenceModule, AttributeModule],
   controllers: [CategoryController, CategoryAttributeController],
   providers: [CategoryService, CategoryAttributeService],
   exports: [

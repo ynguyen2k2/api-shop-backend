@@ -4,7 +4,7 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common'
-import { AttributesService } from 'attribute/attributes.service'
+import { AttributeService } from 'attribute/attribute.service'
 import { CategoryAttributeRepository } from 'category/domain/repositories/category-attribute.respository'
 import { CategoryDto } from 'category/dto/category/category.dto'
 import { CreateCategoryAttributeDto } from 'category/dto/category-attribute/create-category-attribute.dto'
@@ -18,7 +18,7 @@ export class CategoryAttributeService {
   constructor(
     private readonly categoryAttributeRepository: CategoryAttributeRepository,
     private readonly categoryService: CategoryService,
-    private readonly attributeService: AttributesService,
+    private readonly attributeService: AttributeService,
   ) {}
   async create(
     categoryId: CategoryDto['id'],
