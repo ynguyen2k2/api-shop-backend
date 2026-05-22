@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { AttributeValue } from 'attribute/domain/attribute-value'
 import databaseConfig from 'database/config/database-config'
 import { DatabaseConfig } from 'database/config/database-config.type'
 import { Inventory } from 'product/domain/inventory'
@@ -29,6 +30,11 @@ export class Variant {
 
   @ApiProperty({ type: () => Product })
   product: Product
+
+  @ApiProperty({
+    type: () => [AttributeValue],
+  })
+  value?: AttributeValue
 
   @ApiProperty()
   createdAt: Date

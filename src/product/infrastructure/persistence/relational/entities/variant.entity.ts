@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -10,6 +11,7 @@ import {
 import { ProductEntity } from 'product/infrastructure/persistence/relational/entities/product.entity'
 import { EntityRelationalHelper } from 'utils/relational-entity-helper'
 import { InventoryEntity } from 'product/infrastructure/persistence/relational/entities/inventory.entity'
+import { AttributeValueEntity } from 'attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
 @Entity({
   name: 'variant',
 })
@@ -33,6 +35,15 @@ export class VariantEntity extends EntityRelationalHelper {
 
   @ManyToOne(() => ProductEntity, (product) => product.variants)
   product: ProductEntity
+
+  @ManyToMany(
+    () => AttributeValueEntity,
+    (attributeValue) => attributeValue.variant,
+    {
+      cascade: true,
+    },
+  )
+  value?: AttributeValueEntity[]
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date

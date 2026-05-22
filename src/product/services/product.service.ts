@@ -48,7 +48,7 @@ export class ProductService {
 
   async update(
     id: Product['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     updateProductDto: UpdateProductDto,
   ) {
     return this.productRepository.update(id, {

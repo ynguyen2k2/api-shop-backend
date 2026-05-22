@@ -13,12 +13,14 @@ import { Product } from 'product/domain/product'
 import { UpdateVariantDto } from 'product/dto/variant/update-variant.dto'
 import { generateUniqueSKU } from 'utils/slugify'
 import { IPaginationOptions } from '../../utils/type/pagination-options'
+// import { AttributesService } from 'attribute/attributes.service'
 
 @Injectable()
 export class ProductVariantService {
   constructor(
     private readonly productRepository: ProductRepository,
     private readonly variantRepository: VariantRepository,
+    // private readonly attributeService: AttributesService,
   ) {}
   //   createVariant()
   //  ├── find product
@@ -99,4 +101,20 @@ export class ProductVariantService {
   removeVariant(id: Variant['id']) {
     return this.variantRepository.remove(id)
   }
+
+  // attachAttributeValue(
+  //   variantId: Variant['id'],
+  //   attributeValueIds: AttributeValue['id'][],
+  // ) {
+  //   const values = this.attributeValueRepository.findByIds(attributeValueIds)
+  //   if (!values || values.length === 0) {
+  //     throw new BadRequestException('Invalid attribute value IDs')
+  //   }
+  //   return this.variantRepository.update(variantId, {
+  //     attributeValues: [
+  //       ...(variant.attributeValues || []),
+  //       ...attributeValueIds,
+  //     ],
+  //   })
+  // }
 }
