@@ -25,14 +25,14 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
 // </database-block>
 import { ProductModule } from './product/product.module'
 
-import { AttributesModule } from './attribute/attributes.module'
+import { AttributeModule } from './attribute/attribute.module'
 import { CategoryModule } from 'category/category.module'
 
 @Module({
   imports: [
     ReviewModule,
     // CartModule,
-    AttributesModule,
+    AttributeModule,
     CategoryModule,
     // ProductModule,
     ConfigModule.forRoot({
