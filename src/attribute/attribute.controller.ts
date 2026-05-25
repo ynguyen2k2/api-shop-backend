@@ -12,6 +12,7 @@ import {
 import { AttributeService } from './attribute.service'
 import { CreateAttributeDto } from './dto/attribute/create-attribute.dto'
 import { UpdateAttributeDto } from './dto/attribute/update-attribute.dto'
+import { CreateAttributeValueDto } from './dto/value/create-attribute-value.dto'
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -43,6 +44,22 @@ export class AttributeController {
   })
   create(@Body() createAttributeDto: CreateAttributeDto) {
     return this.attributeService.create(createAttributeDto)
+  }
+
+  @Post(':id/values')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  createAttributeValue(
+    @Param('id') id: string,
+    @Body() createAttributeValueDto: CreateAttributeValueDto,
+  ) {
+    return this.attributeService.createAttributeValues(
+      id,
+      createAttributeValueDto,
+    )
   }
 
   @Get()

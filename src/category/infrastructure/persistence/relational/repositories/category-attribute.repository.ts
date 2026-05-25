@@ -57,25 +57,29 @@ export class CategoryAttributeRelationalRepository
   ): Promise<CategoryAttribute | null> {
     const entity = await this.categoryAttributeRepository.findOne({
       where: { id },
+      relations: ['category', 'attribute'],
     })
     if (!entity) {
       throw new Error('Record not found')
     }
     const domainEntity = CategoryAttributeMapper.toDomain(entity)
-    const mergeredPayload = {
+    const mergedPayload = {
       ...domainEntity,
       ...payload,
     }
 
-    const updatedEntity = await this.categoryAttributeRepository.save(
+    await this.categoryAttributeRepository.save(
       this.categoryAttributeRepository.create(
-        CategoryAttributeMapper.toPersistence({
-          ...mergeredPayload,
-        }),
+        CategoryAttributeMapper.toPersistence(mergedPayload),
       ),
     )
 
-    return CategoryAttributeMapper.toDomain(updatedEntity)
+    // Re-fetch with relations so the response includes category & attribute
+    const updated = await this.categoryAttributeRepository.findOne({
+      where: { id },
+      relations: ['category', 'attribute'],
+    })
+    return updated ? CategoryAttributeMapper.toDomain(updated) : null
   }
   async remove(id: CategoryAttribute['id']): Promise<void> {
     await this.categoryAttributeRepository.delete(id)

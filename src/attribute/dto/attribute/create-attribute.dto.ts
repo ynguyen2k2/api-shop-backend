@@ -8,22 +8,22 @@ export class CreateAttributeDto {
   @IsNotEmpty()
   name: string
 
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  slug: string
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  type: string
-
-  @ApiProperty()
-  @IsArray()
-  values: AttributeValueDto[]
-
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
+  slug?: string
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  type?: string
+
+  @ApiProperty({ required: false })
+  @IsArray()
+  @IsOptional()
+  values?: AttributeValueDto[]
+
+  @ApiProperty()
+  @IsString()
   categoryId: string
 }

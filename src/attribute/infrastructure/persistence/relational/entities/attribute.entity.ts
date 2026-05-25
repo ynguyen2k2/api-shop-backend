@@ -25,7 +25,7 @@ export class AttributeEntity extends EntityRelationalHelper {
   @Column()
   slug: string
   @Column({ type: String, nullable: true })
-  type: string
+  type?: string
 
   @OneToMany(
     () => AttributeValueEntity,

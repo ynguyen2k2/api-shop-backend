@@ -1,6 +1,13 @@
 import { AttributeEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute.entity'
 import { CategoryEntity } from 'src/category/infrastructure/persistence/relational/entities/category.entity'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 @Entity('category_attributes')
 export class CategoryAttributeEntity {
@@ -33,15 +40,10 @@ export class CategoryAttributeEntity {
   })
   isFilterable: boolean
 
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
-  @Column({
-    type: 'timestamp',
-  })
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date
 
   @Column({

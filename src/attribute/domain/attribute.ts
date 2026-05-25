@@ -19,8 +19,8 @@ export class Attribute {
   @ApiProperty({ type: String })
   slug: string
 
-  @ApiProperty({ type: String })
-  type: string
+  @ApiProperty({ type: String, required: false })
+  type?: string
 
   @ApiProperty({
     type: () => [AttributeValue],
