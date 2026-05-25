@@ -5,16 +5,16 @@
   "testEnvironment": "node",
   "setupFiles": ["<rootDir>/setup-e2e.ts"],
   "testRegex": ".e2e-spec.ts$",
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/../src/$1"
+  },
   "globals": {
     "ts-jest": {
       "tsconfig": {
-        "paths": {
-          "*": ["./src/*"]
-        }
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolvePackageJsonExports": false
       }
     }
-  },
-  "moduleNameMapper": {
-    "^src/(.*)$": "<rootDir>/src/$1"
   }
 }
