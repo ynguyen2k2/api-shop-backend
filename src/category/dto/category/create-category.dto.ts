@@ -16,11 +16,6 @@ export class CreateCategoryDto {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  slug: string
-
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
   description: string
 
   @ApiProperty()
