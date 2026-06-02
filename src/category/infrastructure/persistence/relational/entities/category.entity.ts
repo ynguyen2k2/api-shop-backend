@@ -15,7 +15,7 @@ import { CategoryAttributeEntity } from 'src/category/infrastructure/persistence
   name: 'category',
 })
 export class CategoryEntity extends EntityRelationalHelper {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column({ type: String })

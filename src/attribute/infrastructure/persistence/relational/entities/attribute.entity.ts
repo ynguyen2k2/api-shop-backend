@@ -16,7 +16,7 @@ import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
   name: 'attribute',
 })
 export class AttributeEntity extends EntityRelationalHelper {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
