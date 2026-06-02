@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  HttpStatus,
   // common
   Injectable,
 } from '@nestjs/common'
@@ -27,7 +28,10 @@ export class AttributeService {
     const slug = slugify(createAttributeDto.name)
     const existingAttribute = await this.attributeRepository.findBySlug(slug)
     if (existingAttribute) {
-      throw new BadRequestException('Attribute already exists')
+      throw new BadRequestException({
+        HttpStatus: HttpStatus.BAD_REQUEST,
+        errors: { status: 'Attribute already exists' },
+      })
     }
 
     return this.attributeRepository.create({
@@ -50,7 +54,12 @@ export class AttributeService {
       createAttributeValues.value,
     )
     if (existingValue) {
-      throw new ConflictException('Attribute value already exists')
+      throw new ConflictException({
+        HttpStatus: HttpStatus.CONFLICT,
+        errors: {
+          status: 'duplicateValue',
+        },
+      })
     }
     return this.attributeValueRepository.create({
       ...createAttributeValues,
