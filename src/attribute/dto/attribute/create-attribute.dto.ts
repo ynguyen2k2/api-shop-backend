@@ -22,8 +22,4 @@ export class CreateAttributeDto {
   @IsArray()
   @IsOptional()
   values?: AttributeValueDto[]
-
-  @ApiProperty()
-  @IsString()
-  categoryId: string
 }
