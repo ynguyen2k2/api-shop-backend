@@ -3,10 +3,19 @@
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",
-  "setupFiles": ["<rootDir>/setup-e2e.ts"],
+  "setupFiles": ["tsconfig-paths/register", "<rootDir>/setup/setup-e2e.ts"],
   "testRegex": ".e2e-spec.ts$",
   "moduleNameMapper": {
     "^src/(.*)$": "<rootDir>/../src/$1"
+  },
+  "modulePaths": ["<rootDir>/../"],
+  "transform": {
+    "^.+\\.(t|j)s$": [
+      "ts-jest",
+      {
+        "tsconfig": "tsconfig.json"
+      }
+    ]
   },
   "globals": {
     "ts-jest": {
