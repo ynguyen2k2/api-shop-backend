@@ -53,7 +53,11 @@ export class ProductMapper {
     persistenceEntity.shortDescription = domainEntity.shortDescription || null
     persistenceEntity.specifications = domainEntity.specifications || null
 
-    persistenceEntity.category = domainEntity.category
+    if (domainEntity.category) {
+      persistenceEntity.category.id = domainEntity.category.id
+      persistenceEntity.category.name = domainEntity.category.name
+    }
+
     persistenceEntity.brand = domainEntity.brand
 
     persistenceEntity.isFeatured = domainEntity.isFeatured

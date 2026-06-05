@@ -34,10 +34,7 @@ export class ReviewService {
     return review
   }
 
-  async create(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createReviewDto: CreateReviewDto,
-  ) {
+  async create(createReviewDto: CreateReviewDto) {
     const userId = createReviewDto.user.id
     const user = await this.userService.findById(userId)
     const productId = createReviewDto.product.id
@@ -123,7 +120,7 @@ export class ReviewService {
 
   async update(
     id: Review['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     updateReviewDto: UpdateReviewDto,
   ) {
     let user: User | null = null

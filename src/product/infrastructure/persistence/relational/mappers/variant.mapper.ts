@@ -28,7 +28,6 @@ export class VariantMapper {
       product.name = domainEntity.product.name
       product.slug = domainEntity.product.slug
       product.brand = domainEntity.product.brand
-      product.category = domainEntity.product.category
       product.isActive = domainEntity.product.isActive
       product.isFeatured = domainEntity.product.isFeatured
       product.isNew = domainEntity.product.isNew

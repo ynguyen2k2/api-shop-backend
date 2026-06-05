@@ -49,8 +49,6 @@ export class CategoryAttributeMapper {
     persistenceEntity.isVariant = domainEntity.isVariant
     persistenceEntity.isRequired = domainEntity.isRequired
     persistenceEntity.isFilterable = domainEntity.isFilterable
-    persistenceEntity.createdAt = domainEntity.createdAt
-    persistenceEntity.updatedAt = domainEntity.updatedAt
     persistenceEntity.isActive = domainEntity.isActive
     return persistenceEntity
   }

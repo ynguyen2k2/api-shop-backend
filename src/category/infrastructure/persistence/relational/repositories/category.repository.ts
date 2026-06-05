@@ -31,6 +31,7 @@ export class CategoryRelationalRepository implements CategoryRepository {
     const entities = await this.categoryRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
+      relations: { children: true },
     })
 
     return entities.map((entity) => CategoryMapper.toDomain(entity))
@@ -39,6 +40,7 @@ export class CategoryRelationalRepository implements CategoryRepository {
   async findById(id: Category['id']): Promise<NullableType<Category>> {
     const entity = await this.categoryRepository.findOne({
       where: { id },
+      relations: { children: true },
     })
 
     return entity ? CategoryMapper.toDomain(entity) : null
@@ -47,6 +49,7 @@ export class CategoryRelationalRepository implements CategoryRepository {
   async findByIds(ids: Category['id'][]): Promise<Category[]> {
     const entities = await this.categoryRepository.find({
       where: { id: In(ids) },
+      relations: { children: true },
     })
 
     return entities.map((entity) => CategoryMapper.toDomain(entity))
@@ -58,6 +61,7 @@ export class CategoryRelationalRepository implements CategoryRepository {
   ): Promise<Category> {
     const entity = await this.categoryRepository.findOne({
       where: { id },
+      relations: { children: true },
     })
 
     if (!entity) {

@@ -3,6 +3,7 @@ import databaseConfig from 'src/database/config/database-config'
 import { DatabaseConfig } from 'src/database/config/database-config.type'
 import { Variant } from 'src/product/domain/variant'
 import { ProductImage } from 'src/product/domain/product-image'
+import { Category } from 'src/category/domain/category'
 
 const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
   ? String
@@ -49,9 +50,9 @@ export class Product {
 
   // Category Table
   @ApiProperty({
-    type: String,
+    type: () => Category,
   })
-  category: string
+  category: Category | null
 
   @ApiProperty({ type: () => [Variant] })
   variants?: Variant[]

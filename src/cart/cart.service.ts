@@ -24,10 +24,7 @@ export class CartService {
     private readonly inventoryService: ProductInventoryService,
   ) {}
 
-  async create(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createCartDto: CreateCartDto,
-  ) {
+  async create(createCartDto: CreateCartDto) {
     const userId = createCartDto.user.id
     const user = await this.userService.findById(userId)
     if (!user) throw new NotFoundException('User is not found')
@@ -43,7 +40,7 @@ export class CartService {
 
   async update(
     id: Cart['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     updateCartDto: UpdateCartDto,
   ) {
     if (updateCartDto.user) {

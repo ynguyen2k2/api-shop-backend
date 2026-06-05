@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -10,6 +11,8 @@ import { VariantEntity } from 'src/product/infrastructure/persistence/relational
 import { ReviewEntity } from 'src/review/infrastructure/persistence/relational/entities/review.entity'
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 import { ImageProductEntity } from 'src/product/infrastructure/persistence/relational/entities/image.entity'
+import { ProductAttributeValueEntity } from 'src/product/infrastructure/persistence/relational/entities/product-attribute-value.entity'
+import { CategoryEntity } from 'src/category/infrastructure/persistence/relational/entities/category.entity'
 @Entity({
   name: 'product',
 })
@@ -38,8 +41,8 @@ export class ProductEntity extends EntityRelationalHelper {
   @Column({ type: String })
   brand: string
 
-  @Column({ type: String })
-  category: string
+  @ManyToOne(() => CategoryEntity, (category) => category.products)
+  category: CategoryEntity
 
   @OneToMany(() => ReviewEntity, (review) => review.product, { nullable: true })
   reviews?: ReviewEntity[] | null
@@ -48,6 +51,15 @@ export class ProductEntity extends EntityRelationalHelper {
     nullable: true,
   })
   variants?: VariantEntity[] | null
+
+  @OneToMany(
+    () => ProductAttributeValueEntity,
+    (attributeValue) => attributeValue.product,
+    {
+      nullable: true,
+    },
+  )
+  attributeValues?: ProductAttributeValueEntity[] | null
 
   @Column({ type: Boolean, default: false })
   isFeatured: boolean

@@ -12,6 +12,7 @@ import { AppModule } from './app.module'
 import validationOptions from './utils/validation-options'
 import { AllConfigType } from './config/config.type'
 import { ResolvePromisesInterceptor } from './utils/serializer-interceptor'
+import { AllExceptionsFilter } from 'src/utils/error-handler/error-handler-global'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -28,6 +29,7 @@ async function bootstrap() {
       exclude: ['/'],
     },
   )
+  app.useGlobalFilters(new AllExceptionsFilter())
   app.enableVersioning({
     type: VersioningType.URI,
   })

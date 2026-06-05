@@ -31,6 +31,7 @@ export class AttributeRelationalRepository implements AttributeRepository {
     const entities = await this.attributeRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
+      relations: { attributeValues: true },
     })
 
     return entities.map((entity) => AttributeMapper.toDomain(entity))
@@ -39,7 +40,7 @@ export class AttributeRelationalRepository implements AttributeRepository {
   async findById(id: Attribute['id']): Promise<NullableType<Attribute>> {
     const entity = await this.attributeRepository.findOne({
       where: { id },
-      relations: ['attributeValues'],
+      relations: { attributeValues: true },
     })
 
     return entity ? AttributeMapper.toDomain(entity) : null
@@ -48,6 +49,7 @@ export class AttributeRelationalRepository implements AttributeRepository {
   async findBySlug(slug: string): Promise<NullableType<Attribute>> {
     const entity = await this.attributeRepository.findOne({
       where: { slug },
+      relations: { attributeValues: true },
     })
 
     return entity ? AttributeMapper.toDomain(entity) : null
@@ -56,6 +58,7 @@ export class AttributeRelationalRepository implements AttributeRepository {
   async findByIds(ids: Attribute['id'][]): Promise<Attribute[]> {
     const entities = await this.attributeRepository.find({
       where: { id: In(ids) },
+      relations: { attributeValues: true },
     })
 
     return entities.map((entity) => AttributeMapper.toDomain(entity))
@@ -67,7 +70,7 @@ export class AttributeRelationalRepository implements AttributeRepository {
   ): Promise<Attribute> {
     const entity = await this.attributeRepository.findOne({
       where: { id },
-      relations: ['attributeValues'],
+      relations: { attributeValues: true },
     })
 
     if (!entity) {

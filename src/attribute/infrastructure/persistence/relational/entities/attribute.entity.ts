@@ -1,15 +1,12 @@
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { AttributeValueEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute-value.entity'
-import { CategoryEntity } from 'src/category/infrastructure/persistence/relational/entities/category.entity'
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 
 @Entity({

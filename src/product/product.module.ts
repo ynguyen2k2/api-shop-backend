@@ -8,11 +8,13 @@ import { RelationalProductPersistenceModule } from './infrastructure/persistence
 import { ProductVariantService } from 'src/product/services/product-variant.service'
 import { ProductInventoryService } from 'src/product/services/product-inventory.service'
 import { ProductImageService } from 'src/product/services/product-image.service'
+import { CategoryModule } from 'src/category/category.module'
 
 @Module({
   imports: [
     // do not remove this comment
     RelationalProductPersistenceModule,
+    CategoryModule,
   ],
   controllers: [ProductController],
   providers: [

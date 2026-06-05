@@ -28,9 +28,6 @@ export class AttributeValueEntity extends EntityRelationalHelper {
   @JoinColumn({ name: 'attribute_id' })
   attribute: AttributeEntity
 
-  @ManyToMany(() => VariantEntity, (variant) => variant.value)
-  variant?: VariantEntity[]
-
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 

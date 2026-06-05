@@ -1,6 +1,8 @@
 import {
+  HttpStatus,
   // common
   Injectable,
+  NotFoundException,
 } from '@nestjs/common'
 import { UpdateCategoryDto } from '../dto/category/update-category.dto'
 import { IPaginationOptions } from 'src/utils/type/pagination-options'
@@ -19,13 +21,9 @@ export class CategoryService {
   async create(createCategoryDto: CreateCategoryDto) {
     // Do not remove comment below.
     // <creating-property />
-    let slug = createCategoryDto.slug
+    const slug = createCategoryDto.name.toLowerCase().replace(/ /g, '-')
     let parentCategory: NullableType<Category> = null
     let childcategory: NullableType<Category[]> = null
-    if (!slug) {
-      slug = createCategoryDto.name.toLowerCase().replace(/ /g, '-')
-    }
-
     const parentId = createCategoryDto.parentId
       ? createCategoryDto.parentId
       : null
@@ -79,29 +77,20 @@ export class CategoryService {
   }
 
   async update(id: Category['id'], updateCategoryDto: UpdateCategoryDto) {
-    // Do not remove comment below.
-    // <updating-property />
-
-    const payload: Partial<Category> = {}
-    if (updateCategoryDto.name !== undefined)
-      payload.name = updateCategoryDto.name
-    if (updateCategoryDto.slug !== undefined)
-      payload.slug = updateCategoryDto.slug
-    if (updateCategoryDto.description !== undefined)
-      payload.description = updateCategoryDto.description
-    if (updateCategoryDto.image !== undefined)
-      payload.image = updateCategoryDto.image
-    if (updateCategoryDto.isActive !== undefined)
-      payload.isActive = updateCategoryDto.isActive
-    if (updateCategoryDto.parentId !== undefined) {
-      payload.parent = updateCategoryDto.parentId
-        ? ({ id: updateCategoryDto.parentId } as Category)
-        : null
+    const category = await this.categoryRepository.findById(id)
+    if (!category) {
+      throw new NotFoundException({
+        HttpStatus: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'cartNotFound',
+        },
+      })
     }
-    // Do not remove comment below.
-    // <updating-property-payload />
+    const slug: string | undefined = updateCategoryDto.name
+      ? updateCategoryDto.name.toLowerCase().replace(/ /g, '-')
+      : undefined
 
-    return this.categoryRepository.update(id, payload)
+    return this.categoryRepository.update(id, { ...updateCategoryDto, slug })
   }
 
   remove(id: Category['id']) {

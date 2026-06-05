@@ -1,5 +1,6 @@
 import { AttributeEntity } from 'src/attribute/infrastructure/persistence/relational/entities/attribute.entity'
 import { CategoryEntity } from 'src/category/infrastructure/persistence/relational/entities/category.entity'
+import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 import {
   Column,
   CreateDateColumn,
@@ -9,14 +10,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-@Entity('category_attributes')
-export class CategoryAttributeEntity {
+@Entity({
+  name: 'category_attribute',
+})
+export class CategoryAttributeEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(() => CategoryEntity, (category) => category.categoryAttributes, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => CategoryEntity, (category) => category.categoryAttributes)
   category: CategoryEntity
 
   @ManyToOne(() => AttributeEntity, {

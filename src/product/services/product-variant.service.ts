@@ -13,6 +13,9 @@ import { Product } from 'src/product/domain/product'
 import { UpdateVariantDto } from 'src/product/dto/variant/update-variant.dto'
 import { generateUniqueSKU } from 'src/utils/slugify'
 import { IPaginationOptions } from '../../utils/type/pagination-options'
+import { combineElement } from 'src/utils/generate/generate-element'
+import { create } from 'node:domain'
+import { CategoryAttributeService } from 'src/category/service/category-attribute.service'
 // import { AttributesService } from 'src/attribute/attributes.service'
 
 @Injectable()
@@ -20,6 +23,7 @@ export class ProductVariantService {
   constructor(
     private readonly productRepository: ProductRepository,
     private readonly variantRepository: VariantRepository,
+    private readonly categoryAttributeService: CategoryAttributeService,
     // private readonly attributeService: AttributesService,
   ) {}
   //   createVariant()
@@ -117,4 +121,40 @@ export class ProductVariantService {
   //     ],
   //   })
   // }
+
+  async generate(productId: Product['id'], createVariantDto: CreateVariantDto) {
+    const product = await this.productRepository.findById(productId)
+    if (!product) {
+      throw new NotFoundException({
+        status: HttpStatus.NOT_FOUND,
+        errors: {
+          status: 'productNotFound',
+        },
+      })
+    }
+    if (!product.category || !product.category.id) {
+      throw new BadRequestException({
+        status: HttpStatus.BAD_REQUEST,
+        errors: {
+          status: 'categoryRequired',
+        },
+      })
+    }
+    const result = await this.categoryAttributeService.findAllByCategory(
+      product.category.id,
+    )
+    const attributes = result.map((item) => item.attribute)
+    const valuesArray = attributes.map((attribute) => attribute.values || [])
+    const combinations = combineElement(valuesArray)
+    return await Promise.all(
+      combinations.map((combination) => {
+        const sku = generateUniqueSKU(product.name + combination.join('-'))
+        return this.variantRepository.create({
+          ...createVariantDto,
+          product,
+          sku,
+        })
+      }),
+    )
+  }
 }

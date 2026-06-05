@@ -9,10 +9,18 @@ import { VariantRelationalRepository } from 'src/product/infrastructure/persiste
 import { InventoryRepository } from 'src/product/domain/respositories/inventory.repository'
 import { InventoryRelationalRepository } from 'src/product/infrastructure/persistence/relational/repositories/inventory.repository'
 import { InventoryEntity } from 'src/product/infrastructure/persistence/relational/entities/inventory.entity'
+import { VariantAttributeValueEntity } from 'src/product/infrastructure/persistence/relational/entities/variant-attribute-value.entity'
+import { ProductAttributeValueEntity } from 'src/product/infrastructure/persistence/relational/entities/product-attribute-value.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductEntity, VariantEntity, InventoryEntity]),
+    TypeOrmModule.forFeature([
+      ProductEntity,
+      VariantEntity,
+      InventoryEntity,
+      ProductAttributeValueEntity,
+      VariantAttributeValueEntity,
+    ]),
   ],
   providers: [
     {

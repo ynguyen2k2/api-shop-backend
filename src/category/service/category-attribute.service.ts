@@ -63,6 +63,11 @@ export class CategoryAttributeService {
     })
   }
 
+  async findAllByCategory(categoryId: CategoryDto['id']) {
+    await this.categoryService.findById(categoryId)
+    return await this.categoryAttributeRepository.findAllByCategory(categoryId)
+  }
+
   //update attribute of category
   async update(
     id: CategoryAttribute['id'],

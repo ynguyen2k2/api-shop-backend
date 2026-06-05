@@ -23,19 +23,32 @@ export class CategoryAttributeRelationalRepository
     )
     return CategoryAttributeMapper.toDomain(newEntity)
   }
-  async findAllWithPagination({
+  findAllWithPagination({
     paginationOptions,
   }: {
     paginationOptions: IPaginationOptions
   }): Promise<CategoryAttribute[]> {
-    throw new Error('Method not implemented.')
+    const { page, limit } = paginationOptions
+    return this.categoryAttributeRepository
+      .find({
+        skip: (page - 1) * limit,
+        take: limit,
+      })
+      .then((entities) =>
+        entities.map((entity) => CategoryAttributeMapper.toDomain(entity)),
+      )
   }
   async findById(
     id: CategoryAttribute['id'],
   ): Promise<NullableType<CategoryAttribute>> {
     const entity = await this.categoryAttributeRepository.findOne({
       where: { id },
-      relations: ['category', 'attribute'],
+      relations: {
+        category: true,
+        attribute: {
+          attributeValues: true,
+        },
+      },
     })
     return entity ? CategoryAttributeMapper.toDomain(entity) : null
   }
@@ -47,7 +60,30 @@ export class CategoryAttributeRelationalRepository
         id: In(ids),
       },
 
-      relations: ['category', 'attribute'],
+      relations: {
+        category: true,
+        attribute: {
+          attributeValues: true,
+        },
+      },
+    })
+    return entities.map((entity) => CategoryAttributeMapper.toDomain(entity))
+  }
+  async findAllByCategory(
+    categoryId: CategoryAttribute['id'],
+  ): Promise<CategoryAttribute[]> {
+    const entities = await this.categoryAttributeRepository.find({
+      where: {
+        category: {
+          id: categoryId,
+        },
+      },
+      relations: {
+        category: true,
+        attribute: {
+          attributeValues: true,
+        },
+      },
     })
     return entities.map((entity) => CategoryAttributeMapper.toDomain(entity))
   }
@@ -57,7 +93,12 @@ export class CategoryAttributeRelationalRepository
   ): Promise<CategoryAttribute | null> {
     const entity = await this.categoryAttributeRepository.findOne({
       where: { id },
-      relations: ['category', 'attribute'],
+      relations: {
+        category: true,
+        attribute: {
+          attributeValues: true,
+        },
+      },
     })
     if (!entity) {
       throw new Error('Record not found')
@@ -77,7 +118,12 @@ export class CategoryAttributeRelationalRepository
     // Re-fetch with relations so the response includes category & attribute
     const updated = await this.categoryAttributeRepository.findOne({
       where: { id },
-      relations: ['category', 'attribute'],
+      relations: {
+        category: true,
+        attribute: {
+          attributeValues: true,
+        },
+      },
     })
     return updated ? CategoryAttributeMapper.toDomain(updated) : null
   }

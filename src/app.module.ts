@@ -38,7 +38,6 @@ import { CategoryModule } from 'src/category/category.module'
     ConfigModule.forRoot({
       isGlobal: true,
       load: AllConfig,
-      envFilePath: ['.env'],
     }),
     infrastructureDatabaseModule,
     I18nModule.forRootAsync({

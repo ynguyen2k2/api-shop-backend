@@ -10,6 +10,7 @@ import {
 } from 'typeorm'
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper'
 import { CategoryAttributeEntity } from 'src/category/infrastructure/persistence/relational/entities/category-attribute.entity'
+import { ProductEntity } from 'src/product/infrastructure/persistence/relational/entities/product.entity'
 
 @Entity({
   name: 'category',
@@ -39,6 +40,9 @@ export class CategoryEntity extends EntityRelationalHelper {
 
   @OneToMany(() => CategoryEntity, (category) => category.parent)
   children: CategoryEntity[] | null
+
+  @OneToMany(() => ProductEntity, (product) => product.category)
+  products: ProductEntity[]
 
   @OneToMany(
     () => CategoryAttributeEntity,

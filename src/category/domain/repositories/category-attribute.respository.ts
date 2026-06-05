@@ -25,6 +25,9 @@ export abstract class CategoryAttributeRepository {
     ids: CategoryAttribute['id'][],
   ): Promise<CategoryAttribute[]>
 
+  abstract findAllByCategory(
+    categoryId: CategoryAttribute['id'],
+  ): Promise<CategoryAttribute[]>
   abstract update(
     id: CategoryAttribute['id'],
     payload: DeepPartial<CategoryAttribute>,

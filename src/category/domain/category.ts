@@ -1,13 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import databaseConfig from 'src/database/config/database-config'
-import { DatabaseConfig } from 'src/database/config/database-config.type'
 
-const idType = (databaseConfig() as DatabaseConfig).isDocumentDatabase
-  ? String
-  : Number
 export class Category {
   @ApiProperty({
-    type: idType,
+    type: String,
   })
   id: string
 
